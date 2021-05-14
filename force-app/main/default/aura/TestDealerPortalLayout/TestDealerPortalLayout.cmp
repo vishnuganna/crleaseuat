@@ -1,0 +1,25 @@
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Test Dealer Portal Layout">
+	<aura:attribute name="search" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="MenuButton" type="Aura.Component[]" required="false"/>
+	<div>
+    	<div class="FullHeader slds-grid slds-gutters">
+        	<div class="Menu slds-col slds-size_1-of_3">
+              	<span>
+                    <c:MenuButton></c:MenuButton>
+                </span>
+            </div>
+            <div class="Logo slds-col slds-size_1-of_3">
+               	<span>{!v.newHeader}</span>
+            </div>
+            <div class="Profile slds-col slds-size_1-of_3">
+               	<span>{!v.profileMenu}</span>
+            </div>
+		</div>
+        <div class="mainContentArea slds-p-bottom_small">
+           	{!v.body}
+        </div>
+	</div>
+</aura:component>

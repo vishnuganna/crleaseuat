@@ -1,0 +1,18 @@
+<aura:component description="glcConsentOfApplicant" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <aura:attribute type="Boolean" name="agreeTerms" default="false"/>
+
+    <div class="slds-align_absolute-center"><h1>Consent of Applicant</h1></div>
+    <ui:scrollerWrapper class="scrollerSize" >
+        <div class="innerDivWrapper"><p id="termsText">The Applicant (which term includes the business entity named herein and each owner, guarantor principal, partner or member) authorizes CROSSROADS EQUIPMENT LEASE AND FINANCE, LLC, its affiliates along with its successors and/or assigns (each, a “Creditor”) and any credit bureau or other investigative agency engaged by Creditor to investigate, obtain and share information from time to time from any source (included, but not limited to references listed in the Application) about Applicant’s credit standing and responsibility, including, but not limited to, obtaining credit reports and other financial information to evaluate this application and to review Applicant’s account. By signing this Application, Applicant authorizes Creditor, its affiliates, and assignees to share the Applicant’s credit and other information as permitted by law. The Applicant represents and warrants to Creditor that: (a) all of the representations and information provided in this application, and all other representations, statements, reports or information made or delivered to Creditor are true, complete and correct in every respect; and (b) Applicant is requesting that Creditor extend credit or enter into transactions with Applicant for commercial and business purposes only, and such transactions are not for personal, family or household purposes. Applicant represents that it has reviewed this document and the information.</p></div>
+    </ui:scrollerWrapper>
+    <div align="center" class="buttonWrapper">
+<!--        <lightning:input type="checkbox" aura:id="isTermsAgree" label="Applicant has read and agrees to the Terms and Conditions" checked="{!v.params.agreeTerms}" />-->
+        <br/>
+<!--        <aura:if isTrue="{!v.agreeTerms}">-->
+<!--            <lightning:button variant="brand" label="Next &gt;" class="navigateButton slds-button_stretch" onclick="{!c.onNext}"/>-->
+<!--            <aura:set attribute="else">-->
+<!--                <lightning:button variant="brand" label="Next &gt;" disabled="true" class="navigateButton slds-button_stretch"/>-->
+<!--            </aura:set>-->
+<!--        </aura:if>-->
+    </div>
+</aura:component>

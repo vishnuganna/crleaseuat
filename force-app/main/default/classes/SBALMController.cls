@@ -1,0 +1,73 @@
+public inherited sharing class SBALMController {
+    @AuraEnabled
+    public static List<SBALM__c> getSBALMList(String oppID){
+        return [SELECT 
+                SBALM_LAST1502STATUS__c,
+                SBALM_COMP_NAME__c,
+                SBALM_A14__c,
+                SBALM_LOAN_AMT__c,
+                SBALM_AUTOBILL__c,
+                SBALM_BACCINT__c,
+                SBALM_BPRIN_BAL__c,
+                SBALM_USER1N__c,
+                SBALM_INT_RATE__c,
+                SBALM_MNTLY_PAY__c,
+                SBALM_RISKF__c,
+                SBALM_DLY_INTAMT__c,
+                SBALM_PAYOFF__c,
+                SBALM_DATE_SOLD__c,
+                SBALM_NOTE__c,
+                SBALM_A32__c,
+                SBALM_FDISTD__c,
+                SBALM_FLASHWARNING__c,
+                SBALM_L_CAT__c,
+                SBALM_INT_PAIDTO__c,
+                SBALM_DATELREP__c,
+                SBALM_XDATE__c,
+                SBALM_LST_PAYDTE__c,
+                SBALM_A42__c,
+                SBALM_A70__c,
+                SBALM_Notes__c,
+                Loan_Record_Type__c,
+                SBALM_UNIQUEX__c,
+                SBALM_MATUR_DATE__c,
+                SBALM_A18__c,
+                SBALM_LST_DISDTE__c,
+                SBALM_NAICS_CODE__c,
+                SBALM_LST_INTDTE__c,
+                SBALM_NXT_PAYDUE__c,
+                SBALM_NPSTATUS__c,
+                SBALM_DAYSLATE__c,
+                SBALM_Opportunity__c,
+                SBALM_PART_NAME__c,
+                SBALM_USER10D__c,
+                SBALM_PHYCITY__c,
+                SBALM_PHYSTATE__c,
+                SBALM_PHYADD1__c,
+                SBALM_PHYZIP__c,
+                Interest_Rate_Type__c,
+                SBALM_USER20D__c,
+                SBALM_RISKDATE__c,
+                SBALM_APP_DATE__c,
+                SBALM_USER8D__c,
+                SBALM_SBA_GRTY__c,
+                SBALM_USER9D__c,
+                SBALM_SBA_NBR__c,
+                SBALM_SBA_TYPE__c,
+                SBALM_USER19D__c,
+                SBALM_RPDATESBA__c,
+                SBALM_AMT_SOLD__c,
+                SBALM_SUBJECT__c,
+                SBALM_TERM_IN_MN__c,
+                SBALM_DISB_TOTAL__c,
+                SBALM_A8__c,
+                SBALM_UNGBAL__c,
+                SBALM_Loan_Nmbr__c
+                FROM SBALM__c 
+                WHERE SBALM_Opportunity__c=:oppID
+                AND SBALM_Opportunity__r.IsWon=TRUE
+                AND SBALM_Opportunity__r.recordtype.name='VSBA'
+                AND SBALM_Opportunity__r.Loan_Type__c='SBA - 7A'
+                LIMIT 1];
+    }
+}

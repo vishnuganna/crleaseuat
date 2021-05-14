@@ -1,0 +1,62 @@
+<aura:component description="glcDealRecomendedProduct" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-align_absolute-center"><h1>Proposed Structure</h1></div>
+
+    <div class="slds-card grayCard">
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-border_bottom">
+                TRAC {!v.params.proposedStructure} (Non-Tax) <lightning:button iconName="utility:socialshare" iconPosition="right" class="slds-float_right"/><br/><br/>
+            </div>
+
+            <div class="slds-border_bottom">
+                <table width="100%">
+                    <tr>
+                        <td>Interest Rate:</td>
+                        <td class="floatRight"><lightning:input value="{!v.params.SuperTrump.SuperTrump.SuperTrumpTransaction.LeaseRateFactor}" readonly="true" type="number" formatter="percent-fixed" step="0.001"/></td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Payment:</td>
+                        <td class="floatRight"><lightning:input value="{!v.params.SuperTrump.SuperTrump.SuperTrumpTransaction.AveragePayment}" type="number" formatter="currency" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>Term:</td>
+                        <td class="floatRight"><lightning:input value="{!v.params.SuperTrump.SuperTrump.SuperTrumpTransaction.TermInMonths + ' months'}" type="text" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>TRAC:</td>
+                        <td class="floatRight"><lightning:input value="{!v.params.SuperTrump.SuperTrump.SuperTrumpTransaction.ResidualAmount}" type="number" formatter="currency" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>Security Deposit:</td>
+                        <td class="floatRight"><lightning:input value="{!v.params.dealSecurityDeposit}" type="number" formatter="currency" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>Dealer Reserve:</td>
+                        <td class="floatRight"><lightning:input value="{!v.params.dealerReserve}" type="number" formatter="percent" readonly="true"/></td>
+                    </tr>
+                </table><br/>
+            </div>
+            <table width="100%">
+                <tr>
+                    <td>Adj. Gross Profit (AGP):</td>
+                    <td class="floatRight"><lightning:input value="{!v.params.netYield}" type="number" formatter="percent" readonly="true" class="boldText"/></td>
+                </tr>
+                <tr>
+                    <td>Crossroads Net Yield:</td>
+                    <td class="floatRight"><lightning:input value="{!v.params.netYield}" type="number" formatter="percent" readonly="true" class="boldText"/></td>
+                </tr>
+                <tr/>
+                <tr>
+                    <td>Scorecard:</td>
+                    <td class="floatRight"><lightning:input value="{!v.params.ScoreCardInfo.finalDecision}" type="text" readonly="true" class="boldText"/></td>
+                </tr>
+            </table><br/>
+
+            <lightning:button variant="neutral" label="Modify Deal Structure" class="navigateButton slds-button_stretch" onclick="{!c.onPrev}"/>
+        </div>
+    </div>
+    <lightning:button variant="brand" label="Accept Deal Structure" class="navigateButton slds-button_stretch" onclick="{!c.onNext}"/>
+
+
+</aura:component>

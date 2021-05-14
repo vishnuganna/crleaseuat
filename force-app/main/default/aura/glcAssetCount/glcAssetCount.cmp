@@ -1,0 +1,24 @@
+<aura:component description="glcAssetCount" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+
+    <div class="slds-align_absolute-center">Customer Seeking Pre-Approval?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input aura:id="toggle" type="toggle" checked="{!v.params.isPreApprovalChecked}" onchange="{!c.onPreApprovalChange}" messageToggleActive="Yes" messageToggleInactive="No"/>
+    </div>
+
+    <aura:if isTrue="{!v.params.isPreApprovalChecked}">
+        <lightning:input label="Pre-Approval Amount:" value="{!v.params.PreApprovalAmount}" type="number" formatter="currency" required="true"/><br/>
+    </aura:if>
+
+    <div class="slds-align_absolute-center">
+        What is the total number of assets associated with this deal?
+    </div>
+    <lightning:input type="number" label="Total # of Assets" value="{!v.params.assetCount}" step="1" onchange="{!c.onAssetCountChange}"/><br/>
+
+    <aura:if isTrue="{!v.params.assetCount > 1}">
+        <div class="slds-align_absolute-center">Are the specifications the same for each of these assets?</div><br/>
+        <div class="slds-align_absolute-center">
+            <lightning:input type="toggle" value="{!v.params.isSameAssets}" checked="{!v.params.isSameAssets}" messageToggleInactive="No" messageToggleActive="Yes"/>
+        </div><br/>
+    </aura:if>
+
+</aura:component>

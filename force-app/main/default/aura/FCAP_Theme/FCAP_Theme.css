@@ -1,0 +1,225 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Overpass Light'), local('Overpass-Light'), url(https://fonts.gstatic.com/s/overpass/v5/qFdA35WCmI96Ajtm81kOcc7D4hoiiVI6DLE.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Overpass Light'), local('Overpass-Light'), url(https://fonts.gstatic.com/s/overpass/v5/qFdA35WCmI96Ajtm81kOcc7N4hoiiVI6.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Overpass Regular'), local('Overpass-Regular'), url(https://fonts.gstatic.com/s/overpass/v5/qFdH35WCmI96Ajtm81GrU9vgwBcIs1s.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Overpass Regular'), local('Overpass-Regular'), url(https://fonts.gstatic.com/s/overpass/v5/qFdH35WCmI96Ajtm81GlU9vgwBcI.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Overpass Bold'), local('Overpass-Bold'), url(https://fonts.gstatic.com/s/overpass/v5/qFdA35WCmI96Ajtm81keds7D4hoiiVI6DLE.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Overpass Bold'), local('Overpass-Bold'), url(https://fonts.gstatic.com/s/overpass/v5/qFdA35WCmI96Ajtm81keds7N4hoiiVI6.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Page */
+.THIS .mainContentArea {
+    margin: 0 auto;
+    font-family: "Overpass",Roboto,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #333;
+}
+.THIS .siteforceContentArea .comm-content-header:not(:empty), .THIS div.slds-grid.slds-wrap.slds-medium-nowrap.slds-large-nowrap:not(:empty) {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+.THIS h1, .THIS h2, .THIS h3, .THIS h4, .THIS h5, .THIS h6 {
+    font-family: "Overpass",Roboto,Helvetica,Arial,sans-serif;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.THIS .text-right {
+    text-align: right;
+}
+.THIS .text-center {
+    text-align: center;
+}
+.THIS p {
+    margin-bottom: 10px;
+}
+
+/* Header */
+.THIS .jumbotron {
+	padding: 2em !important;
+	background-size: cover;
+	background-position: 50% 30%;
+	color: white;
+	border-radius: 6px;
+}
+.THIS .jumbotron h2 {
+    font-size: 30px;
+}
+.THIS .jumbotron p {
+	margin-bottom: 15px;
+	font-size: 21px;
+	font-weight: 200;
+}
+.THIS .logo {
+  max-width: 25%;
+}
+.THIS .jumbotron.panther {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.crlease.com/sites/default/files/fcap/cascadia-panther.jpg');
+}
+.THIS .jumbotron.usatruck {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.crlease.com/sites/default/files/fcap/cascadia-usatruck.jpg');
+}
+.THIS .jumbotron.cdn {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.crlease.com/sites/default/files/fcap/cascadia-cdn.jpg');
+}
+.THIS .jumbotron.cloudtrucks {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.crlease.com/sites/default/files/fcap/cascadia-cloudtrucks.jpg');
+}
+
+/* Sidebar – Application Form */
+.THIS .forceCommunityFlowCommunity {
+    background-color: #eeeeee;
+}
+.THIS .flowruntimeDisplayText {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.THIS .flowruntimeDisplayText h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.1;
+}
+.THIS .forceCommunityFlowCommunity .actionsRight, .THIS .forceCommunityFlowCommunity .actionsRight button {
+    width: 100%;
+}
+.THIS .flowruntimeInputWrapper, .THIS .flowruntimePhone, .THIS .flowruntimeEmail {
+    padding-bottom: 0.5rem;
+}
+.THIS .slds-form-element_stacked:not(.slds-is-editing), .THIS .slds-form_stacked .slds-form-element:not(.slds-is-editing), .THIS .slds-form_horizontal .slds-form-element_stacked:not(.slds-is-editing){
+    padding: 0;
+}
+
+/* Main Content */
+.THIS h3 {
+    font-size: 24px !important;
+}
+.THIS p.lead {
+    font-size: 125%;
+    line-height: 1.75;
+    margin-bottom: 1.5em;
+}
+.THIS ul {
+    line-height: 1.75em;
+    margin-bottom: 10px;
+}
+.THIS hr {
+    height: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.THIS .btn-lg.btn-default.btn-block {
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image: -o-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#e0e0e0));
+    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #ccc;
+    padding: 10px 16px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    display: block;
+	width: 100%;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: #333;
+	background-color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+    border: 1px solid #ccc;
+    text-decoration: none;
+}
+.THIS a.btn-lg.btn-default.btn-block:hover {
+    background-color: #ccc;
+    background-image: -webkit-linear-gradient(top,#ccc 0,#ddd 100%);
+    background-image: -o-linear-gradient(top,#ccc 0,#ddd 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#ccc),to(#ddd));
+    background-image: linear-gradient(to bottom,#ccc 0,#ddd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccccc', endColorstr='#dddddddd', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    text-decoration: none;
+    box-shadow: none;
+}
+
+/* Disclaimer + Footer */
+.THIS div.slds-col--padded.comm-content-footer {
+    padding: 0;
+}
+.THIS .disclaimer {
+	font-family: "Arial", Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 1.2;
+    margin: 3em auto;
+	max-width: 1170px;
+	color: #999;
+    padding: 0 0.75rem;
+}
+.THIS .footer {
+    background-color: #292929;
+    padding: 3em;
+    color: white;
+}
+.THIS .footer h4 {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.THIS .footer .muted {
+    opacity: 0.5;
+}
+.THIS .footer a, .THIS .footer a:hover {
+    color: #337ab7;
+}

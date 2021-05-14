@@ -1,0 +1,440 @@
+<apex:component >
+    <style type="text/css">
+        @page  {
+        size: A4;
+        margin: 1.5 cm;
+        @top-left{
+        content: element(headerLeft);
+        }
+        
+        @top-center{
+        border-bottom:2px solid #434190;
+        }
+        @top-right{
+        content: element(headerRight);
+        }
+        
+        @bottom-right {
+        content: element(footerRight);
+        border-top:1px solid #ddd;
+        font-size: 9pt;
+        font-family: sans-serif !important;
+        font-weight: normal;
+        }
+        
+        @bottom-center{
+        
+        }
+        
+        @bottom-left{
+        /*content: element(footerLeft);
+        border-top:1px solid #ddd;
+        font-size: 9pt;
+        font-family: sans-serif;
+        font-weight: normal;*/
+        
+        content: counter(page);
+        font-size: 9pt;
+        font-family: sans-serif;
+        font-weight: normal;
+        border-top:1px solid #ddd;
+        
+        }
+        }
+        
+        .headerLeft{
+        position: running(headerLeft);
+        font-size:9pt;
+        }
+        
+        .headerRight{
+        position: running(headerRight);
+        font-size:9pt;
+        font-family: sans-serif Important;
+        text-align: right;
+        color:#667eea;
+        }
+        
+        .footerLeft{
+        position: running(footerLeft);
+        }
+        
+        .footerLeft img{
+        width:20mm;
+        }
+        
+        .footerRight{
+        position: running(footerRight);
+        text-align: right;
+        font-size:8pt;
+        }
+        table {
+        width: 100%;
+        }
+        #ItemRecord {
+        width: 100%;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #ItemRecord th{
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #ItemRecord td{
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        h1{
+         font-family: sans-serif !important;
+        }
+        
+        #meetingTableID {
+        border-collapse: collapse;
+        width: 100%;
+        font-size:9pt;
+        font-weight: normal;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        }
+        #meetingTableID th{
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        }
+        #meetingTableID td{
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #policyTblID{
+        border-collapse: collapse;
+        width: 100%;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        
+        #policyTblID td {
+        border: 1px solid #ddd;
+         font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #policyTblID th {
+       border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        }
+        
+        #customers{
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 9pt;
+        font-weight: normal;
+        }
+        
+        
+        #customers td {
+        border: 1px solid #ddd;
+         font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #customers th {
+       border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        }
+        #headerDetailtbl td{
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        }
+        
+        #DocumentTblID{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #DocumentTblID td {
+        border: 1px solid #ddd;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #DocumentTblID th {
+         border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+
+        #REGISTERSIDTbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #REGISTERSIDTbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #REGISTERSIDTbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #RiskMatrizTbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #RiskMatrizTbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #RiskMatrizTbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        
+        #ComplaintsRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #ComplaintsRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #ComplaintsRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #OutsourcingRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #OutsourcingRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #OutsourcingRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #AlternativeRemunerationsRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #AlternativeRemunerationsRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #AlternativeRemunerationsRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #ConflictsInterestRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #ConflictsInterestRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #ConflictsInterestRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #incidentsRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #incidentsRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #incidentsRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #breachListtbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #breachListtbl td {
+        border: 1px solid #ddd;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #breachListtbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        #MandatesHoldingsRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #MandatesHoldingsRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #MandatesHoldingsRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+
+        #RisksRegistertbl{
+        border-collapse: collapse;
+        width: 100%;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        }
+        #RisksRegistertbl td {
+        border: 1px solid #ddd;
+       font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: normal;
+        }
+        #RisksRegistertbl th {
+        border: 1px solid #ddd;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        font-family: sans-serif !important;
+        font-size:9pt;
+        font-weight: bold !important;
+        
+        }
+        .H {
+    background-color:orange;
+    border: 1px solid gray;
+
+
+    }   
+.E{
+    background-color:red;
+    border: 1px solid gray;
+}
+.M{
+    background-color:green;
+    border: 1px solid gray;
+}
+.L{
+    background-color:aliceblue;
+    border: 1px solid gray;
+}
+        
+        
+        
+        
+        
+        
+        
+    </style>
+</apex:component>

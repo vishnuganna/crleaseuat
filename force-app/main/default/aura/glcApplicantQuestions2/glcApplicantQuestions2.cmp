@@ -1,0 +1,8 @@
+<aura:component description="glcApplicantQuestions2" extends="c:glcDealerFlowAbstract">
+
+    <div class="slds-align_absolute-center">Is there a Co-Applicant?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.coApplicant}" messageToggleInactive="No" messageToggleActive="Yes"/>
+    </div><br/>
+
+</aura:component>

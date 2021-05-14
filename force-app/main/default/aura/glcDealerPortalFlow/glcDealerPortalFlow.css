@@ -1,0 +1,24 @@
+.THIS {
+    /*padding: 1em;*/
+}
+
+.THIS #termsTextWrapper {
+    /*height: 25rem;*/
+    /*padding: 1em;*/
+}
+
+.THIS #termsText {
+    color: gray;
+    text-align: justify;
+}
+
+.THIS .scrollerSize {
+    max-height: 50vh;
+    width: 100%;
+    border-radius: 1px;
+}
+
+/*.THIS .innerDivWrapper {*/
+/*    min-height: 101%;*/
+/*    padding-bottom: 20px;*/
+/*}*/

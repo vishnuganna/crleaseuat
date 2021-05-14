@@ -1,0 +1,578 @@
+<apex:page standardController="Opportunity" 
+renderAs="advanced_pdf" 
+lightningStylesheets="false" 
+sidebar="false" 
+showHeader="false"
+cache="true" 
+applyHtmlTag="false">
+
+    <head>
+        <style type="text/css" media="print">
+            @page {
+                
+
+                @top-left {
+                    background-image: url("{!$Resource.pdflogo}");
+                }
+
+            }
+            div.header {
+            	
+            
+            	position: running(header);
+            }
+
+            .myDiv {
+                border: 0.5px outset black;
+                background-color: white;
+                font-family: Arial, Helvetica, sans-serif;  
+                font-size: 9pt;
+                font-variant: normal;
+            }
+            .sectionHeader {
+            	width: 100%;
+             	font-size: 16pt;
+            	padding: 5px;
+            	font-weight: bold;
+            }
+        </style>
+    </head>
+    <div class="header"></div>
+    <!--div class="header">
+        <img src="{!$Resource.crossroadsLogo}" width="200" height="100" />
+    </div>-->
+    <!--apex:panelGrid columns="2" width="100%">
+
+    
+        <img src="{!$Resource.crossroadsLogo}" width="100px" height="50px" align="left" />
+    
+    <apex:panelGrid columns="1" width="100%">
+        <b>
+            <h2>Summary for Syndication</h2>
+        </b>
+    </apex:panelGrid>
+    </apex:panelGrid>-->
+    <apex:form >
+        
+        <apex:pageBlock >
+
+            <!--apex:image url="{!$Resource.crossroadsLogo}" width="150" height="50"/>-->
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2">
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Application_Number__c}" label="Application No:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.SalesTeam__c}" label="Sales Team:"/>
+                    </td>
+                </tr>
+                <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Submitted_Date__c}" label="Date:" /> 
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Dealership__r.name}" label="Dealership:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Applicant_Type__c}" label="Applicant Type:" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Used_or_New__c}" label="New or Used:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.VVG_Deal__c}" label="VVG Deal:" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Consent_Given__c}" label="Consent to pull credit:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Owner.Name}" label="Sales Rep:" />
+                        </td>
+                    </tr>
+
+                </apex:pageBlockSection>
+            </div>
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Contact 1: Customer">
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.lastname}" label="Last Name:" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.firstname}" label="First Name:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.LASERCA__Middle_Initial__c}" label="Middle Initial:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Birthdate}" label="Date of Birth:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingStreet}" label="Street Address:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingCity}" label="City:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingState}" label="State:"/>
+                            
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingPostalCode}" label="Zip Code:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Driver_s_License__c}" label="DL Number:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.DL_Expire_Date__c}" label="DL Expiration:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Phone}" label="Phone:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.CDL__c}" label="CDL: " />
+                        </td>
+                       
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Email}" label="Email:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.SSN__c}" label="SSN:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                           <apex:outputField value="{!opportunity.Primary_Contact__r.Years_with_CDL__c}" label="Years with CDL:" />
+                       </td>
+                   </tr>
+                </apex:pageBlockSection>
+            </div>
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Contact 2: Co-Borrower">
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.lastname}" label="Last Name:" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.firstname}" label="First Name:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.LASERCA__Middle_Initial__c}" label="Middle Initial:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Birthdate}" label="Date of Birth:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingStreet}" label="Street Address:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingCity}" label="City:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingState}" label="State:"/>
+                            
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingPostalCode}" label="Zip Code:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Driver_s_License__c}" label="DL Number:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.DL_Expire_Date__c}" label="DL Expiration:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Phone}" label="Phone:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.CDL__c}" label="CDL: " />
+                        </td>
+                       
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Email}" label="Email:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.SSN__c}" label="SSN:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                           <apex:outputField value="{!opportunity.Primary_Contact__r.Years_with_CDL__c}" label="Years with CDL:" />
+                       </td>
+                   </tr>
+                </apex:pageBlockSection>
+            </div>
+            <div style="page-break-before:always;">
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Contact 3: Guarantor">
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.lastname}" label="Last Name:" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.firstname}" label="First Name:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.LASERCA__Middle_Initial__c}" label="Middle Initial:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Birthdate}" label="Date of Birth:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingStreet}" label="Street Address:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingCity}" label="City:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingState}" label="State:"/>
+                            
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.MailingPostalCode}" label="Zip Code:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Driver_s_License__c}" label="DL Number:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.DL_Expire_Date__c}" label="DL Expiration:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Phone}" label="Phone:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.CDL__c}" label="CDL: " />
+                        </td>
+                       
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Email}" label="Email:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.SSN__c}" label="SSN:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                           <apex:outputField value="{!opportunity.Primary_Contact__r.Years_with_CDL__c}" label="Years with CDL:" />
+                       </td>
+                   </tr>
+                </apex:pageBlockSection>
+            </div>
+            </div>
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Applicant Info">
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Driver_Type__c}" label="Driver Type:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 15%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.DurationPrimaryHaulSouce__c}" label="Duration w/Current Employer or Primary Haul Source:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Years_IOO_Experience__c}" label="Years O/O Exp: "/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 15%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Years_as_Company_Driver__c}" label="Years Co. Driver: " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Haul_Type__c}" label="Haul Type: "/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 15%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Number_of_Trucks__c}" label="# Trucks:" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Number_of_Trailers__c}" label="# Trailers:" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 15%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Average_Annual_Miles_Driven__c}" label="Annual Miles:" />
+                        </td>
+                    </tr>
+                    <!--tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <<apex:outputField value="{!opportunity.Primary_Contact__r.Number_of_Trailers__c}" />
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Primary_Contact__r.Average_Annual_Miles_Driven__c}" />
+                        </td>
+                    </tr>-->
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Fewer_than_100_Employes__c}" label="Does Applicant have 100 or fewer employees?"/>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.X10_million_or_less_Annual_Revenue__c}" label="Does Applicant have $10M or less in annual revenue averaged over the prior three (3) years?"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Replacement_Equipment__c}" label="Is the Applicant purchasing replacement equipment?"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Sublease__c}" label="Does the Applicant intend to Sublease this equipment?"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.HAZMAT__c}" label="Does the Applicant intend to haul HAZMAT with this equipment?" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Title_or_IRP_base_plate_CA__c}" label="Will the equipment be registered in CA? (CA IRP OK)"/>
+                        </td>
+                    </tr>
+                </apex:pageBlockSection>
+            </div>
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Asset Info (1/2)">
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Asset__r.Vehicle_Type__c}" label="Vehicle Type:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Asset__r.Mileage__c}" label="Mileage:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Asset__r.VIN__c}" label="VIN:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Asset__r.Year__c}" label="Year:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Asset__r.Transmission_Make__c}" label="Transmission:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Asset__r.Make__c}" label="Make:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Asset__r.Model__c}" label="Model:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Asset__r.Sleeper_Size__c}" label="Sleeper Size:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Asset__r.Sleeper_Cabin__c}" label="Sleeper:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Asset__r.Fairings__c}" label="Fairings:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Asset__r.APU__c}" label="APU:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 50%">
+                            <apex:outputField value="{!opportunity.Asset__r.New_Tires__c}" label="New Tires:"/>
+                        </td>
+                    </tr>
+                </apex:pageBlockSection>
+            </div>
+            <div style="page-break-before:always;">
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Asset Info (2/2)">
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Asset__r.Vehicle_Type__c}" label="Vehicle Type:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.Asset__r.Mileage__c}" label="Mileage:"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Asset__r.VIN__c}" label="VIN:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.Asset__r.Year__c}" label="Year:"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Asset__r.Transmission_Make__c}" label="Transmission:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.Asset__r.Make__c}" label="Make:"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Asset__r.Model__c}" label="Model:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.Asset__r.Sleeper_Size__c}" label="Sleeper Size:"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Asset__r.Sleeper_Cabin__c}" label="Sleeper:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.Asset__r.Fairings__c}" label="Fairings:"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 0px; width: 03%">
+                        <apex:outputField value="{!opportunity.Asset__r.APU__c}" label="APU:"/>
+                    </td>
+                    <td style="padding-bottom: 0px; width: 50%">
+                        <apex:outputField value="{!opportunity.Asset__r.New_Tires__c}" label="New Tires:"/>
+                    </td>
+                </tr>
+
+                </apex:pageBlockSection>
+            </div>
+            </div>
+            
+            <div class="myDiv">
+                <apex:pageBlockSection columns="2" title="Deal Structure">
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Equipment_Cost__c}" label="Equipment Cost:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Financed_Fees__c}" label="Financed Fees:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Down_Payment__c}" label="Down Payment:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Security_Deposit__c}" label="Security Deposit:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Pmt_Structure__c}" label="Pmt Structure:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Term__c}" label="Term:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Rate__c}" label="Rate"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Blended_COF__c}" label="Blended COF:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.TRAC_Residual__c}" label="TRAC (Residual):"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.TRAC_Type__c}" label="TRAC Type:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Pymt_Frequency__c}" label="Pmt Frequency:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Promo__c}" label="Promo"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 0%">
+                            <apex:outputField value="{!opportunity.Dealer_Fee__c}" label="Dealer Fee:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Fee_Type__c}" label="Fee Type:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Finance_Product__c}" label="Financial Product:"/>
+                        </td>
+                        <td style="padding-bottom: 0px; width: 40%">
+                            <apex:outputField value="{!opportunity.Adj_Gross_Profit_AGP__c}" label="AGP:"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 0px; width: 03%">
+                            <apex:outputField value="{!opportunity.Crossroads_Net_Yield__c}" label="Net Yield:"/>
+                        </td>
+                    </tr>
+                </apex:pageBlockSection>
+                </div>
+            
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+
+</apex:page>

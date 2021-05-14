@@ -1,0 +1,11 @@
+<aura:component description="glcReviewAssets" extends="c:glcDealerFlowAbstract">
+
+    <div class="slds-align_absolute-center"><h1>Review Assets for This Deal</h1></div>
+
+    <aura:iteration items="{!v.params.assets}" var="asset" indexVar="index">
+        <c:glcAssetView index="{!index}" params="{!v.params}"/>
+        <br/>
+    </aura:iteration>
+
+    <lightning:button variant="neutral" label="Add Asset" onclick="{!c.addAsset}" class="slds-button_stretch"/><br/>
+</aura:component>

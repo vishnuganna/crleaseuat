@@ -1,0 +1,14 @@
+<apex:component >
+    <apex:attribute name="email" type="String" required="true" description="Carrier Email" />
+    <section class="footer">
+        <h4 class="text-center">Got Questions? Feel free to reach out to us by email at:
+            <a href="mailto:{! email }?subject=Questions" target="_blank">{! email }</a>, or by phone at:
+            <a href="tel:877-511-9732">877-511-9732</a>
+        </h4>
+        <p class="text-center muted">&copy; Copyright
+            <script>document.write(new Date().getFullYear())</script> Crossroads Equipment Lease and Finance, LLC. All Rights Reserved.</p>
+        <p class="text-center muted">
+            <a href="https://www.velocityvehiclegroup.com/privacy" target="_blank">Privacy Policy</a>
+        </p>
+    </section>
+</apex:component>

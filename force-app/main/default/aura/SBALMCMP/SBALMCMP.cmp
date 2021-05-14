@@ -1,0 +1,491 @@
+<aura:component controller="SBALMController" implements="force:appHostable,force:hasSObjectName,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="activeSections" type="List" default="['Balance','InterestRate','RiskRating','Non-Performing','SecondaryMarket','Communications','CurrentBusinessLocation']" />
+    <aura:attribute name="data" type="list" />
+    <aura:attribute name="recordId" type="Id" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"></aura:handler>
+        <aura:if isTrue="{!not(empty(v.data))}">
+
+    
+        <aura:iteration items="{!v.data}" var="SBALM" indexVar="index"> 
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper slds-p-left_small">
+                <div class="slds-card__body ">
+                    <div class="slds-grid slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Account Name:</span>  <span class="slds-form-element__static">{!SBALM.SBALM_COMP_NAME__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBALM Loan Number :  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_Loan_Nmbr__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Loan Record Type : </span>
+                            <span class="slds-form-element__static"> {!SBALM.Loan_Record_Type__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Approved Loan Amount:  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_LOAN_AMT__c}" style="currency" currencyCode="USD"/>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBA Approval Date	 :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_APP_DATE__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Maturity Date :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_MATUR_DATE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="slds-grid slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Next Payment Due : </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_NXT_PAYDUE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Term in Months :  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_TERM_IN_MN__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBA Loan Number :  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_SBA_NBR__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBA Guarantee (%) :  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_SBA_GRTY__c}" style="percent"/></span>
+                        </div>
+
+                    </div>
+                    <div class="slds-grid slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  NAICS Code : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_NAICS_CODE__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBA Loan Type : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_SBA_TYPE__c}</span>
+                        </div>
+
+                    </div>
+                    <div class="slds-grid slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  LookupKey	: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_UNIQUEX__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> GL Category :  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_L_CAT__c}</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                    
+                        <span class="slds-card__header-title">Balance</span>
+                    
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Current Balance:  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Unguaranteed Balance	: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Total Undisbursed :  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Total Disbursed	: </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Monthly Payment Amount	: </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Current Payment Amount:  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> First Disbursement :  </span>
+                            <span class="slds-form-element__static">
+                                
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Most Recent Disbursement :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Interest Paid To: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span> 
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Final Disbursement : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                    
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Last Payment Date : </span> 
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Number of Days Late : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Date Paid Off : </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Due to Borrower : </span>
+                            <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Late Fees Owning: </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A42__c}" style="currency" currencyCode="USD"/></span>    
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Late Fees Paid : </span>
+                            <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A70__c}" style="currency" currencyCode="USD"/></span>   
+                        </div>
+                    </div>
+
+                </div>
+                
+            </article>
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <span class="slds-card__header-title">Interest Rate
+                        </span>
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Rate Type	 : </span>
+                            <span class="slds-form-element__static">{!SBALM.Interest_Rate_Type__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Current Interest Rate: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_INT_RATE__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Daily Interest Accrual:  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DLY_INTAMT__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Accrued Interest: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_A14__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Current Accured Interest: </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_BPRIN_BAL__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Next Interest Rate Change :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_LST_INTDTE__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                        </div>
+                    </div>
+                
+
+                </div>
+                
+            </article>
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <span class="slds-card__header-title">Risk Rating
+
+                        </span>
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Risk Rating	 : </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_RISKDATE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Current Risk Rating: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_RISKF__c}</span>
+                        </div>
+                    </div>
+                
+                
+
+                </div>
+                
+            </article>
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <span class="slds-card__header-title">Communications
+
+                        </span>
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Last Note: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_XDATE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>  
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Subject of last note	: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_SUBJECT__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Flash Warning: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_FLASHWARNING__c}</span>   
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Loan Notes	: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_Notes__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Description : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_NOTE__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                        
+                        </div>
+                    </div>
+                </div>
+            
+            
+                
+            </article>
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <span class="slds-card__header-title">Current Business Location
+                        </span>
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Physical Street	 : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_PHYADD1__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Physical City : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_PHYCITY__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Physical State	 :  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_PHYSTATE__c}</span> 
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Physical Zip/Postal Code	 :  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_PHYZIP__c}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            
+                
+            </article>
+
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <span class="slds-card__header-title">Secondary Market AND 1502
+                        </span>
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Last 1502 Reporting :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_DATELREP__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">1502 Last Status:</span>  
+                            <span class="slds-form-element__static">{!SBALM.SBALM_LAST1502STATUS__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Participant Name : </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_PART_NAME__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Date Sold:  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_DATE_SOLD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Sold Amount :  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_AMT_SOLD__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            
+                
+            </article>
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <span class="slds-card__header-title">Non-Performing
+                        </span>
+                    </div>
+                </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Non-Performing:  </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_NPSTATUS__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> PDK Submitted to SBA :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_USER10D__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Repurchase Requested	 :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_USER20D__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBA Repurchased	: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_RPDATESBA__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> SBA Liquidation Extn Request: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_USER9D__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">SBA Purchase Extension Expires :  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_USER19D__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> SBA Charge Off		 : </span>
+                            <span class="slds-form-element__static">
+                            
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_USER8D__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            
+                
+            </article>
+
+            
+            
+            
+            
+        </aura:iteration>
+        
+    </aura:if>  
+</aura:component>

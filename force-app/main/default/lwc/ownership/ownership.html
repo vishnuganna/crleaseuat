@@ -1,0 +1,100 @@
+<template>
+   
+    <div key={item.id} >
+        <template if:true={item.id}>
+            <div class="slds-grid slds-gutters slds-float_right">
+                <lightning-icon icon-name="action:delete" access-key={item.id} id={index}
+                    alternative-text="Delete Row" size="small" title="Delete Row" onclick={removeRow}>
+                </lightning-icon>
+                <span class="peddingLeftActionText">Remove Owner</span> 
+                 
+            </div>
+            <hr/>
+        </template>
+       
+      
+
+       
+        <div  class="slds-grid slds-gutters ">
+            <div class="slds-col slds-size_1-of-2">
+               
+                <lightning-input type="text" max-length=100  required label="Business Owner Name" onchange={handleBusinessOwnerChange} ></lightning-input> 
+                
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input name={item.id} type="number"   required label="% Ownership"  onchange={handleOwnershipChange} ></lightning-input> 
+                
+            </div>
+           
+        </div>
+        <div class="slds-grid slds-gutters ">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                <lightning-input type="date" max-length=100 required label="Date of Birth"  disabled={isOwnership} onchange={handleDateBirthChange} ></lightning-input> 
+               
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                <lightning-input type="text" max-length=100 
+                message-when-pattern-mismatch="Not a valid SSN"
+                message-when-value-missing="SSN is required"  required label="SSN"  disabled={isOwnership} onchange={handleSSNChange}></lightning-input> 
+               
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                <lightning-input type="text" max-length=100  required label="Home Address" onchange={handleHomeAddressChange}></lightning-input> 
+            </div>
+            
+        </div>
+        <div class="slds-grid slds-gutters ">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input type="text" max-length=100 required label="City"  onchange={handleCityChange}></lightning-input> 
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_3-of-12">
+                <c-picklist
+                object-api-name="Ownership__c" 
+                record-type-id="01204000000GsmLAAS" 
+                label="State"  
+                 id={item.id}
+                pick-listfield-api-name="State__c"
+                onpicklistchange={handleStateChange}>
+               </c-picklist>
+               
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_3-of-12">
+                <lightning-input type="text" max-length=100 required label="Zip"   onchange={handleZipChange}></lightning-input>
+               
+            </div>
+        </div>
+        
+        <div class="slds-grid slds-gutters ">
+            <div class="slds-col slds-size_1-of-2">
+                <c-picklist
+                object-api-name="Ownership__c" 
+                record-type-id="01204000000GsmLAAS" 
+                label="Citizenship Status"  
+                 id={item.id}
+                pick-listfield-api-name="Citizenship_Status__c"
+                onpicklistchange={handleCitizenshipStatusChange}>
+               </c-picklist>
+                
+               
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <template if:true={isCitizenship}>
+                <c-picklist
+                object-api-name="Ownership__c" 
+                record-type-id="01204000000GsmLAAS" 
+               
+                label="Country of Citizenship"  
+                onpicklistchange={handleCountryCitizenshipChange}
+                pick-listfield-api-name="Country__c"
+               >
+               </c-picklist>
+               </template>
+                
+            </div>
+        </div>
+        </div>
+   
+   
+    
+    
+</template>

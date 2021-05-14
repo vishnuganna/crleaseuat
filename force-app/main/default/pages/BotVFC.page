@@ -1,0 +1,6 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false" >
+  
+      <script type='text/javascript' src='https://connect.podium.com/widget.js#API_TOKEN=1dec4e9b-2f57-4c10-9c1d-2ca18375f793' id='podium-widget' data-api-token='1dec4e9b-2f57-4c10-9c1d-2ca18375f793'></script>
+    
+	
+</apex:page>

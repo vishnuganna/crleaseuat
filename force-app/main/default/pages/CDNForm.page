@@ -1,0 +1,19 @@
+<apex:page controller="CDNController" showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" id="cdn_form" title="CDN" applyHtmlTag="false" applyBodyTag="false">
+    <apex:composition template="FCAPSiteTemplate">
+        <apex:define name="pageTitle">
+            <title>CDN</title>
+        </apex:define>
+        <apex:define name="pageHeader">
+            <c:FCAPSiteHeader id="header" carrierName="{! carrierName }" cssClassName="{! cssClassName }" />
+        </apex:define>
+        <apex:define name="carrierForm">
+            <c:FCAPSiteForm pc="{! instance }" newLead="{! lead }" carrier="{! carrierName }" email="{! carrierEmail }" />
+        </apex:define>
+        <apex:define name="inventoryButton">
+            <c:InventoryButton url="{! inventoryUrl }" />
+        </apex:define>
+        <apex:define name="pageFooter">
+            <c:FCAPSiteFooter id="footer" email="{! carrierEmail }" />
+        </apex:define>
+    </apex:composition>
+</apex:page>

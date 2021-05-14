@@ -1,0 +1,30 @@
+.header-slds {
+    font-weight: bold;
+}
+.peddingLeftActionText{
+    padding-top: 8px;
+}
+.TT-container {
+    position: relative;
+    border-bottom : 1px dashed #999999;
+  }
+  .TT-value {
+    display: none;
+    background-color: #f8e7c7;
+    color: black;
+    border: 1px solid black;
+    padding: 3px 5px 3px 5px;
+    white-space: pre;
+    text-decoration: none;
+    z-index: 99;
+  }
+  .TT-container:hover {
+    font-size: 100%;                          /* fix an IE bug */
+    z-index: 2;
+  }
+  .TT-container:hover .TT-value {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    display: inline;
+  }

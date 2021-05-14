@@ -1,0 +1,28 @@
+<aura:component description="glcDocsGuarantee" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="isGOTSignatureEmail" type="Boolean" default="false"/>
+    <aura:attribute name="isNotRequired" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-align_absolute-center"><h1>Guarantee of Title</h1></div>
+
+    <lightning:input type="text" label="Dealer:" value="{!v.params.opportunity.Dealership__r.Name}"  disabled="true" class="slds-text-align_left"/><br/>
+    <lightning:input type="text" label="Dealer Email:" value="{!v.params.opportunity.Dealership__r.Email__c}" disabled="true" class="slds-text-align_left"/><br/>
+
+    <div class="slds-text-align_center">
+        If the email address listed above is not the GOT Signor, please specify the correct email address below.
+    </div><br/>
+
+    <div class="slds-grid slds-m-vertical_small slds-text-title_bold">
+        <lightning:input type="checkbox"  checked="{!v.isGOTSignatureEmail}" onchange="{!c.onChangeGOTSignature}"/>
+        <span class="slds-text-align_left">GOT Signature Email</span>
+    </div>
+    <lightning:input type="text" value="{!v.params.opportunity.GOT_Signature_Email__c}" disabled="{!v.isGOTSignatureEmail ? false : true}"/><br/>
+
+    <div class="slds-grid slds-m-vertical_small slds-text-title_bold">
+        <lightning:input type="checkbox" checked="{!v.params.isNotRequired}" />
+        <span class="slds-text-align_left">Not required for this Dealer</span>
+    </div>
+
+</aura:component>

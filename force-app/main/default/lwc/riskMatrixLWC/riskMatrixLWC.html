@@ -1,0 +1,325 @@
+<template>
+    <lightning-card title="LWC Table">
+        <lightning-button 
+        label={toggleSaveLabel} 
+        icon-name="utility:save" 
+        slot="actions"
+        onclick={handleSave}>
+    </lightning-button>
+    <lightning-button 
+        label="Cancel" 
+        icon-name="utility:cancel" 
+        slot="actions"
+        onclick={handleCancel}>
+    </lightning-button>
+    
+    
+    <div class="slds-p-around_x-small">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-border_top slds-border_right lds-border_bottom slds-border_left">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Likelihood">Likelihood</div>
+                    </th>
+                    <th colspan="5" class="slds-size_3-of-10" scope="col">
+                        <div class="slds-truncate" title="Likelihood">Consequences</div>
+                    </th> 
+                </tr>
+                <tr class="">
+                    <th scope="col">
+                        
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Insignificant">Insignificant</div>
+                    </th>
+                    <th  scope="col">
+                        <div class="slds-truncate" title="Minor">Minor</div>
+                    </th>
+                    <th  scope="col">
+                        <div class="slds-truncate" title="Moderate">Moderate</div>
+                    </th>
+                    <th  scope="col">
+                        <div class="slds-truncate" title="Major">Major</div>
+                    </th>
+                    <th  scope="col">
+                        <div class="slds-truncate" title="Catastropic">Catastropic</div>
+                    </th>
+                    <th  scope="col">
+                        <div class="slds-truncate" title="Extreme">Extreme</div>
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="A (almost certain)">
+                        <div  title="A (almost certain)">
+                            A (almost certain)
+                        </div>
+
+                    </td>
+                    
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  data-label="B(likely)">
+                        B (likely)
+                    </td>
+                    <td class="slds-Moderate">
+                        <div>
+                           M
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td data-label="possible">
+                       C (possible) 
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td class="slds-Moderate">
+                        <div>
+                           M
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="unlikely">
+                       D (unlikely) 
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td class="slds-Moderate">
+                        <div>
+                           M
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="rare">
+                        E (rare)
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td class="slds-Moderate">
+                        <div>
+                           M
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Remote">
+                        F (Remote)
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td>
+                        <div>
+                           L
+                        </div>
+
+                    </td>
+                    <td class="slds-Moderate">
+                        <div>
+                           M
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-High">
+                        <div>
+                           H
+                        </div>
+
+                    </td>
+                    <td class="slds-Extreme">
+                        <div>
+                           E
+                        </div>
+
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="slds-p-around_x-large">
+        <p>
+            
+
+            E: extreme risk, immediate action required–disaster with potential to lead to collapse<br/>
+
+            H: high risk, Senior Management attention–a critical event where a high level of resources and management will be required<br/>
+
+            M: moderate risk, management responsibility must be specified–an event that cannot be managed under normal operating conditions, requiring a moderate level of resource and management input<br/>
+
+            L: low risk, managed by routine procedures–consequences can be readily absorbed but management effort is required to minimise its impact<br/>
+
+        </p>
+    </div>
+</lightning-card>
+</template>

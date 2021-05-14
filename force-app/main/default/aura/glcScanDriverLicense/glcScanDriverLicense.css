@@ -1,0 +1,42 @@
+.THIS .scroller {
+    max-height:450px;
+}
+.THIS .g-text-color_link{
+    color: #016DCC;
+}
+.THIS .g-text-size_x-small{
+    font-size:x-small;
+}
+.THIS .g-text-size_small{
+    font-size:small;
+}
+.THIS .g-text-style_italic{
+    font-style:italic;
+}
+.THIS .g-text-weight_bold{
+    font-weight:bold;
+}
+.THIS .g-text-align_right{
+    text-align:right;
+}
+.THIS .g-input-align_right input {
+    text-align: right;
+}
+.THIS .titleBackground {
+    background: rgba(13, 112, 165, 1);
+    font-size:14pt;
+}
+.THIS.rootCard {
+    max-width:500px;
+    min-height:100px;
+    margin:0 auto;
+}
+.THIS .accountEditForm {
+    width: 100%;
+}
+.THIS .tableDiv {
+    width: 100%;
+}
+.THIS .hideLabel .slds-form-element__label {
+    display: none;
+}

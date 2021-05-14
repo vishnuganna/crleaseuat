@@ -1,0 +1,3 @@
+<apex:page standardController="PPL_Application__c" docType="html-5.0" title="Generate PDF Documents">
+    <webm:WebmergeWizard record="{!PPL_Application__c}" />
+</apex:page>

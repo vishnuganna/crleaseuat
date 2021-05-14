@@ -1,0 +1,227 @@
+<aura:component controller="gcScanDriverLicense" access="global" implements="force:appHostable,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="componentAttributes"  type="Map" default="{}"/>
+    <aura:attribute name="componentName"    type="String"   access="global"    default="c__glcScanDriverLicense"/>
+    <aura:attribute name="serviceName"      type="String"   access="private"    default="gcScanDriverLicense"/>
+    <aura:attribute name="mode"             type="String"   access="global"    default="remoteRedirect"/>
+    <aura:attribute name="returnUrl"             type="String"   access="global"    default=""/>
+    <aura:attribute name="returnPageRef"             type="String"   access="global"    default=""/>
+    <aura:attribute name="serviceParams"    type="Map" default="{}" access="global"/>
+    <aura:attribute name="focusTimer"       type="Object"/>
+    <aura:attribute name="mobileOneClick"   type="Boolean"  access="global"    default="true"/>
+
+    <aura:attribute name="account"              type="Account"  access="global"/>
+    <aura:attribute name="contact"              type="Contact"  access="global"/>
+    <aura:attribute name="opportunity"              type="Opportunity"  access="global"/>
+    <aura:attribute name="accountId"            type="Id"       access="global"/>
+    <aura:attribute name="matchingAccounts"     type="List"     access="global"/>
+    <aura:attribute name="matchingAccountId"    type="Id"       access="global"/>
+    <aura:attribute name="opportunityId"           type="Id"       access="global"/>
+    <aura:attribute name="accParsedData"    type="String[]" access="global" default="[]"/>
+    <aura:attribute name="accountFields"        type="String[]" access="global" default="['Name','BillingStreet','BillingCity','BillingState','BillingCountry','BillingPostalCode', 'Description', 'Drivers_License_Number__c', 'Date_of_Birth__c', 'Driver_s_License_Expiration_Date__c']" />
+    <aura:attribute name="contactFields"        type="String[]" access="global" default="['LastName','FirstName','MiddleName','Birthdate','MailingStreet','MailingCity', 'MailingState', 'MailingPostalCode', 'Driver_s_License__c', 'DL_Expire_Date__c', 'CDL__c', 'Years_with_CDL__c', 'Opportunity_Role__c]" />
+    <aura:attribute name="accountJustCreated" type="Boolean" access="global" default="false"/>
+    <aura:attribute name="searchText" type="String" default="" />
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:attribute name="fromDealerFlow" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler event="aura:locationChange" action="{!c.refreshAfterScanning}"/>
+    <aura:handler name="barcodeScanEvent" event="GMBLBC:barcodeScanEvent" action="{!c.onScanText}"/>
+
+    <aura:attribute name="pageMessages"     type="String"/>
+
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:attribute name="step"    type="String"  access="global" default="scan"/>
+
+    <GMBLBC:barcodeScanNative aura:id="cameraScanner"
+                                mode="{!v.mode}"
+                                componentAttributes="{!v.params}"
+                                componentName="{!v.componentName}"
+                                serviceParams="{!v.serviceParams}"
+                                serviceUrl="{!'/services/apexrest/'+v.serviceName}"
+                                appendRedirectId="true"/>
+
+    <div class="rootCard slds-theme_default slds-p-around_small slds-is-relative">
+<!--        <lightning:notificationsLibrary aura:id="notifLib"/>-->
+        <div aura:id="myBody">
+            <!-- Toast -->
+            <div class="slds-notify_container slds-hide" aura:id="myToast">
+                <div class="slds-notify slds-notify_toast slds-theme_error slds-current-color" role="status">
+                        <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top">
+                            <lightning:icon iconName="utility:error" size="small"/>
+                        </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small">{!v.pageMessages}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="titleBackground slds-text-color_inverse slds-text-align_center slds-m-bottom_x-small slds-p-around_xx-small">
+                <aura:if isTrue="{!v.step == 'editInfo'}">
+                    Contact Details
+                    <aura:set attribute="else">
+                        Scan Driver's License
+                    </aura:set>
+                </aura:if>
+            </div>
+
+            <aura:if isTrue="{!v.step == 'scan'}">
+                <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                    <div class="slds-col">
+<!--                        <GMBLBC:barcodeScanText aura:id="laserScanner" label=""/>-->
+                        <span onkeypress="{!c.keyCheck}">
+                            <lightning:input type="text" name="keywords" aura:id="laserScanner" />
+                        </span>
+
+                    </div>
+<!--                    <aura:if isTrue="{!$Browser.formFactor != 'DESKTOP'}">-->
+                        <div class="slds-col slds-size_3-of-12 slds-p-left_x-small">
+                            <lightning:button class="slds-button_stretch" variant="brand" onclick="{!c.onScanImage}">
+                                <lightning:icon src="{!$Resource.GMBLBC__scanIconSvg + '#g-icon'}" size="large"/>
+                            </lightning:button>
+                        </div>
+<!--                    </aura:if>-->
+                </div>
+                <aura:if isTrue="{!$Browser.formFactor != 'DESKTOP'}">
+                    <div class="g-text-size_x-small g-text-style_italic slds-text-color_weak">for laser scanning, place the cursor in the textbox above</div>
+                </aura:if>
+
+                <c:glcDownloadAppNotification />
+
+                <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                    <div class="slds-col">
+                        <lightning:button class="slds-button_stretch" variant="neutral" label="Click to continue without Driver's License" title="Click to continue without Driver's License" onclick="{!c.onNoDLAvailable}"/>
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.step == 'editInfo'}">
+<!--                <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">-->
+<!--                    <lightning:recordForm-->
+<!--                            aura:id="accountEditForm"-->
+<!--                            objectApiName="Contact"-->
+<!--                            fields="{!v.contactFields}"-->
+<!--                            columns="2"-->
+<!--                            mode="edit"-->
+<!--                            onsubmit="{!c.onSubmitForm}"-->
+<!--                            oncancel="{!c.onCancelSubmitForm}"-->
+<!--                            onsuccess="{!c.onSuccessSubmitForm}"-->
+<!--                            class="accountEditForm"/>-->
+
+                    <lightning:recordEditForm objectApiName="Contact" onsubmit="{!c.onSubmitForm}" onsuccess="{!c.onSuccessSubmitForm}" onload="{!c.handleOnLoad}">
+                        <lightning:messages />
+                        <div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center">
+                            <lightning:inputField fieldName="LastName" required="true" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="FirstName" required="true" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="MiddleName" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="Birthdate" type="date" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="MailingStreet" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="MailingCity" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="MailingStateCode" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="MailingPostalCode" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="Driver_s_License__c" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="DL_Expire_Date__c" type="date" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="CDL__c" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="Years_with_CDL__c" class="slds-col slds-size_1-of-2"/>
+                            <lightning:inputField fieldName="Opportunity_Role__c" aura:id="contactRole" class="slds-col slds-size_2-of-2"/>
+                            <lightning:button variant="neutral" value="&lt; Previous" label="&lt; Previous" onclick="{!c.onCancelSubmitForm}" class="slds-col half_width_button"/>
+                            <lightning:button variant="brand" value="Next &gt;" label="Next &gt;" type="submit" class="slds-col half_width_button"/>
+                            <lightning:inputField fieldName="MailingCountryCode" value="US" class="slds-hidden" disabled="true"/>
+                        </div>
+
+
+                    </lightning:recordEditForm>
+
+<!--                </div>-->
+            </aura:if>
+            <aura:if isTrue="{!v.step == 'editScannedAccount'}">
+                <div class="slds-text-heading_medium slds-text-align_center">
+                    Please verify that the scanned information below is correct.
+                </div>
+                <div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center">
+                    <lightning:input label="Last Name" value="{!v.contact.LastName}" required="true" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="First Name" value="{!v.contact.FirstName}" required="true" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="Middle Initial" value="{!v.contact.MiddleName}" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="Date of Birth" value="{!v.contact.Birthdate}" type="date" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="Billing Street" value="{!v.contact.MailingStreet}" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="Billing City" value="{!v.contact.MailingCity}" class="slds-col slds-size_1-of-2"/>
+                    <lightning:select aura:id="applicantTypeSel" label="Billing State/Province" value="{!v.contact.MailingState}" class="slds-col slds-size_1-of-2">
+                        <aura:iteration items="{!v.localParams.states}" var="state" indexVar="key">
+                            <option value="{!state.value}" selected="{!state.value == v.contact.MailingState}">{!state.value}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                    <lightning:input label="Billing Zip/Postal Code" value="{!v.contact.MailingPostalCode}" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="DL Number" value="{!v.contact.Driver_s_License__c}" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="DL Expiration" value="{!v.contact.DL_Expire_Date__c}" type="date" class="slds-col slds-size_1-of-2"/>
+                    <lightning:input label="CDL?" checked="{!v.contact.CDL__c}" type="toggle" class="slds-col slds-size_1-of-2" messageToggleInactive="No" messageToggleActive="Yes"/>
+                    <lightning:input label="Years with CDL" value="{!v.contact.Years_with_CDL__c}" class="slds-col slds-size_1-of-2"/>
+                    <lightning:select aura:id="contactRoleSel" label="Contact Role" value="{!v.contact.Opportunity_Role__c}" class="slds-col slds-size_2-of-2">
+                        <aura:iteration items="{!v.localParams.opportunityRoles}" var="opt" indexVar="key">
+                            <option value="{!opt.key}" selected="{!opt.value == v.contact.Opportunity_Role__c}">{!opt.value}</option>
+                        </aura:iteration>
+                    </lightning:select><br/>
+                </div>
+                <div class="slds-p-top_medium slds-align_absolute-center">
+                    <lightning:button variant="neutral" value="&lt; Previous" label="&lt; Previous" onclick="{!c.onCancelSubmitForm}"/>
+                    <lightning:button variant="brand" value="Next &gt;" label="Next &gt;" onclick="{!c.onContinueScannedAcc}"/>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.step == 'accountExists'}">
+                <div class="slds-text-heading_medium slds-text-align_center">
+                    An Account with similar details already exists. Please verify the information below.
+                </div>
+                <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                    <div class="tableDiv">
+                        <h1 class="slds-text-heading_small slds-p-left_medium">Matched Accounts</h1>
+                        <table class="slds-table slds-table_bordered slds-table_fixed-layout slds-p-horizontal_small" role="grid">
+                            <thead>
+                                <tr class="slds-text-title_caps">
+                                    <th class="slds-cell-shrink" style="width:0.8rem" scope="col">
+                                        <!-- No title only action , for selection checkbox header -->
+                                    </th>
+                                    <th class="slds-cell-shrink" scope="col">
+                                        <div class="slds-truncate slds-p-left_medium"  title="Name">Name</div>
+                                    </th>
+                                    <th class="slds-cell-shrink" scope="col">
+                                        <div class="slds-truncate slds-p-left_medium" title="City">City</div>
+                                    </th>
+                                    <th class="slds-cell-shrink" scope="col">
+                                        <div class="slds-truncate" title="License Number">License Number</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Iterates the collection of records stored in the data attribute-->
+                                <aura:iteration items="{!v.matchingAccounts}" var="row">
+                                    <tr class="slds-hint-parent">
+                                        <td data-label="" scope="row" class="hideLabel">
+                                            <!-- checkbox selection invokes the onCheckboxChange controller method-->
+                                            <lightning:input aura:id="rowSelectionCheckboxId" class="hideLabel" type="radio" label="{!row.Id}" onchange="{!c.onCheckboxChange}"/>
+                                        </td>
+                                        <td data-label="Name"  scope="row" class="slds-cell-wrap">
+                                            <div class="slds-line-clamp" title="{!row.Name}">{!row.Name}</div>
+                                        </td>
+                                        <td data-label="City"  scope="row">
+                                            <div class="slds-truncate" title="{!row.BillingCity}">{!row.BillingCity}</div>
+                                        </td>
+                                        <td data-label="License Number"  scope="row">
+                                            <div class="slds-truncate" title="{!row.Drivers_License_Number__c}">{!row.Drivers_License_Number__c}</div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_align-center slds-m-top_small buttonWrapper slds-wrap">
+                    <lightning:button class="navigateButton slds-button_stretch slds-col half_width_button" variant="neutral" label="Use Selected" title="Use Selected" onclick="{!c.onUseSelected}"/>
+                    <lightning:button class="navigateButton slds-button_stretch slds-col half_width_button" variant="brand" label="Create New" title="Create New" onclick="{!c.onContinue}"/>
+                    <lightning:button variant="Neutral" label="&lt; Previous" class="navigateButton slds-button_stretch slds-col slds-size_2-of-2" onclick="{!c.onPrev}"/>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+
+</aura:component>

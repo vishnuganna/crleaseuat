@@ -1,0 +1,64 @@
+<aura:component description="glcDealerFees" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="showCalculator" type="Boolean" default="false"/>
+    <aura:attribute name="sliderMaxVal" type="Integer" />
+    <aura:attribute name="sliderLabel" type="String" />
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:select label="Proposed Structure:" value="{!v.params.proposedStructure}">
+        <option value="Loan" label="Loan"/>
+        <option value="Lease" label="Lease"/>
+    </lightning:select> <br/>
+
+    <div class="slds-grid slds-gutters slds-wrap">
+        <lightning:input label="Equipment Cost:" type="number" value="{!v.params.equipmentCost}" formatter="currency" class="slds-col slds-size_6-of-12" onchange="{!c.onChangeAmount}"/>
+        <lightning:input label="Financed Fees:" type="number" value="{!v.params.financedFees}" formatter="currency" class="slds-col slds-size_6-of-12" disabled="true"/>
+    </div> <br/>
+
+    <lightning:button value="neutral" label="Fee Calculator" class="slds-button_stretch" onclick="{!c.show_close_fee_calculator}"/> <br/>
+
+    <div class="slds-grid slds-gutters slds-wrap">
+        <lightning:input label="Down Payment:" type="number" value="{!v.params.downPayment}" formatter="currency" class="slds-col slds-size_6-of-12" onchange="{!c.onChangeAmount}"/>
+        <lightning:input label="Finance Amount:" type="number" value="{!v.params.financeAmount}" formatter="currency" class="slds-col slds-size_6-of-12" disabled="true"/>
+    </div> <br/>
+
+    <lightning:input label="Security Deposit:" value="{!v.params.dealSecurityDeposit}" type="number" formatter="currency" class="slds-col slds-size_12-of-12"/>
+
+    <lightning:select label="Payment Frequency:" value="{!v.params.selectedPayFreq}" onchange="{!c.onChangeFrequency}">
+        <aura:iteration items="{!v.localParams.paymentFreqs}" var="payFreq" indexVar="key">
+            <option value="{!payFreq.key}" selected="{!payFreq.key == v.params.selectedPayFreq}" label="{!payFreq.value}"/>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:slider label="{!v.sliderLabel}" value="{!v.params.paymentTerm}" min="0" max="{!v.sliderMaxVal}"  step="1" /><br/>
+
+    <lightning:button variant="brand" label="Continue" class="navigateButton slds-button_stretch" onclick="{!c.onNext}"/> <br/>
+    <lightning:button variant="neutral" label="Save &amp; Finish Later" class="navigateButton slds-button_stretch" onclick="{!c.onSaveAndFinnish}"/>
+
+
+
+    <aura:if isTrue="{!v.showCalculator}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Dealer Fees</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <aura:iteration items="{!v.localParams.dealerFees}" var="fee">
+                            <lightning:input type="checkbox" class="slds-col slds-size_1-of-12" checked="{!fee.selected}"/>
+                            <lightning:input label="{!fee.value}" type="number" class="slds-col slds-size_11-of-12" value="{!fee.amount}" disabled="{!fee.selected != true}" formatter="currency"  step="0.01"/>
+                        </aura:iteration>
+                    </div> <br/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Continue with selected" class="slds-button_stretch" onclick="{!c.show_close_fee_calculator}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+</aura:component>

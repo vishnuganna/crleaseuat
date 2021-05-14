@@ -1,0 +1,12 @@
+<apex:page controller="CrossroadsController" showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" id="crossroads_form" title="Crossroads" applyHtmlTag="false" applyBodyTag="false">
+    <apex:composition template="CrossroadsSiteTemplate">
+        <apex:define name="pageTitle">
+            <title>Crossroads</title>
+        </apex:define>
+        
+        <apex:define name="carrierForm">
+            <c:CrossroadsSiteForm pc="{! instance }" newLead="{! lead }" />
+        </apex:define>
+        
+    </apex:composition>
+</apex:page>

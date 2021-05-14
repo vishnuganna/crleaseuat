@@ -1,0 +1,346 @@
+<template>
+    <div class="slds-theme_default">
+        <div class="slds-p-around_medium">
+            <template if:true={isProgressing}>
+            <lightning-progress-bar value={progress}></lightning-progress-bar>
+            </template>
+            <template if:true={isStep1}>
+                <div class="slds-theme_default slds-p-around_medium">
+                <div class="slds-card slds-p-left_large slds-p-right_large slds-p-top_large">
+                    <div class="slds-align_absolute-center slds-text-heading_large header-slds">Welcome! Let's make sure your business is eligible.</div> 
+                    <div class="slds-grid slds-gutters ">
+                        <div class="slds-col slds-size_2-of-3">
+                            1.) Is your business a for-profit entity in the United States?
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="toggle"  checked={leadRecord.Business_For_Profit__c} message-toggle-active="Yes" message-toggle-inactive="No" onchange={handleBusinessForProfitChange}></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_2-of-3">
+                            2.) Does 51% or more of the ownership consist of US Citizens or Legal Permanent Residents of the US?
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="toggle" checked={leadRecord.Legal_Permanent_Residents__c} message-toggle-active="Yes" message-toggle-inactive="No" onchange={handleLegalPermanentResidentsChange}></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_2-of-3">
+                            3.) Has the business or any owner filed for bankruptcy within the last 10 years?
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Business_Owner_Bankruptcy__c} onchange={businessOwnerBankruptcyHandleChange} ></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_2-of-3">
+                            4.) Has the applicant business or any owner had any prior default on a government loan including SBA and Disaster loans?
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Is_Including_SBA_And_Disaster_loans__c} onchange={handleChangeDisasterLoans} ></lightning-input>
+                        </div>
+                    </div>
+                    <footer class="slds-card__footer">
+                        <div class="slds-m-vertical_medium slds-align_absolute-center">
+                        
+                            <template if:true={isStep1}>
+                                <lightning-button variant="brand" class="slds-m-left_x-small" label="Continue" onclick={step1Next}></lightning-button>
+                            </template>
+                            
+                        </div> 
+
+                    </footer>
+                   
+                </div>
+                </div>
+           </template>
+           <template if:true={isStep2}>
+            <div class="slds-theme_default slds-p-around_medium">
+                <div class="slds-card slds-p-left_large slds-p-right_large slds-p-top_large">
+                <div class="slds-align_absolute-center slds-text-heading_large header-slds"> Looking good! Tell us a bit more about your business.</div> 
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                         <lightning-input type="text" value={leadRecord.FirstName} name="txtFirstName" label="First Name" onchange={handleChangeFirstName} ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="text" name="txtLastName" value={leadRecord.LastName} label="Last Name" required onchange={handleChangeLastName}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="phone" name="txtPhone"  value={leadRecord.Phone} label="Phone"  onchange={handleChangePhone}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="email" name="txtEmail" value={leadRecord.Email} label="Email" required="true" onchange={handleChangeEmail} ></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        5.) Business Established Date:
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="date" max-length="12" value={leadRecord.Business_Established_Date__c} required="true" name="txtBusinessEstablishedDate" onchange={handleChangeBusinessEstablishedDate} ></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        6.) Does your average net income for the last two years exceed $5 million (including any affiliate businesses)
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Average_Net_Income_Exceed__c} onchange={handleChangeAverageNetIncomeExceed}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        7.) Does your <a href="#" class="TT-container"> tangible net worth<span class="TT-value">(Tangible Net Worth = Tangible Assets – Liabilities)</span></a>  exceed $15 million (including any affiliate businesses)?
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Tangible_Net_Worth_Exceed__c}  onchange={TangibleNetWorthHandleChange} ></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        8.) What is your average monthly operating expense?
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="number" name="OperatingExpense" required="true" onchange={OperatingExpenseHandleChange} value={leadRecord.Average_Monthly_Operating_Expense__c}></lightning-input>
+                    </div>
+                    
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        9.) Was your business  <a href="#" class="TT-container">profitable<span class="TT-value">(before depreciation and amortization)</span></a> during the last two years?
+                        
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="toggle" message-toggle-active="Yes" checked={leadRecord.Is_Business_Profitable__c} onchange={IsBusinessProfitableHandleChange} message-toggle-inactive="No" ></lightning-input>
+                    </div>
+                    
+                        
+                        
+                      
+                </div>
+                <div class="slds-m-vertical_medium slds-align_absolute-center">
+                    <lightning-button label="Back" class="slds-m-left_x-small" onclick={step1Prev}></lightning-button>
+                    <template if:true={isStep2}>
+                        <lightning-button variant="brand" class="slds-m-left_x-small" label="Continue" onclick={step2Next}></lightning-button>
+                    </template>
+                </div> 
+            </div>
+        </div>
+           </template>
+           <template if:true={isStep3}>
+            <div class="slds-theme_default slds-p-around_medium">
+                <div class="slds-card slds-p-left_large slds-p-right_large slds-p-top_large">
+                <div class="slds-align_absolute-center slds-text-heading_large header-slds"> Just a few more things...</div> 
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_2-of-3">
+                        10.) Are you presently subject to an indictment, criminal information, arraignment, or other means by which formal criminal charges are brought in any jurisdiction?
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Is_Criminal_Charges_Presently__c} onchange={handleChangeIsCriminalCharges}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_2-of-3">
+                        11.) Have you been arrested in the last 6 months for any criminal offense?
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Any_Criminal_Offense_Last_6_Months__c} onchange={HandleChangeCriminalOffense} ></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_2-of-3">
+                        12.) For any criminal offense - other than a minor vehicle violation - have you ever: 1) been convicted; 2) pleaded guilty; 3) pleaded nolo contendere; 4) been placed on pretrial diversion; or 5) been placed on any form of parole or probation (including probation before judgment)?
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={leadRecord.Is_Minor_Vehicle_Violation__c} onchange={handleChangeMinorVehicleViolation} ></lightning-input>
+                    </div>
+                </div>
+            
+            <div class="slds-m-vertical_medium slds-align_absolute-center">
+                <lightning-button label="Back" class="slds-m-left_x-small" onclick={step2Prev}></lightning-button>
+                <template if:true={isStep3}>
+                    <lightning-button variant="brand" class="slds-m-left_x-small" label="Continue" onclick={step3Next}></lightning-button>
+                </template>
+            </div> 
+
+            </div>
+        </div>
+
+            </template>
+        <template if:true={isStep4}>
+            <div class="slds-theme_default slds-p-around_medium">
+                <div class="slds-card slds-p-left_large slds-p-right_large slds-p-top_large">
+                <div class="slds-align_absolute-center slds-text-heading_large header-slds"> Great! Now a few details about your business.</div> 
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="text" max-length=200 required label="Primary Business Owner" value={leadRecord.Primary_Business_Owner__c} onchange={handleChangePrimaryBusinessOwner} ></lightning-input> 
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="text" max-length=200 required label="Legal Business Name" value={leadRecord.Legal_Business_Name__c} onchange={handleChangeLegalBusinessName} ></lightning-input> 
+                       
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="phone" max-length=20 required label="Primary Business Phone" value={leadRecord.Primary_Business_Phone__c} onchange={handleChangePrimaryBusinessPhone} ></lightning-input> 
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="text" pattern="^([07][1-7]|1[0-6]|2[0-7]|[35][0-9]|[468][0-8]|9[0-589])-?\d{7}$"  max-length=100 
+                        message-when-pattern-mismatch="Not a valid Tax ID"
+                        message-when-value-missing="Tax ID is required"
+                         required label="Business Tax ID" value={leadRecord.Business_Tax_ID__c} onchange={handleChangeBusinessTaxID}></lightning-input> 
+                       
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="email" max-length=100 value={leadRecord.Primary_Business_Email__c} required label="Primary Business Email" onchange={handleChangePrimaryBusinessEmail} ></lightning-input> 
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-textarea  max-length=250 required label="Business Street Address" value={leadRecord.Business_Street_Address__c} onchange={handleChangeBusinessStreetAddress} ></lightning-textarea> 
+                    </div>
+                </div>
+                
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                        
+                        <lightning-input type="text" max-length=150 required label="City" value={leadRecord.Business_City__c} onchange={handleBusinessCity} ></lightning-input> 
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                        <c-picklist
+                        object-api-name="Lead" 
+                        record-type-id="012f4000000b9nVAAQ" 
+                        selected-value={leadRecord.States_Names__c}
+                        label="State"  
+                        pick-listfield-api-name="States_Names__c"
+                        onpicklistchange={handleStateNameChange}
+                        >
+                       </c-picklist>
+                         
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                       
+                        <lightning-input type="text" max-length=10 required label="Zip" value={leadRecord.Business_Zip__c} onchange={handleBusinessZip}  ></lightning-input> 
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        
+                         <c-picklist
+                         object-api-name="Lead" 
+                         record-type-id="012f4000000b9nVAAQ" 
+                         label="Industry"  
+                         selected-value={leadRecord.VSBA_Industry__c}
+                         pick-listfield-api-name="VSBA_Industry__c"
+                         onpicklistchange={handleMasterPicklistChange}>
+                        </c-picklist>
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <template if:true={isFranchise}>
+                            <c-picklist
+                            object-api-name="Lead" 
+                            record-type-id="012f4000000b9nVAAQ" 
+                            label="Franchise"  
+                            selected-value={leadRecord.VSBA_Franchise__c}
+                            pick-listfield-api-name="VSBA_Franchise__c"
+                            onpicklistchange={handleMasterFranchiseChange}>
+                           </c-picklist>
+
+                        </template>
+                        <template if:true={isOtherNotListed}>
+                            <lightning-input type="text" max-length=200 required label="Other / Not Listed" value={leadRecord.VSBA_Other_Industry__c} onchange={handleChangeOtherNotListed} ></lightning-input> 
+
+                        </template>
+                        
+                    </div>
+                </div>
+            
+            <div class="slds-m-vertical_medium slds-align_absolute-center">
+                <lightning-button label="Back" class="slds-m-left_x-small" onclick={step3Prev} ></lightning-button>
+                <template if:true={isStep4}>
+                    <lightning-button variant="brand" class="slds-m-left_x-small" label="Continue" onclick={step4Next} ></lightning-button>
+                </template>
+            </div> 
+
+
+            </div>
+        </div>
+
+        </template>
+        <template if:true={isStep5}>
+            <div class="slds-theme_default slds-p-around_medium">
+                <div class="slds-align_absolute-center slds-text-heading_large header-slds"> Let's talk ownership.</div> 
+                <div class="slds-card slds-p-left_large slds-p-right_large slds-p-top_large">
+                    
+                <c-ownerprequlification onownership={fetchValue}></c-ownerprequlification>
+            
+
+            </div>
+        </div>
+
+        </template>
+        <template if:true={isStep6}>
+            <div class="slds-theme_default slds-p-around_medium">
+                <div class="slds-card slds-p-left_large slds-p-right_large slds-p-top_large">
+                    <div class="slds-align_absolute-center slds-text-heading_large header-slds"> You're almost done!</div> 
+                        <h1>
+                        <div class="header-slds"> Credit Check Authorization</div>
+                        </h1>
+                        <p>
+                            Applicant/Guarantor authorizes VelocitySBA/SBA and or Affiliates to investigate and confirm the information herein the Prequalification application, SBA Business Loan Application and SBA Borrower Information Form(s), and hereby certifies that all information provided in conjunction with this application, including legal status, is true, correct and complete. Applicant/ Guarantor hereby authorizes VelocitySBA/SBA and or affiliates to utilize credit bureau/reporting agencies and or its own agents for purposes of verifying the accuracy of any information provided by Applicant/Guarantor and for purposes of assessing and monitoring applicants/guarantors credit status. Applicant/Guarantor authorizes that all credit bureau reporting agencies release any information they may have pertaining to Applicant/Guarantor to VelocitySBA/SBA or Affiliates. This application may only be modified as approved in writing by an authorized officer of the VelocitySBA. No other representative of VelocitySBA or affiliate is authorized to make any verbal or written modification to this application. By signing below Applicant/Guarantor represent that the information presented within the SBA Business Loan Application and SBA Borrower Information Form(s) is complete and accurate, and that all loan proceeds will be used only for business related purposes. Applicant/Guarantor further understand that they are only eligible for SBA guaranteed financing if they are unable to obtain the requested financing on similar terms and/or conditions elsewhere, and certify that they are unable to do so. Applicant/Guarantor acknowledges and understands that the inform action provided on the application and supporting documents and/or correspondence must be true and accurate. The penalty for knowingly making a false statement or overvaluing security to obtain a guaranteed loan from SBA is that you may be fined up to $10,000 and/or be put in jail for up to 5 years under 18 USC §1001 and if submitted to a Federally insured institution, you may be fined up to $1,000,000 and/or be put in jail for up to 20 years under 18 USC §1014.<br/>
+                        </p>
+                        <h1>
+                            <div class="header-slds"> Customer Electronic Consent and Disclosure</div>
+                        </h1>
+                        <p>
+                            By signing below you consent to conduct business electronically, receive and/or access documents electronically, and/or establish and access an on-line account with VelocitySBA (VSBA), containing information about your U.S. Small Business Administration loan ("Loan"), you must provide VSBA with your consent to do business electronically and intent to electronically sign. The documents and information provided may be sent to you electronically to the e-mail address you provided to VSBA. By signing below, you are providing VSBA with your consent to have certain documentation or information regarding your loan delivered to you electronically and your intent to sign and execute via electronic means loan documents and documents relating to your application or loan.
+                        </p>
+                    <div id="SignatureID">
+                        <div class="slds-grid slds-gutters" id="SignatureBoxID">
+                    
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                                <lightning-input type="checkbox" required></lightning-input> I agree
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-border_left slds-border_bottom slds-border_right slds-border_top">
+                              
+                                <c-signaturelwc></c-signaturelwc>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                                <lightning-input type="text" max-length=100 required placeholder="Title"></lightning-input> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                <div class="slds-m-vertical_medium slds-align_absolute-center">
+                    <lightning-button label="Back" class="slds-m-left_x-small" onclick={step6Prev} ></lightning-button>
+                    <template if:true={isStep6}>
+                        <lightning-button variant="brand" class="slds-m-left_x-small" label="Continue" onclick={step7Next} ></lightning-button>
+                    </template>
+                </div> 
+    
+            </div>
+               
+            </div>
+       
+
+        </template>
+        <template if:true={isStep7}>
+           <h1> <div class="header-slds">Your business is approved up to $250,000</div></h1>
+            <p>Congratulations! Based on the inputs you have provided, your business is approved to borrow up to $250,000 under VelocitySBA's Working Capital Loan Program.</div></p>
+            <h1><div class="header-slds">What are the next steps?</div></h1>
+            <p></div>Our lending specialists will reach out to you with the next steps within 24 hours.</div></p>
+        </template>
+            
+        </div>
+    </div>
+</template>

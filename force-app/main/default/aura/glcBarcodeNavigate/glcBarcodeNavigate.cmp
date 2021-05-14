@@ -1,0 +1,11 @@
+<aura:component implements="force:hasRecordId,lightning:actionOverride,forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="redirectRecord"   type="Object"/>
+    <aura:attribute name="recordLoadError"  type="String"/>
+    <force:recordData   aura:id="recordLoader"
+                        recordId="{!v.recordId}"
+                        fields="GMBLBC__Component_Name__c,GMBLBC__Component_Attributes__c,GMBLBC__Return_Page_Reference__c,GMBLBC__Return_URL__c"
+                        targetFields="{!v.redirectRecord}"
+                        targetError="{!v.recordLoadError}"
+                        recordUpdated="{!c.onRecordLoad}"/>
+    {!v.body}
+</aura:component>

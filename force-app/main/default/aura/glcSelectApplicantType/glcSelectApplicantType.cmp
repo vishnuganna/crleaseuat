@@ -1,0 +1,76 @@
+<aura:component description="glcSelectApplicantType" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="showDealerships" type="Boolean" default="false"/>
+    <aura:attribute name="selectedDealerShipName" type="String"/>
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:select aura:id="salesRepSel" label="Sales Rep:" value="{!v.params.salesRep}">
+        <aura:iteration items="{!v.params.salesReps}" var="salesRep">
+            <option value="{!salesRep.key}">{!salesRep.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+    <lightning:select aura:id="salesTeamSel" label="Sales Team:" value="{!v.params.SalesTeamVal}" >
+        <option value="-None-"  label="-None-"/>
+        <aura:iteration items="{!v.localParams.salesTeams}" var="salesTeam" indexVar="key">
+            <option value="{!salesTeam.key}" selected="{!salesTeam.key == v.params.SalesTeamVal}" label="{!salesTeam.value}"/>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:input type="text" label="Dealership:" disabled="true" value="{!v.selectedDealerShipName}"/>
+    <lightning:button value="neutral" label="Select Dealership" class="slds-button_stretch" onclick="{!c.show_close_dealerships}"/> <br/>
+
+    <div class="slds-align_absolute-center slds-m-top_small">Is this an App-Only deal?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.App_Only_Deal__c}" messageToggleInactive="No" messageToggleActive="Yes"/>
+    </div><br/>
+
+    <div class="slds-align_absolute-center slds-m-top_small">Is this a VVG Deal?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.isVVGDeal}" messageToggleInactive="No" messageToggleActive="Yes"/>
+    </div><br/>
+
+    <lightning:select aura:id="applicantTypeSel" label="Applicant Type:" value="{!v.params.applicantType}" onchange="{!c.onApplicantChange}">
+        <aura:iteration items="{!v.localParams.applicantTypes}" var="applicantType" indexVar="key">
+            <option value="{!applicantType.key}">{!applicantType.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+    <aura:if isTrue="{!v.params.applicantType == 'Company'}">
+        <lightning:select aura:id="legalStructureSel" label="Legal Structure:" value="{!v.params.legalStructure}" >
+            <aura:iteration items="{!v.localParams.legalStructures}" var="legalStructure" indexVar="key">
+                <option value="{!legalStructure.key}">{!legalStructure.value}</option>
+            </aura:iteration>
+        </lightning:select><br/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.showDealerships}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Select Dealerships</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-grid_vertical">
+                        <aura:iteration items="{!v.params.dealerships}" var="dealership">
+                            <aura:if isTrue="{!dealership.id != null}">
+                                <lightning:input type="checkbox" class="slds-col" name="{!dealership.id}" label="{!dealership.name}" checked="{!dealership.selected}" onchange="{!c.onCheckDealership}"/>
+                                <aura:set attribute="else">
+                                    <div class="slds-m-vertical_medium">
+                                        <lightning:input type="checkbox" class="slds-col" name="{!dealership.id}" label="Add new dealership:" checked="{!dealership.selected}" onchange="{!c.onCheckDealership}"/>
+                                        <lightning:input type="text" class="slds-col" value="{!dealership.name}" disabled="{!not(dealership.selected)}"/>
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </aura:iteration>
+                    </div> <br/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Continue with selected" class="slds-button_stretch" onclick="{!c.show_close_dealerships}"/>
+                    <lightning:button variant="neutral" label="Close" class="slds-button_stretch" onclick="{!c.close_popup}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

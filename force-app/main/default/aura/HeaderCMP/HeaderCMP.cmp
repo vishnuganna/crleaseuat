@@ -1,0 +1,39 @@
+<aura:component  implements="forceCommunity:availableForAllPageTypes,forceCommunity:themeLayout" access="global" >
+    <aura:attribute name="sidebarFooter" type="Aura.Component[]"/>
+    <aura:attribute name="blueBackground" type="Boolean" default="false"/> 
+    <aura:attribute name="smallLogo" type="Boolean" default="false" />
+    <aura:attribute name="search" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_6-of-12 imagePadding">
+           
+               
+        </div>
+        <div class="slds-col slds-size_6-of-12 ">
+            <div class="slds-col slds-float_right profileMenuRegion slds-p-top_medium">
+                 
+            </div>
+        </div>
+       
+        
+        <div class="slds-col slds-size_1-of-1">
+            <div class="navigation">
+                
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <div class="mainContentArea">
+               <center> <img  class="imageviewMain" src="{!$Resource.SBALogo}"/></center>
+                {!v.body}
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <div class="cFooterPanel">
+                {!v.sidebarFooter}
+            </div>
+        </div>       
+    </div>    
+
+</aura:component>

@@ -1,0 +1,22 @@
+<aura:component description="glcApplicantQuestions1" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:select aura:id="driverTypeSel" label="Driver Type:" value="{!v.params.driverType}">
+        <aura:iteration items="{!v.localParams.driverTypes}" var="driverType">
+            <option value="{!driverType.key}" text= "{!driverType.value}" selected="{!driverType.value}"/>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:input type="number" label="Years O/O Experience:" value="{!v.params.Years_IOO_Experience__c}"/><br/>
+
+    <lightning:input type="number" label="Years as Company Driver:" value="{!v.params.Years_as_Company_Driver__c}"/><br/>
+
+    <lightning:select aura:id="durationPrimaryHaulSourceSel" label="Duration with Current Employer or Primary Haul Source:" value="{!v.params.DurationPrimaryHaulSouce__c}">
+        <aura:iteration items="{!v.localParams.durationPrimaryHaulSources}" var="durationPrimaryHaulSource">
+            <option value="{!durationPrimaryHaulSource.key}">{!durationPrimaryHaulSource.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+</aura:component>

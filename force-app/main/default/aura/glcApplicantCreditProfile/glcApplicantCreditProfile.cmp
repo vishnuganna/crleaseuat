@@ -1,0 +1,135 @@
+<aura:component description="glcApplicantCreditProfile" extends="c:glcDealerFlowAbstract">
+    <aura:attribute name="showPaynetCompanies" type="Boolean" default="false"/>
+    <aura:attribute name="showExperianReport" type="Boolean" default="false"/>
+    <aura:attribute name="showCorporateReport" type="Boolean" default="false"/>
+    <aura:attribute name="showLossReason" type="Boolean" default="false"/>
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-text-align_center,"><h1>Credit Profile</h1></div>
+
+    <div class="slds-card grayCard" >
+        <div class="slds-card__body slds-card__body_inner">
+            <ul class="slds-list_dotted" >
+                <li>Identity <aura:if isTrue="{!v.params.LexisNexisInstantId.lexisNexisId > 0}"> Verified <aura:set attribute="else">not Verified</aura:set></aura:if> </li>
+                <li>Credit Score: {!v.params.LexisNexisInstantId.verificationIndex}</li>
+                <aura:if isTrue="{!v.params.LexisNexisInstantId.description != null}">
+                    <li>{!v.params.LexisNexisInstantId.description}</li>
+                </aura:if>
+            </ul>
+        </div>
+    </div>
+
+    <div align="center" class="buttonWrapper slds-grid slds-wrap">
+        <lightning:button variant="Neutral" label="Experian" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.takeExperianReport}" disabled="{!(v.showCorporateReport == true || v.apimanager.ExperianDisabled)}"/>
+        <lightning:button variant="Neutral" label="Paynet" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.takePaynetCompanies}" disabled="{!v.apimanager.PaynetDisabled}"/>
+        <lightning:button variant="Neutral" label="Syndication" class="navigateButton slds-button_stretch slds-col" disabled="{!v.apimanager.SyndicationDisabled}"/>
+        <lightning:button variant="Neutral" label="Field Decline" class="navigateButton slds-button_stretch slds-col" onclick="{!c.show_close_LossReason}" disabled="{!v.apimanager.LexisNexisDisabled}"/>
+    </div>
+
+    <aura:if isTrue="{!v.showExperianReport}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Experian Report</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-scrollable" id="modal-content-id-1">
+                    <aura:iteration items="{!v.params.ExperianReport.creditProfile}" var="creditProfile">
+                        HeaderRecords:
+                        <aura:iteration items="{!v.creditProfile.headerRecord}" var="headerRecord">
+                            Header Record:
+                            reportDate : {!v.headerRecord.reportDate},
+                            reportTime : {!v.headerRecord.reportTime},
+                            preamble : {!v.headerRecord.preamble},
+                            versionNo : {!v.headerRecord.versionNo},
+                            mKeywordLength : {!v.headerRecord.mKeywordLength},
+                            y2kReportedDate : {!v.headerRecord.y2kReportedDate}
+                        </aura:iteration>
+
+                        Consumer Assistance Referral Address :
+                        cityStateZip : {!v.creditProfile.consumerAssistanceReferralAddress.cityStateZip},
+                        officeName : {!v.creditProfile.consumerAssistanceReferralAddress.officeName},
+                        phone : {!v.creditProfile.consumerAssistanceReferralAddress.phone},
+                        poBox : {!v.creditProfile.consumerAssistanceReferralAddress.poBox},
+                        streetName : {!v.creditProfile.consumerAssistanceReferralAddress.streetName}
+
+                        Informational Messages:
+                        <aura:iteration items="{!v.creditProfile.informationalMessage}" var="informationalMessage">
+                            Informational Message:
+                            messageNumber : {!v.informationalMessage.messageNumber},
+                            messageNumberDetailed : {!v.informationalMessage.messageNumberDetailed},
+                            messageText : {!v.informationalMessage.messageText}
+                        </aura:iteration>
+
+                        OFAC:
+                        messageNumber : {!v.creditProfile.ofac.messageNumber},
+                        messageText : {!v.creditProfile.ofac.messageText}
+
+                        End Totals:
+                        <aura:iteration items="{!v.creditProfile.endTotals}" var="endTotals">
+                            End Total:
+                            totalSegments : {!v.endTotals.totalSegments},
+                            totalLength : {!v.endTotals.totalLength}
+                        </aura:iteration>
+                    </aura:iteration>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Close" class="slds-button_stretch" onclick="{!c.close_ExperianReport}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+
+    <aura:if isTrue="{!v.showPaynetCompanies}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Select Paynet Company</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-scrollable" id="modal-content-id-1">
+                    <lightning:select aura:id="paynetCompany" label="Paynet Company:" value="{!v.params.selectedPaynetCompanyId}" >
+                        <aura:iteration items="{!v.params.paynetCompanies}" var="company" indexVar="key">
+                            <option value="{!company.id}">{!company.name}</option>
+                        </aura:iteration>
+                    </lightning:select><br/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="slds-grid slds-grid_vertical">
+                        <div class="slds-col">
+                            <lightning:button variant="neutral" label="Get report" class="slds-button_stretch" onclick="{!c.takePaynetReport}"/>
+                        </div>
+                        <div class="slds-col">
+                            <lightning:button variant="neutral" label="Close" class="slds-button_stretch" onclick="{!c.close_PaynetCompanies}"/>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.showLossReason}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Field Decline: Select Loss Reason</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:select label="" value="{!v.params.lossReason}">
+                        <aura:iteration items="{!v.localParams.lossReasons}" var="lossReason" indexVar="key">
+                            <option value="{!lossReason.key}" label="{!lossReason.value}"/>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand" label="Save" class="slds-button_stretch" onclick="{!c.requestClosedLost}"/>
+                    <lightning:button variant="neutral" label="Cancel" class="slds-button_stretch" onclick="{!c.show_close_LossReason}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

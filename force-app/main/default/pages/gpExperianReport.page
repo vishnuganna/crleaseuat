@@ -1,0 +1,268 @@
+<apex:page id="gpExperianReport" standardController="Contact" extensions="gcExperianReportController" renderAs="advanced_pdf">
+    <head>
+        <style>
+            @page {
+                @top-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+        </style>
+    </head>
+    <body style="font-size: 8pt;">
+    <apex:outputPanel rendered="{!report.headerRecordError != null}">
+        <hr style="width:41%;display:inline-block;"/>
+        <div style="text-align:center;width:15%;display:inline-block;">Header Record Error</div>
+        <hr style="width:42%;display:inline-block;"/><br/><br/>
+        <table width="100%">
+            <tr>
+                <th>Host Id</th>
+                <th>Application Id</th>
+                <th>Report Date</th>
+                <th>Report Type</th>
+                <th>Preamble</th>
+                <th>Region Code</th>
+                <th>Version No</th>
+                <th>Name</th>
+            </tr>
+            <apex:repeat value="{!report.headerRecordError}" var="error">
+                <tr>
+                    <td>{!error.hostid}</td>
+                    <td>{!error.applicationId}</td>
+                    <td>{!error.reportDateTime}</td>
+                    <td>{!error.reportType}</td>
+                    <td>{!error.preamble}</td>
+                    <td>{!error.regionCode}</td>
+                    <td>{!error.versionNo}</td>
+                    <td>{!error.surName} {!error.firstName}</td>
+                </tr>
+            </apex:repeat>
+        </table>
+        <br/>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!report.errors != null}">
+        <hr style="width:41%;display:inline-block;"/>
+        <div style="text-align:center;width:15%;display:inline-block;">API ERRORS</div>
+        <hr style="width:42%;display:inline-block;"/><br/><br/>
+        <table width="100%">
+            <tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th>Message</th>
+            </tr>
+            <apex:repeat value="{!report.errors}" var="error">
+                <tr>
+                    <td>{!error.errorCode}</td>
+                    <td>{!error.errorType}</td>
+                    <td>{!error.message}</td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </apex:outputPanel>
+        <apex:repeat value="{!report.creditProfile}" var="creditProfile">
+            {!creditProfile.headerRecord[0].preamble}&nbsp;&nbsp;&nbsp;{!creditProfile.inquiry[0].kob} &nbsp;&nbsp;&nbsp;{!creditProfile.inquiry[0].subscriberCode}<br/>
+            {!creditProfile.consumerIdentity.name[0].surname}, {!creditProfile.consumerIdentity.name[0].firstName} {!creditProfile.consumerIdentity.name[0].middleName} {!creditProfile.ssn[0].number_x};<br/>
+            <apex:outputPanel rendered = "{! If(creditProfile.addressInformation != null && creditProfile.addressInformation.size > 1 ,true,false) }">
+                {!creditProfile.addressInformation[0].state}-{!creditProfile.addressInformation[0].streetPrefix}  {!creditProfile.addressInformation[0].streetName} {!creditProfile.addressInformation[0].streetSuffix} /{!creditProfile.addressInformation[0].city} {!creditProfile.addressInformation[0].state} {!creditProfile.addressInformation[0].zipCode};<br/>
+            </apex:outputPanel>
+            Y-{!creditProfile.consumerIdentity.dob.month}{!creditProfile.consumerIdentity.dob.day}{!creditProfile.consumerIdentity.dob.year}; V-{!creditProfile.headerRecord[0].versionNo}; PARSED;<br/>
+
+            <hr style="width:41%;display:inline-block;"/>
+            <div style="text-align:center;width:15%;display:inline-block;">AnyBureau Report</div>
+            <hr style="width:42%;display:inline-block;"/><br/>
+            ||<div style="text-align: center; width: 98%; display: inline-block">Experian-Style Report Generated from Experian Data</div>||<br/>
+            ||<div style="text-align: center; width: 98%; display: inline-block">Data TimeStamp: {!creditProfile.headerRecord[0].reportedAt}</div>||<br/>
+            <hr style="width:82%;display:inline-block;"/>&nbsp;&nbsp;Printed: {!creditProfile.headerRecord[0].reportedAt}&nbsp;&nbsp;<hr style="width:1%;display:inline-block;"/><br/><br/>
+
+            <table width="100%">
+                <tr>
+                    <td>
+                        {!creditProfile.consumerIdentity.name[0].surname} {!creditProfile.consumerIdentity.name[0].middleName} {!creditProfile.consumerIdentity.name[0].firstName}<br/>
+                        <apex:outputPanel rendered = "{! If(creditProfile.addressInformation != null && creditProfile.addressInformation.size > 1 ,true,false) }">
+                            * {!creditProfile.addressInformation[0].streetPrefix} {!creditProfile.addressInformation[0].streetName} {!creditProfile.addressInformation[0].streetSuffix}<br/>
+                            {!creditProfile.addressInformation[0].city} {!creditProfile.addressInformation[0].state} {!creditProfile.addressInformation[0].zipCode}<br/>
+                            RPTD: {!creditProfile.addressInformation[0].firstReportedDateFormated} TO {!creditProfile.addressInformation[0].lastUpdatedDateFormated} {!creditProfile.addressInformation[0].dwellingType} {!creditProfile.addressInformation[0].source}<br/>
+                            LAST SUB: {!creditProfile.addressInformation[0].lastReportingSubscriberCode}
+                        </apex:outputPanel>
+                    </td>
+                    <td>
+                        SS:
+                        <apex:repeat value="{!creditProfile.ssn}" var="ssn">
+                            {!ssn.numberFormated}<br/>
+                        </apex:repeat><br/>
+                        DOB: {!creditProfile.consumerIdentity.dob.month}/{!creditProfile.consumerIdentity.dob.day}/{!creditProfile.consumerIdentity.dob.year}
+                    </td>
+                    <td>
+                        <apex:outputPanel rendered = "{! If(creditProfile.employmentInformation != null && creditProfile.employmentInformation.size > 1 ,true,false) }">
+                            E: {!creditProfile.employmentInformation[0].name}<br/>
+                            <br/>
+                            <br/>
+                            RPTD: {!creditProfile.employmentInformation[0].firstReportedDateFormated} TO {!creditProfile.employmentInformation[0].lastUpdatedDateFormated} {!creditProfile.employmentInformation[0].source}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <apex:outputPanel rendered = "{! If(creditProfile.addressInformation != null && creditProfile.addressInformation.size > 1 ,true,false) }">
+                            * {!creditProfile.addressInformation[1].streetPrefix} {!creditProfile.addressInformation[1].streetName} {!creditProfile.addressInformation[1].streetSuffix}<br/>
+                            {!creditProfile.addressInformation[1].city} {!creditProfile.addressInformation[1].state} {!creditProfile.addressInformation[1].zipCode}<br/>
+                            RPTD: {!creditProfile.addressInformation[1].firstReportedDateFormated} TO {!creditProfile.addressInformation[1].lastUpdatedDateFormated} {!creditProfile.addressInformation[1].dwellingType} {!creditProfile.addressInformation[1].source}<br/>
+                            <br/>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered = "{! If(creditProfile.addressInformation != null && creditProfile.addressInformation.size > 2 ,true,false) }">
+                            * {!creditProfile.addressInformation[2].streetPrefix} {!creditProfile.addressInformation[2].streetName} {!creditProfile.addressInformation[2].streetSuffix}<br/>
+                            {!creditProfile.addressInformation[2].city} {!creditProfile.addressInformation[2].state} {!creditProfile.addressInformation[2].zipCode}<br/>
+                            RPTD: {!creditProfile.addressInformation[2].firstReportedDateFormated} TO {!creditProfile.addressInformation[2].lastUpdatedDateFormated} {!creditProfile.addressInformation[2].dwellingType} {!creditProfile.addressInformation[2].source}<br/>
+                        </apex:outputPanel>
+                    </td>
+                    <td></td>
+                    <td>
+                        <apex:outputPanel rendered = "{! If(creditProfile.employmentInformation != null && creditProfile.employmentInformation.size > 1 ,true,false) }">
+                            E: {!creditProfile.employmentInformation[1].name}<br/>
+                            <br/>
+                            <br/>
+                            RPTD: {!creditProfile.employmentInformation[1].firstReportedDateFormated} TO {!creditProfile.employmentInformation[1].lastUpdatedDateFormated} {!creditProfile.employmentInformation[1].source}
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+            </table>
+            <apex:repeat value="{!creditProfile.consumerIdentity.name}" var="name" first="1">
+                * {!name.surname} {!name.middleName} {!name.firstName}<br/>
+            </apex:repeat>
+            <br/>
+
+            <hr style="width:44%;display:inline-block;"/>
+            <div style="text-align:center;width:10%;display:inline-block;">MESSAGES</div>
+            <hr style="width:44%;display:inline-block;"/><br/><br/>
+            <apex:repeat value="{!creditProfile.informationalMessage}" var="informationalMessage">
+                *&nbsp;&nbsp;&nbsp;{!informationalMessage.messageNumber}&nbsp;&nbsp;&nbsp;{!informationalMessage.messageNumberDetailed}&nbsp;&nbsp;&nbsp;{!informationalMessage.messageText}<br/>
+            </apex:repeat>
+            <apex:repeat value="{!creditProfile.ofac}" var="ofac">
+                *&nbsp;&nbsp;&nbsp;{!ofac.messageNumber}&nbsp;&nbsp;&nbsp;{!ofac.messageText}<br/>
+            </apex:repeat>
+            <br/>
+
+            <hr style="width:39%;display:inline-block;"/>
+            <div style="text-align:center;width:20%;display:inline-block;">PROFILE SUMMARY</div>
+            <hr style="width:39%;display:inline-block;"/><br/><br/>
+            <apex:repeat value="{!creditProfile.summaries}" var="summary">
+                <apex:variable var="index" value="{!0}"/>
+                <table width="100%">
+                    <tr>
+                        <apex:repeat value="{!summary.attributes}" var="attribute">
+                            <apex:outputText escape="false" value="</tr><tr>" rendered="{!MOD(index,3) == 0}"/>
+                            <td style="padding:0 15px 0 0;"><div style="float: left">{!attribute.id}</div><div style="float: right">{!attribute.value}</div></td>
+                            <apex:variable var="index" value="{!index + 1}" />
+                        </apex:repeat>
+                    </tr>
+                </table>
+            </apex:repeat>
+            <br/>
+
+            <hr style="width:41%;display:inline-block;"/>
+            <div style="text-align:center;width:15%;display:inline-block;">RISK MODELS</div>
+            <hr style="width:42%;display:inline-block;"/><br/><br/>
+            <apex:repeat value="{!creditProfile.riskModel}" var="riskModel">
+                {!riskModel.modelIndicator}&nbsp;&nbsp;&nbsp;=Score: {!riskModel.score}&nbsp;&nbsp;&nbsp;Factors: <apex:repeat value="{!riskModel.scoreFactors}" var="scoreFactor">{!scoreFactor.code}, </apex:repeat><br/>
+                <apex:repeat value="{!riskModel.scoreFactors}" var="scoreFactor">
+                    &nbsp;&nbsp;&nbsp;{!scoreFactor.code}:&nbsp;<br/>
+                </apex:repeat><br/>
+                Credit Score Disclosure Exception Notice<br/>
+                Model Name:<br/>
+                Model Range:<br/>
+                Your Score: {!riskModel.score}<br/>
+                Notice Text:<br/>
+            </apex:repeat>
+            <br/>
+
+            <hr style="width:44%;display:inline-block;"/>
+            <div style="text-align:center;width:10%;display:inline-block;">TRADES</div>
+            <hr style="width:44%;display:inline-block;"/><br/><br/>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="padding:0 15px 0 0;">
+                        SUBSCRIBER<div style="float: right">OPEN</div><br/>
+                        SUB# <div style="float: right">KOB TYP TRM ECOA BALDATE</div><br/>
+                        ACCOUNT # <div style="float: right">LAST P</div>
+                    </td>
+                    <td style="padding:0 15px 0 0;text-align:right;">
+                        AMT-TYP1<br/>
+                        BALANCE<br/>
+                        MONTH PAY
+                    </td>
+                    <td style="padding:0 15px 0 0;text-align:right;">
+                        AMT-TYP2<br/>
+                        PYMT LEVEL<br/>
+                        PAST DUE
+                    </td>
+                    <td style="padding:0 15px 0 0;text-align:right;">
+                        ACCTCOND<br/>
+                        MOS REV<br/>
+                        MAXIMUM
+                    </td>
+                    <td style="padding:0 15px 0 0;text-align:right;">
+                        PYMT STATUS<br/>
+                        PYMT HISTORY<br/>
+                        BY MONTH
+                    </td>
+                </tr>
+                <tr><td colspan="5"></td></tr>
+                <apex:repeat value="{!creditProfile.tradeline}" var="tradeline">
+                    <tr style="vertical-align: text-top;">
+                        <td style="padding:0 15px 0 0;">
+                            *<apex:outputText value="{!tradeline.subscriberName}" escape="false"/><div style="float: right">{!tradeline.openDateFormated}</div><br/>
+                            {!tradeline.subscriberCode}<div style="float: right">{!tradeline.kob} {!tradeline.accountType} {!tradeline.terms} {!tradeline.ecoa} {!tradeline.balanceDateFormated}</div><br/>
+                            {!tradeline.accountNumber}<div style="float: right">{!tradeline.lastPaymentDateFormated}</div>
+                        </td>
+                        <td style="padding:0 15px 0 0;text-align:right;">
+                            {!tradeline.amount1WithQualifierFormated}<br/>
+                            {!tradeline.balanceAmountFormated}<br/>
+                            {!tradeline.monthlyPaymentAmountFormated}
+                        </td>
+                        <td style="padding:0 15px 0 0;text-align:right;">
+                            {!tradeline.amount2WithQualifierFormated}<br/>
+                            {!tradeline.statusDateFormated}<br/>
+                        </td>
+                        <td style="padding:0 15px 0 0;text-align:right;">
+                            {!tradeline.openOrClosedFormated}<br/>
+                            ({!tradeline.monthsHistory})<br/>
+                            {!tradeline.maxDelinquencyFormated}
+                        </td>
+                        <td style="padding:0 15px 0 0; text-align:right;">
+                            {!tradeline.enhancedPaymentData.enhancedPaymentStatus}<br/>
+                            <apex:outputText value="{!tradeline.paymentHistoryFormatted}" escape="false"/><br/>
+                        </td>
+                    </tr>
+                    <tr><td colspan="5"></td></tr>
+                </apex:repeat>
+            </table>
+            <br/>
+
+            <hr style="width:44%;display:inline-block;"/>
+            <div style="text-align:center;width:10%;display:inline-block;">INQUIRIES</div>
+            <hr style="width:44%;display:inline-block;"/><br/><br/>
+            <table width="100%">
+                <apex:repeat value="{!creditProfile.inquiry}" var="inquiry">
+                    <tr>
+                        <td>{!inquiry.subscriberName}</td>
+                        <td>{!inquiry.dateFormated}</td>
+                        <td>{!inquiry.subscriberCode} {!inquiry.kob}</td>
+                        <td>{!inquiry.amountFormated} {!inquiry.terms} {!inquiry.type}</td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            <br/>
+
+            <hr style="width:44%;display:inline-block;"/>
+            <div style="text-align:center;width:10%;display:inline-block;">MESSAGES</div>
+            <hr style="width:44%;display:inline-block;"/><br/><br/>
+            CONSUMER ASSISTANCE CONTACT: {!creditProfile.consumerAssistanceReferralAddress.officeName}<br/>
+            {!creditProfile.consumerAssistanceReferralAddress.streetName} {!creditProfile.consumerAssistanceReferralAddress.poBox} {!creditProfile.consumerAssistanceReferralAddress.cityStateZip}, {!creditProfile.consumerAssistanceReferralAddress.phoneFormated}
+            <br/><br/>
+            End Report Created from Experian Data
+        </apex:repeat>
+    </body>
+</apex:page>

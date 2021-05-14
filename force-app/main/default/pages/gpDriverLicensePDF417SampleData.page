@@ -1,0 +1,121 @@
+<apex:page applyHtmlTag="false"
+           cache="false"
+           contentType="text/HTML"
+           controller="gcDriverLicensePDF417SampleData"
+           docType="html-5.0"
+           renderAs="pdf"
+           showHeader="false"
+           sidebar="false"
+           standardStylesheets="false">
+
+    <apex:variable var="cellsPerRow" value="{!2}"/>
+
+    <head>
+        <style type="text/css">
+            @page {
+                margin: 10mm;
+                margin-top: 5mm;
+                padding-top: 2mm;
+                size: {!NULLVALUE($CurrentPage.parameters.pageSize, '8.5in 11in')};
+
+                @top-center{content: element(header);}
+                @bottom-center{content: element(footer);}
+            }
+            @page :first {
+                padding-top: 0mm;
+            }
+            body {
+                font-family: sans-serif;
+            }
+            div.barcode div table {
+                margin: 0 auto;
+            }
+            td.label {
+                height: 1in;
+                vertical-align:top;
+                border:1px solid black;
+                padding:3mm;
+
+                font-size:9px;
+            }
+            td.label table tr td{
+            	vertical-align:top;
+            }
+            .footer {
+                position: running(footer);
+                width:100%;
+                border:none;
+                padding:0;
+                padding-bottom:5mm;
+                margin:0 auto;
+                text-align:center;
+            }
+        </style>
+    </head>
+
+    <div class="footer">
+
+    </div>
+
+    <body>
+    <apex:variable var="len" value="{!listWrapBarcode.size}"/>
+    
+    <apex:outputPanel rendered="{!len == 0}">
+        <div style="text-align:center">Please select at least one record, prior to clicking the button.</div>
+    </apex:outputPanel>
+
+    <table width="100%" style="border-collapse:collapse; page-break-inside:avoid;">
+        <apex:repeat value="{!listWrapBarcode}" var="label">
+            <tr style="page-break-inside: avoid;">
+                <td class="label" width="60%">
+                    <div style="text-align:center;vertical-align:top; padding-top:5px;">
+                        <GMBLBC:barcode2 value="{!label.barcode}" type="PDF417"
+                            params="{'translate-esc':'on','height':'10'}"/>
+                    </div>
+                </td>
+                <td class="label">
+                    <!-- {'DAC'=>'Abel','DCS'=>'Maclead','DAG'=>'37275 St  Rt 17m M','DAI'=>'Middle Island','ZGD'=>'Suffolk','DAJ'=>'NY','DAK'=>'11953'})); -->
+                    <table width="100%" style="border-collapse:collapse; page-break-inside:avoid;">
+                        <tr>
+                            <td width="10%">DAQ</td>
+                            <td width="25%">DL #</td>
+                            <td>{!label.elements['DAQ']}</td>
+                        </tr>
+                        <tr>
+                            <td>DAC</td>
+                            <td>First Name</td>
+                            <td>{!label.elements['DAC']}</td>
+                        </tr>                        
+                        <tr>
+                            <td>DCS</td>
+                            <td>Last Name</td>
+                            <td>{!label.elements['DCS']}</td>
+                        </tr>
+                        <tr>
+                            <td>DAG</td>
+                            <td>Address</td>
+                            <td>{!label.elements['DAG']}</td>
+                        </tr>  
+                        <tr>
+                            <td>DAI</td>
+                            <td>City</td>
+                            <td>{!label.elements['DAI']}</td>
+                        </tr>   
+                        <tr>
+                            <td>DAJ</td>
+                            <td>State</td>
+                            <td>{!label.elements['DAJ']}</td>
+                        </tr>  
+                        <tr>
+                            <td>DAK</td>
+                            <td>ZIP</td>
+                            <td>{!label.elements['DAK']}</td>
+                        </tr>                                         
+                    </table>
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+
+    </body>
+</apex:page>

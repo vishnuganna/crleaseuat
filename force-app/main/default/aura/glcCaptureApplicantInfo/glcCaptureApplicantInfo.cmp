@@ -1,0 +1,80 @@
+<aura:component description="glcCaptureApplicantInfo" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract" access="global">
+    <aura:attribute name="acc"              type="Account"  access="global"/>
+    <aura:attribute name="step"    type="String"  access="global" default="scan"/>
+
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <aura:if isTrue="{!v.params.stageName == 'selectType'}">
+        <c:glcSelectApplicantType params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'baseInfo'}">
+        <c:glcApplicantBaseInfo params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'scanDL'}">
+        <c:glcScanDriverLicense params="{!v.params}" fromDealerFlow="true" componentName="c__glcDealerPortalFlow"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'takeDlPhoto'}">
+        <c:gcDriversLicenseTakePhoto params="{!v.params}" fileName="Driver License"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'accountLookup'}">
+        <c:glcCheckAccount params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'newAccount'}">
+
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'driverInfo'}">
+        <c:glcApplicantDriverInfo params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'questions1'}">
+        <c:glcApplicantQuestions1 params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'questions2'}">
+        <c:glcApplicantQuestions2 params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'questions3'}">
+        <c:glcApplicantQuestions3 params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'questions4'}">
+        <c:glcApplicantQuestions4 params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'employerInfo'}">
+        <c:glcApplicantEmployerInfo params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'businesInfo1'}">
+        <c:glcApplicantBussinesInfo1 params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'businesInfo2'}">
+        <c:glcApplicantBussinesInfo2 params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'businessContactInfo'}">
+        <c:glcBusinesContactsInfo params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'creditProfile'}">
+        <c:glcApplicantCreditProfile params="{!v.params}"/>
+    </aura:if>
+
+<!--    <aura:if isTrue="{!v.params.stageName == 'scanGuarantorDL'}">-->
+<!--        <c:glcScanDriverLicense params="{!v.params}" fromDealerFlow="true" componentName="c__glcDealerPortalFlow" cont="{!v.params.contact}" step="{!v.params.step}"/>-->
+<!--    </aura:if>-->
+
+    <div align="center" class="buttonWrapper slds-grid slds-wrap">
+        <aura:if isTrue="{!v.params.showButtons}">
+            <aura:if isTrue="{!v.params.showPrevButton}">
+                <lightning:button variant="Neutral" label="&lt; Previous" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onPrev}"/>
+                <lightning:button variant="brand" label="Next &gt;" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onNext}"/>
+                <aura:set attribute="else">
+                    <lightning:button variant="brand" label="Next &gt;" class="navigateButton slds-button_stretch slds-col slds-size_2-of-2" onclick="{!c.onNext}"/>
+                </aura:set>
+            </aura:if>
+            <aura:if isTrue="{!v.params.showSAFLButton}">
+                <lightning:button variant="Neutral" label="Save &amp; Finish Later" class="navigateButton slds-button_stretch slds-col slds-size_2-of-2" onclick="{!c.onSaveAndFinnish}"/>
+            </aura:if>
+        </aura:if>
+    </div>
+</aura:component>

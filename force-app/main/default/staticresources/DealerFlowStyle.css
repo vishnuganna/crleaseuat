@@ -1,0 +1,241 @@
+/* LESS Document */
+/* Page */
+.siteforceContentArea .contentRegion.comm-layout-column:not(:empty) .ui-widget .cGlcDealerFlowAbstract.cGlcDealerPortalFlow {
+  max-width: 380px;
+  margin: 0 auto;
+}
+.slds-m-top_x-large,
+.slds-m-top--x-large {
+  margin-top: 0;
+}
+.comm-page-custom-deal-entry-page .cTestDealerPortalLayout .siteforceContentArea .contentRegion.comm-layout-column:not(:empty),
+.comm-page-detail-a29 .cTestDealerPortalLayout .siteforceContentArea .contentRegion.comm-layout-column:not(:empty),
+.comm-page-custom-docs-request .cTestDealerPortalLayout .siteforceContentArea .contentRegion.comm-layout-column:not(:empty){
+  display: block;
+}
+/* Heading */
+.slds-text-heading_medium {
+  color: #999999;
+  font-size: 1.25em;
+  margin: 2em 0;
+}
+/* Consent */
+@media screen and (max-width: 400px) {
+  #termsText {
+    padding: 0 10px;
+  }
+}
+/* Table – Matching Records */
+.slds-text-title_caps,
+.slds-text-title--caps {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.slds-table thead th {
+  font-weight: 300;
+}
+/* DL Scan */
+.cGlcScanDriverLicense .titleBackground {
+  background: transparent !important;
+  font-size: 1.25em !important;
+  color: #999999;
+}
+.cGlcScanDriverLicense .slds-p-left_x-small > .slds-button_brand {
+  background-color: #0c4291;
+  padding: 0 3px;
+}
+.cGlcScanDriverLicense button.slds-button {
+  padding: 5px 2em !important;
+}
+.cGlcScanDriverLicense .slds-icon_large,
+.cGlcScanDriverLicense .slds-icon--large {
+  width: 2rem;
+  height: 2rem;
+}
+.cGlcScanDriverLicense .slds-form-element__label:empty {
+  display: none;
+}
+.cGlcScanDriverLicense .slds-gutters {
+  margin: 0;
+}
+.cGlcScanDriverLicense .slds-gutters .slds-size_1-of-2:nth-child(odd) {
+  padding-right: 5px;
+}
+.cGlcScanDriverLicense .slds-gutters .slds-size_1-of-2:nth-child(even) {
+  padding-left: 5px;
+}
+.applicantInfo.scanDL .slds-p-around_small {
+  padding: 0;
+}
+.applicantInfo.scanDL .slds-grid > button.slds-button {
+  margin-top: 2em;
+}
+.applicantInfo.scanDL .slds-grid > button.slds-button_stretch:nth-of-type(1) {
+  margin-right: 5px;
+}
+.applicantInfo.scanDL .slds-grid > button.slds-button_stretch:nth-of-type(2) {
+  margin-left: 5px;
+}
+/* Review Assets */
+.assetInfo.review h1 {
+  color: #999999;
+  font-size: 1.25em;
+  margin: 2em 0;
+  text-align: center;
+}
+.assetInfo.review .slds-card__body_inner,
+.assetInfo.review .slds-card__body--inner {
+  padding: 1rem;
+}
+.assetInfo.review .slds-card__body_inner:first-line,
+.assetInfo.review .slds-card__body--inner:first-line {
+  font-weight: 700;
+}
+.assetInfo.review .slds-card__body {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.assetInfo.review .grayCard {
+  background-image: -webkit-linear-gradient(top left, #FFF 0%, #efefef 100%);
+  background-image: -o-linear-gradient(top left, #FFF 0%, #efefef 100%);
+  background-image: linear-gradient(to bottom right, #FFF 0%, #efefef 100%);
+  border: 1px solid #ddd;
+  box-shadow: 0 1em 1em rgba(0, 0, 0, 0.1);
+}
+.assetInfo.review .slds-card .slds-button {
+  margin: 0;
+}
+/* Deal Structure */
+.dealStructure .slds-gutters {
+  margin: 0;
+}
+.dealStructure .slds-gutters .slds-size_6-of-12:nth-of-type(1) {
+  padding-right: 5px;
+}
+.dealStructure .slds-gutters .slds-size_6-of-12:nth-of-type(2) {
+  padding-left: 5px;
+}
+/*.dealStructure.dealParameters lightning-input.slds-col.slds-size_1-of-2.slds-form-element {*/
+/*  padding-right: 5px;*/
+/*}*/
+/*.dealStructure.dealParameters div.slds-form-element.slds-col.slds-size_1-of-2 {*/
+/*  padding-left: 5px;*/
+/*}*/
+/*.dealStructure.dealParameters lightning-input.slds-col.slds-size_1-of-2.slds-form-element:nth-of-type(5) {*/
+/*  padding-left: 5px;*/
+/*}*/
+.slds-card.cGlcDealerFlowAbstract {
+  border: 0;
+}
+/* Review Deal */
+.reviewDeal h1 {
+  font-size: 1.25em !important;
+  color: #999999;
+  margin: 1em 0;
+}
+.reviewDeal .navigateButton:nth-of-type(1) {
+  margin-top: 3em !important;
+}
+.reviewDeal .navigateButton:nth-of-type(2) {
+  margin-top: 5px !important;
+}
+/* Buttons */
+.cGlcDealerPortalFlow button.slds-button {
+  border-radius: 3em !important;
+  padding: 5px;
+}
+.cGlcDealerFlowAbstract .navigateButton {
+  margin: 15px auto !important;
+  padding: 0;
+}
+.slds-button:nth-of-type(2) {
+  /* margin-left: 0.5rem !important; */
+}
+.slds-button:nth-of-type(3) {
+  margin-top: 0 !important;
+}
+.cGlcDealerFlowAbstract .half_width_button {
+  width: 48% !important;
+}
+div.slds-form .lightning-record-form-cancel,
+div.slds-form .lightning-record-form-submit {
+  width: 48%;
+}
+div.slds-form .lightning-record-form-cancel .slds-button,
+div.slds-form .lightning-record-form-submit .slds-button {
+  width: 100%;
+  padding: 5px 2px;
+}
+/* Question Centered */
+.slds-align_absolute-center,
+.slds-align--absolute-center {
+  font-size: 1.25em;
+  text-align: center;
+}
+.questions3 div.slds-align_absolute-center:first-of-type {
+  margin-top: 3em;
+}
+/* Asset Info */
+.assetCount .slds-form-element:first-of-type {
+  margin-bottom: 2em;
+}
+/* Faux Checkbox (Toggle) */
+span.slds-checkbox_faux_container {
+  text-align: center;
+}
+.slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox_faux,
+.slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox--faux,
+.slds-checkbox_toggle [type=checkbox]:checked ~ .slds-checkbox_faux,
+.slds-checkbox_toggle [type=checkbox]:checked ~ .slds-checkbox--faux,
+.slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox_faux_container .slds-checkbox_faux,
+.slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox--faux_container .slds-checkbox--faux,
+.slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox_faux,
+.slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox--faux,
+.slds-checkbox--toggle [type=checkbox]:checked ~ .slds-checkbox_faux,
+.slds-checkbox--toggle [type=checkbox]:checked ~ .slds-checkbox--faux,
+.slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox_faux_container .slds-checkbox_faux,
+.slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox--faux_container .slds-checkbox--faux {
+  background-color: #1c7ce0 !important;
+  border-color: #1c7ce0 !important;
+}
+.slds-checkbox_toggle .slds-form-element__label {
+  width: 100% !important;
+}
+/* Inputs */
+.slds-select,
+.slds-input {
+  border-radius: 0.5rem;
+}
+.slds-input {
+  padding: 0.25rem 1rem;
+}
+.slds-select {
+  height: calc(2.35rem + (1px * 2));
+}
+/* Inputs – 2 columns */
+.slds-grid .slds-size_1-of-2:nth-of-type(1) {
+  padding-right: 5px;
+}
+.slds-grid .slds-size_1-of-2:nth-of-type(2) {
+  padding-left: 5px;
+}
+/* Progress Bar */
+.slds-progress-bar_large,
+.slds-progress-bar--large {
+  height: 5px;
+  border-radius: 5px;
+  margin-bottom: 1.5em;
+}
+
+/*Workaround - move progress bar to top side of page */
+.slds-progress-bar_large{
+    position: absolute;
+    max-width: 380px;
+    top: 110px;
+}
+
+.slds-progress-bar__value {
+  border-radius: 5px 0 0 5px;
+  background-color: #1c7ce0;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.18);
+}

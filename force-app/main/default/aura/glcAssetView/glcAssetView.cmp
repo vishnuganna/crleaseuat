@@ -1,0 +1,22 @@
+<aura:component description="glcAssetView" extends="c:glcDealerFlowAbstract">
+    <aura:attribute name="asset" type="Asset"/>
+    <aura:attribute name="index" type="Integer"/>
+    <aura:attribute name="optionsAmount" type="Decimal" default="0"/>
+    <aura:attribute name="truckValuation" type="Map"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-card grayCard">
+        <div class="slds-card__body slds-card__body_inner">
+            {!v.asset.Name}<br/>
+            {!v.asset.VIN__c}<br/> <br/>
+            Base Value: <lightning:formattedNumber value="{!v.truckValuation.adjustedRetail}" style="currency" currencyCode="USD" currencyDisplayAs="symbol" class="slds-float_right"/><br/>
+            Options: <lightning:formattedNumber value="{!v.optionsAmount}" style="currency" currencyCode="USD" currencyDisplayAs="symbol" class="slds-float_right"/><br/>
+            Adjusted Value: <lightning:formattedNumber value="{!v.truckValuation.adjustedRetail + v.optionsAmount}" style="currency" currencyCode="USD" currencyDisplayAs="symbol" class="slds-float_right"/><br/>
+            <br/>
+            <div data-value="{!v.index}" onclick="{!c.reviseAsset}">
+                <lightning:button variant="neutral" label="Revise Asset Detail" class="slds-button_stretch"/>
+            </div>
+        </div>
+    </div>
+</aura:component>

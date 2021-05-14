@@ -1,0 +1,29 @@
+<aura:component description="glcApplicantAuthorization" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Yes', 'value': 'true'},
+    {'label': 'No', 'value': 'false'}
+    ]"/>
+
+    <div class="slds-align_absolute-center">
+        <lightning:radioGroup label="Is the Applicant physically present?" type="button" options="{!v.options}" value="{!v.params.isPhysicallyPresent}"/>
+    </div>
+    <br/>
+
+    <aura:if isTrue="{!v.params.isPhysicallyPresent == 'false'}">
+        <lightning:select label="Consent Method" value="{!v.params.consentMethod}">
+            <option value="Phone" label="Phone"/>
+            <option value="Email" label="Email"/>
+        </lightning:select>
+        <br/>
+
+        <aura:if isTrue="{!v.params.consentMethod == 'Phone'}">
+            <lightning:input type="tel" label="Phone" value="{!v.params.phone}" />
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.consentMethod == 'Email'}">
+            <lightning:input type="email" label="Email" value="{!v.params.mail}" />
+        </aura:if>
+
+        <br/>
+    </aura:if>
+</aura:component>

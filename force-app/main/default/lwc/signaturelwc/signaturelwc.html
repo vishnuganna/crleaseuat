@@ -1,0 +1,14 @@
+<template>
+   
+        <div class="slds-m-around_medium">
+            
+            Please accept the Disclosure Agreement and draw your signature in the space below.<br/>
+           
+            <canvas class="signature-pad" width={canvasWidth} height={canvasHeight} lwc:dom="manual"></canvas>
+            <lightning-button-icon icon-name="utility:clear"    alternative-text="Clear"  class="slds-m-left_xxx-large" title="Clear" onclick={clearSignatureOnClick}></lightning-button-icon>
+            <template if:true={displaySignature}>
+                <lightning-button-icon icon-name="action:approval"    alternative-text="Indicates approval"  class="slds-m-left_xxx-large" title="Please accept Signature" onclick={onSignatureAgree}></lightning-button-icon>
+            </template>
+        </div>
+    
+</template>

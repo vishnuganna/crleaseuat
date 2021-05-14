@@ -1,0 +1,15 @@
+<aura:component description="glcDownloadAppNotification">
+    <div class="slds-notify slds-notify_alert install-app-notification slds-m-vertical_small" role="alert">
+        <div class="slds-grid slds-wrap slds-is-relative">
+            <div class="slds-size_1-of-1">
+                <lightning:icon iconName="utility:info" alternativeText="Connected" variant="inverse" size="small"/>
+                Must have Gimbal Barcode
+            </div>
+            <div class="slds-size_1-of-1">
+                <span>Install: </span>
+                <a class="slds-m-horizontal_xxx-small" href="https://play.google.com/store/apps/details?id=com.gimballogic.barcodeScanner">Android</a>
+                <a class="slds-m-horizontal_xxx-small" href="https://apps.apple.com/us/app/gimbal-barcode/id1441536996">iOS</a>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,9 @@
+.THIS {
+
+}
+.THIS .menuIcon{
+    background: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    fill: white;
+}

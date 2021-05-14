@@ -1,0 +1,13 @@
+.slds-High {
+    background-color: green;
+    border: 1px solid gray;
+    
+}
+.slds-Extreme{
+    background-color:blue;
+    border: 1px solid gray;
+}
+.slds-Moderate{
+    background-color:rgb(238, 255, 0);
+    border: 1px solid gray;
+}

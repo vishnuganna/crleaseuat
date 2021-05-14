@@ -1,0 +1,24 @@
+<aura:component extends="forceCommunity:navigationMenuBase" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="navComplete" type="Boolean" default="false"/>
+
+    <div id="mySidenav" class="sidenav">
+       <ul onclick="{!c.onClick}">
+           <aura:iteration items="{!v.menuItems}" var="item">
+              <li class="{!item.active ? 'slds-is-active' : ''}">
+                   <a href="javascript:void(0);" data-menu-item-id="{!item.id}" class="menuItems slds-navigation-list--vertical__action slds-text-link--reset">
+                       {!item.label}
+                   </a>
+               </li>             
+           </aura:iteration>
+           <li>
+            <a href="javascript:void(0);"   class="menuItems slds-navigation-list--vertical__action slds-text-link--reset" onclick="{!c.logoutCommunity}">
+               Logout
+            </a>
+        </li>
+           
+       </ul>
+       
+    </div>
+  
+</aura:component>

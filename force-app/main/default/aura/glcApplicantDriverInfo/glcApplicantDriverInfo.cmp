@@ -1,0 +1,30 @@
+<aura:component description="glcApplicantDriverInfo" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <lightning:select aura:id="industryCode" label="Industry Code:" value="{!v.params.industryCode}">
+        <aura:iteration items="{!v.localParams.industryCodes}" var="code">
+            <option value="{!code.key}">{!code.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:select aura:id="salesRepSel" label="Haul Type:" value="{!v.params.haulType}" required="true">
+        <aura:iteration items="{!v.localParams.haulTypes}" var="haulType">
+            <option value="{!haulType.key}">{!haulType.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input type="number" label="# Trucks" step="1" value="{!v.params.trucksNum}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input type="number" label="# Trailers" step="1" value="{!v.params.trailersNum}"/>
+        </div>
+    </div>
+
+    <lightning:input type="number" label="Average Annual Miles Driven" value="{!v.params.avgMiles}"/>
+</aura:component>

@@ -1,0 +1,94 @@
+<apex:component controller="FCAPComponentController" allowDML="true">
+    <apex:attribute name="pc" type="FCAPController" assignTo="{! pageController }" required="true" description="Page Controller" />
+    <apex:attribute name="newLead" type="Lead" assignTo="{! lead }" required="true" description="New Lead being created" />
+    <apex:attribute name="carrier" type="String" assignTo="{! carrierName }" required="true" description="Carrier Name" />
+    <apex:attribute name="email" type="String" assignTo="{! carrierEmail }" required="true" description="Carrier Email" />
+    <apex:form styleClass="form-horizontal" onsubmit="return checkAgreement('{! $Component.agree }');" prependId="false">
+        <apex:pageMessages />
+        <apex:outputPanel rendered="{! showTermsError }" layout="block" styleClass="errorMsg">
+                You must accept our terms of condition!
+                <a href="#{! $Component.save }">Bottom</a>
+        </apex:outputPanel>
+        <div class="form-group">
+            <apex:outputLabel value="First Name" for="first_name" />
+            <apex:inputField id="first_name" styleClass="form-control" value="{! lead.FirstName }" html-placeholder="First Name" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Last Name" for="last_name" />
+            <apex:inputField id="last_name" styleClass="form-control" value="{! lead.LastName }" html-placeholder="Last Name" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="DBA Name (If Applicable)" for="dba" />
+            <apex:inputField id="dba" styleClass="form-control" value="{! lead.DBA__c }" html-placeholder="DBA Name" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Business Name (if not applying as business, please use first and last name)" for="company" />
+            <apex:inputField id="company" styleClass="form-control" value="{! lead.Company }" html-placeholder="Business Name" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Physical Street Address" for="street" />
+            <apex:inputTextarea id="street" styleClass="form-control" value="{! lead.Street }" html-placeholder="Physical Street Address" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="City" for="city" />
+            <apex:inputField id="city" styleClass="form-control" value="{! lead.City}" html-placeholder="City" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="State" for="state" />
+            <apex:inputField id="state" styleClass="form-control" value="{! lead.State}" html-placeholder="State" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Zip Code" for="zip" />
+            <apex:inputField id="zip" styleClass="form-control" value="{! lead.PostalCode}" html-placeholder="Zip Code" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Business Phone" for="phone" />
+            <apex:inputField id="phone" styleClass="form-control" value="{! lead.Phone}" type="tel" html-placeholder="XXX-XXX-XXXX" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Mobile Phone" for="mobile" />
+            <apex:inputField id="mobile" styleClass="form-control" value="{! lead.MobilePhone}" type="tel" html-placeholder="XXX-XXX-XXXX" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Email Address" for="email" />
+            <apex:inputField id="email" styleClass="form-control" value="{! lead.Email}" type="email" html-placeholder="Email Address" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="FID/Tax ID (If Business)" for="taxid" />
+            <apex:inputField id="taxid" styleClass="form-control" value="{! lead.Tax_ID__c}" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="SSN" for="ssn" />
+            <apex:inputField id="ssn" styleClass="form-control" value="{! lead.SSN__c }" html-placeholder="000-00-0000" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Years in Business (Owner Operator Experience)" for="experience" />
+            <apex:inputField id="experience" styleClass="form-control" value="{! lead.Industry_Experience__c}" html-placeholder="Years in Business/OO Experience" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Years with CDL" for="cdl" />
+            <apex:inputField id="cdl" styleClass="form-control" value="{! lead.How_long_have_you_had_your_CDL__c}" html-placeholder="Years with CDL" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="Number of Trucks in Fleet" for="fleetsize" />
+            <apex:inputField id="fleetsize" styleClass="form-control" value="{! lead.Fleet_Size__c}" html-placeholder="Number of Trucks in Fleet" required="true" />
+        </div>
+        <div class="form-group">
+            <apex:outputLabel value="FCAP Recruiter" for="recruiter" />
+            <apex:selectList id="recruiter" styleClass="form-control" value="{! lead.FCAP_Recruiter__c}" size="1">
+                <apex:selectOptions value="{! Recruiters }" />
+            </apex:selectList>
+        </div>  
+        <div class="form-group">
+            <apex:inputCheckbox id="agree" value="{! hasAuthorized }" required="true" />
+            <apex:outputLabel value="I agree to the Terms and Conditions specified below." for="agree" />
+            <apex:outputPanel rendered="{! showTermsError }" layout="block" styleClass="errorMsg">
+                You must accept our terms of condition!
+            </apex:outputPanel>
+        </div>                                                     
+        <div class="form-group">
+            <apex:commandButton id="save" styleClass="btn btn-primary form-control" value="Submit" action="{! pc.saveLead }" />
+            <!--<apex:commandLink id="save" styleClass="btn btn-primary form-control" value="Submit" action="{! pc.saveLead }" />-->
+        </div> 
+    </apex:form>
+</apex:component>

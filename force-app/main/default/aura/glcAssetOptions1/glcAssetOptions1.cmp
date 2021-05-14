@@ -1,0 +1,27 @@
+<aura:component description="glcAssetOptions1" extends="c:glcDealerFlowAbstract">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.params.assetCount > 1}">
+        <div class="slds-align_absolute-center"><h1>Select Asset Options ({!v.params.assets.length==null? 1 : v.params.assets.length+1}/{!v.params.assetCount})</h1></div>
+        <aura:set attribute="else">
+            <div class="slds-align_absolute-center"><h1>Select Asset Options</h1></div>
+        </aura:set>
+    </aura:if>
+
+    <div class="slds-align_absolute-center">Is the equipment Used or New?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.isNewEquipment}" messageToggleActive="New" messageToggleInactive="Used"/>
+    </div><br/>
+
+    <lightning:input type="number" label="Mileage" value="{!v.params.vehicleMileage}"/><br/>
+    <lightning:input label="Engine" type="text" disabled="true" value="{!v.params.vehicleEngineSelected}" /><br/>
+    <lightning:input label="Transmission" type="text" disabled="true" value="{!v.params.vehicleTransmissionSelected}" /><br/>
+<!--    <lightning:select aura:id="transmissionSel" label="Transmission" value="{!v.params.vehicleTransmissionSelected}" >-->
+<!--        <aura:iteration items="{!v.params.transmissionTypes}" var="transmissionType" indexVar="key">-->
+<!--            <option value="{!transmissionType.key}">{!transmissionType.value}</option>-->
+<!--        </aura:iteration>-->
+<!--    </lightning:select><br/>-->
+    <lightning:input label="Sleeper Cabin" type="toggle" checked="{!v.params.Sleeper_Cabin__c}" /><br/>
+    <lightning:input label="Sleeper Size" value="{!v.params.sleeperSizeSelected}" disabled="true" type="text"/><br/>
+</aura:component>

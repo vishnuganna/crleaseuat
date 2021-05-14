@@ -1,0 +1,6 @@
+<aura:component description="glcSubmittoCredit">
+    
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+</aura:component>

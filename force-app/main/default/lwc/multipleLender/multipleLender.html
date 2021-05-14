@@ -1,0 +1,210 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Syndication Selection</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            Please enter the following info for lender
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <div class="slds-float_right">
+                <lightning-icon  icon-name="action:new"
+                alternative-text="Add lender" size="small" title="Add lender"  onclick={addRow}>
+                </lightning-icon>
+                <span class="peddingLeftActionText">Add Lender</span> 
+
+            </div>
+           
+
+        </div>
+        </div>
+
+        <hr/>
+        <template for:each={lendernamelist} for:item="lendername" for:index="indx">
+            <div  key={lendername.key} id={lendername.key}>      
+                <div   class="slds-grid slds-gutters">
+                   
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-picklist
+                        data-id={indx}
+                        object-api-name="SyndicationDetails__c" 
+                        label="Lender Name"  
+                        id={indx}
+                        pick-listfield-api-name="Lender_s_Name__c"
+                        onpicklistchange={handleLenderChange}>
+                       </c-picklist>
+                       
+                    </div>
+                </div>
+
+                <div   class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input data-id={indx} type="text"   label="Syndication Notes" value={lendername.Syndication_Notes__c} onchange={handlenotesChange}></lightning-input>                        
+     
+                    </div>
+                </div>
+                    <div   class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="number"  label="Amount Financed" value={lendername.Amount_Financed__c} onchange={handleAmountChange}></lightning-input>                        
+     
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="text"    label="Vin(s)" onchange={handlevinChange} value={lendername.Vin_s__c}></lightning-input>
+                    </div>
+                               
+                </div>
+                
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="Number" label="Down Payment"  value={lendername.Down_Payment__c} onchange={handledownpaymentChange}></lightning-input>
+                        
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="Number"  label="Fixed Income"  value={lendername.Finance_Income__c} onchange={handleFixedIncomeChange}></lightning-input>
+                        
+                       
+                    </div>
+                                       
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="text" max-length=100  label="Sell Rate" value={lendername.Sell_Rate__c}   onchange={handleSellrateChange}></lightning-input> 
+                    </div>
+                   
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} value={lendername.Buy_Rate__c} type="number"  label="Buy Rate"   onchange={handlebuyRateChange}></lightning-input>
+                       
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <c-picklist
+                        id={indx}
+                        object-api-name="SyndicationDetails__c" 
+                        label="Relationship"  
+                        data-id={indx}
+                        pick-listfield-api-name="Relationship__c"
+                        onpicklistchange={handleRelationshipStatusChange}>
+                       </c-picklist>
+                        
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                       
+                        <c-picklist
+                        id={indx}
+                        object-api-name="SyndicationDetails__c" 
+                        label="Submission Result"  
+                        data-id={indx}
+                        pick-listfield-api-name="Submission_Result__c"
+                        onpicklistchange={handleSubmissionChange}>
+                       </c-picklist>
+                    
+                        
+                    </div>
+    
+                    
+                </div>
+                <div   class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="date"    label="Result Date" value={lendername.Result_Date__c} onchange={handleResutDateChange}></lightning-input>                        
+     
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="date"     label="Submitted Date" onchange={handlesubmitdateChange} value={lendername.Submitted_Date__c}></lightning-input>
+                    </div>
+                               
+                </div>
+
+                <div   class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="number"    label="Term" value={lendername.Term__c} onchange={handleTermChange}></lightning-input>                        
+     
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="number"     label="Total Selling Price" onchange={handlesellpriceChange} value={lendername.Total_Selling_Price__c}></lightning-input>
+                    </div>
+                               
+                </div>
+                
+                <div   class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="text"    label="Decline Reason" value={lendername.Decline_Reason__c} onchange={handleDeclineChange}></lightning-input>                        
+     
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input data-id={indx} type="number"     label="Security Deposit" onchange={handleSecurityChange} value={lendername.Security_Deposit__c}></lightning-input>
+                    </div>
+                               
+                </div>
+
+                <div class="slds-grid slds-gutters ">
+                    <div class="slds-col slds-size_1-of-2">
+                        <c-picklist
+                        id={indx}
+                        object-api-name="SyndicationDetails__c" 
+                        label="Residual/Balloon"  
+                        data-id={indx}
+                        pick-listfield-api-name="Residual_Balloon__c"
+                        onpicklistchange={handleResidualChange}>
+                       </c-picklist>
+                        
+                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                       
+                        <c-picklist
+                        id={indx}
+                        object-api-name="SyndicationDetails__c" 
+                        label="Condition"  
+                        data-id={indx}
+                        pick-listfield-api-name="Condition__c"
+                        onpicklistchange={handleConditionChange}>
+                       </c-picklist>
+                    
+                        
+                    </div>
+    
+                    
+                </div>
+                
+                <div   class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-float_right">
+                            <lightning-icon icon-name="action:delete"  data-id={indx}       
+                            alternative-text="Delete"     
+                            size="small"
+                            onclick={removeRow}  >
+                            </lightning-icon>
+                            <span class="peddingLeftActionText">Remove Lender</span>   
+    
+                        </div>
+                       
+                    </div>
+    
+                </div>
+                <hr>
+                
+                       
+            </div>
+            
+          
+        </template>
+        <div class="slds-m-vertical_medium slds-align_absolute-center">
+            <lightning-button label="Cancel" class="slds-m-left_x-small" onclick={cancel} ></lightning-button>
+            <lightning-button variant="brand" class="slds-m-left_x-small" label="Save" onclick={save} ></lightning-button>
+           
+        </div> 
+        </div>
+        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+</template>

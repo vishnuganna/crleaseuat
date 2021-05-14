@@ -1,0 +1,40 @@
+<aura:component description="glcDocsNotes" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-align_absolute-center"><h1>Add Notes</h1></div>
+
+    <lightning:select aura:id="firsPaymentDue"
+                      label="First Payment Due:"
+                      value="{!v.params.opportunity.First_Payment_Due_Options__c}"
+                      onchange="{!c.onPaymentDatePicklistChange}"
+                      class="slds-text-align_left">
+        <aura:iteration items="{!v.localParams.firstPaymentDueOptions}" var="option">
+            <option value="{!option.key}">{!option.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:select aura:id="industryCode" label="Industry Code:" value="{!v.params.opportunity.Industry_Code__c}">
+        <aura:iteration items="{!v.localParams.industryCodes}" var="code">
+            <option value="{!code.key}">{!code.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:input
+         type="date"
+         label="First Payment Date:"
+         value="{!v.params.opportunity.First_Payment_Due__c}"
+         disabled="{! v.params.opportunity.First_Payment_Due_Options__c != 'Other (Requires Approval)'}"
+         class="slds-text-align_left"/>
+
+    <aura:if isTrue="{!v.params.opportunity.First_Payment_Due_Options__c == 'Other (Requires Approval)'}">
+        <div style="color: darkred">
+            Approval Required: First Payment date is more than 45 days out.
+        </div>
+    </aura:if>
+
+    <lightning:textarea name="notes" label="Notes:" value="{!v.params.opportunity.First_Payment_Notes__c}" class="slds-text-align_left"/>
+
+</aura:component>

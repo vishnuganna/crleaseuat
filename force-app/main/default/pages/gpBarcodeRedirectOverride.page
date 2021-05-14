@@ -1,0 +1,22 @@
+<apex:page standardController="GMBLBC__Redirect__c" showHeader="false">
+    <script>
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if({!!ISBLANK(GMBLBC__Redirect__c.GMBLBC__GoTo_RecordId__c)})
+    {
+         sforce.one.navigateToSObject('{!JSENCODE(GMBLBC__Redirect__c.GMBLBC__GoTo_RecordId__c)}');
+    }
+    else
+    {
+        if({!!ISBLANK(GMBLBC__Redirect__c.GMBLBC__Return_URL__c)})
+        {
+            sforce.one.navigateToURL('{!JSENCODE(GMBLBC__Redirect__c.GMBLBC__Return_URL__c)}', true);
+        }
+        else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)
+        {
+            sforce.one.back(true);
+        } else
+            window.history.go(-3);
+    }
+</script>
+</apex:page>

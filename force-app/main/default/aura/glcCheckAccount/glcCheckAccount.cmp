@@ -1,0 +1,55 @@
+<aura:component description="glcCheckAccount" extends="c:glcDealerFlowAbstract">
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <div class="slds-text-heading_medium slds-text-align_center">
+        An Account with similar details already exists. Please verify the information below.
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+        <div class="tableDiv">
+            <h1 class="slds-text-heading_small slds-p-left_medium">Matched Accounts</h1>
+            <table class="slds-table slds-table_bordered slds-table_fixed-layout slds-p-horizontal_small" role="grid">
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th class="slds-cell-shrink" style="width:0.8rem" scope="col">
+                        <!-- No title only action , for selection checkbox header -->
+                    </th>
+                    <th class="slds-cell-shrink" scope="col">
+                        <div class="slds-truncate slds-p-left_medium"  title="Name">Name</div>
+                    </th>
+                    <th class="slds-cell-shrink" scope="col">
+                        <div class="slds-truncate slds-p-left_medium" title="City">City</div>
+                    </th>
+                    <th class="slds-cell-shrink" scope="col">
+                        <div class="slds-truncate" title="License Number">License Number</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterates the collection of records stored in the data attribute-->
+                <aura:iteration items="{!v.params.matchingAccounts}" var="row">
+                    <tr class="slds-hint-parent">
+                        <td data-label="" scope="row" class="hideLabel">
+                            <!-- checkbox selection invokes the onCheckboxChange controller method-->
+                            <lightning:input aura:id="rowSelectionCheckboxId" class="hideLabel" type="radio" label="{!row.Id}" onchange="{!c.onCheckboxChange}"/>
+                        </td>
+                        <td data-label="Name"  scope="row" class="slds-cell-wrap">
+                            <div class="slds-line-clamp" title="{!row.Name}">{!row.Name}</div>
+                        </td>
+                        <td data-label="City"  scope="row">
+                            <div class="slds-truncate" title="{!row.BillingCity}">{!row.BillingCity}</div>
+                        </td>
+                        <td data-label="License Number"  scope="row">
+                            <div class="slds-truncate" title="{!row.Drivers_License_Number__c}">{!row.Drivers_License_Number__c}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div align="center" class="buttonWrapper slds-grid slds-wrap">
+        <lightning:button variant="Neutral" label="Use Selected" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.useSelected}"/>
+        <lightning:button variant="brand" label="Create New" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.createNew}"/>
+    </div>
+</aura:component>

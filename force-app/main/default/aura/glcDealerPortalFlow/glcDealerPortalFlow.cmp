@@ -1,0 +1,38 @@
+<aura:component implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="{!v.params.stage + ' ' + v.params.stageName + ' ' + v.params.step}">
+        <lightning:notificationsLibrary aura:id="notifLib"/>
+
+        <aura:if isTrue="{!v.params.showProgressBar}">
+            <lightning:progressBar value="{!v.params.progressPercent}" size="large"/>
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.stage == 'start'}">
+            <c:glcApplicantAuthorization params="{!v.params}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.params.stage == 'legalInfo'}">
+            <c:glcLegalApplicantInfo params="{!v.params}"/>
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.stage == 'consent'}">
+            <c:glcConsentOfApplicant params="{!v.params}"/>
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.stage == 'applicantInfo'}">
+            <c:glcCaptureApplicantInfo params="{!v.params}" acc="{!v.params.acc}" step="{!v.params.step}"/>
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.stage == 'assetInfo'}">
+            <c:glcCaptureAssetInfo params="{!v.params}"/>
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.stage == 'dealStructure'}">
+            <c:glcCaptureDealStructure params="{!v.params}"/>
+        </aura:if>
+
+        <aura:if isTrue="{!v.params.showProgressBar == 'false'}">
+            <lightning:button variant="brand" label="Accept Terms" onclick="{!c.onNext}" class="slds-button_stretch"/>
+        </aura:if>
+    </div>
+</aura:component>

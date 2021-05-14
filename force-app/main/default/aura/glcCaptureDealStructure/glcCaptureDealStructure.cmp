@@ -1,0 +1,19 @@
+<aura:component description="glcCaptureDealStructure" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <aura:if isTrue="{!v.params.stageName == 'dealerFees'}">
+        <c:glcDealerFees params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'dealParameters'}">
+        <c:glcDealParameters params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'recommendedProduct'}">
+        <c:glcDealRecomendedProduct params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'reviewDeal'}">
+        <c:glcDealReview params="{!v.params}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.stageName == 'scorecardResult'}">
+        <c:glcScorecardResult params="{!v.params}"/>
+    </aura:if>
+</aura:component>

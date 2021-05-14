@@ -1,0 +1,12 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="navComplete" type="Boolean" default="false"/>
+    <aura:handler name="change" value="{!v.navComplete}" action="{!c.handleNavComplete}"/>
+    
+    <div class="slds-m-top_medium slds-m-bottom_large">
+        <div class="slds-p-around_medium container lgc-bg">
+        	<lightning:buttonMenu class="menuIcon" aura:id="nav-button-menu" iconName="utility:rows" variant="container" alternativeText="Menu" title="Menu" menuAlignment="auto">
+            	<c:verticalNav navComplete="{!v.navComplete}"></c:verticalNav>
+            </lightning:buttonMenu>
+        </div>
+    </div>
+</aura:component>

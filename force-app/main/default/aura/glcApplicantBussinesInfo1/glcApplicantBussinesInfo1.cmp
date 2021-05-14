@@ -1,0 +1,17 @@
+<aura:component description="glcApplicantBussinesInfo1" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <lightning:input type="text" label="Doing Business As (DBA):" value="{!v.params.dba}"/>
+    <lightning:select aura:id="applicantTypeSel" label="State Of Incorporation" value="{!v.params.stateOfIncorporation}">
+        <aura:iteration items="{!v.localParams.statesOfIncorporation}" var="state" indexVar="key">
+            <option value="{!state.value}" selected="{!state.value == v.params.stateOfIncorporation}">{!state.value}</option>
+        </aura:iteration>
+    </lightning:select>
+    <lightning:input type="text" label="TIN/EIN::" value="{!v.params.EIN__c}" pattern="[0-9]{2}-[0-9]{7}" messageWhenPatternMismatch="TIN/EIN must be entered as XX-XXXXXXX"/>
+    <lightning:input type="number" label="Years in Business:" step="1" value="{!v.params.yearsInBusiness}"/>
+    <lightning:input type="number" label="Total # Partners" step="1" value="{!v.params.numOfPartners}"/>
+    <span class="helperText" >Number of partners with at least 20% ownership</span>
+</aura:component>

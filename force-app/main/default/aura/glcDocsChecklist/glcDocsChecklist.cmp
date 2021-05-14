@@ -1,0 +1,35 @@
+<aura:component description="glcDocsChecklist" extends="c:glcDealerFlowAbstract">
+
+     <aura:attribute name="isProvidedCheck" type="Boolean" default="false" />
+
+     <aura:registerEvent name="selectStageEvent" type="c:gleDocsChecklistSelect"/>
+
+     <div class="slds-align_absolute-center"><h1>Docs Checklist</h1></div><br/>
+     <div class="slds-text-align_center">These items are needed to generate Docs.</div><br/>
+
+     <aura:iteration items="{!v.params.stages}" var="stage">
+         <div class="slds-grid slds-p-vertical_small slds-border_bottom crs-checklist-button"
+                  data-stage="{!stage.apiName}"
+                  onclick="{!c.onStepClick}">
+
+             <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+                 <lightning:icon
+                         iconName="utility:success"
+                         size="x-small"
+                         variant="{! stage.completed ? 'success' : ''}"/>
+             </div>
+             <div class="slds-col slds-size_4-of-6 slds-text-align_left ">
+                 {!stage.name}
+             </div>
+             <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+                 <lightning:icon iconName="utility:chevronright" size="x-small" title="x-small size" />
+             </div>
+         </div>
+     </aura:iteration><br/>
+
+     <div class="slds-grid slds-text-title_bold">
+         <lightning:input type="checkbox" name="provided" checked="{!v.isProvidedCheck}" onchange="{!c.onProvidedCheck}"/>
+         <span class="slds-text-align_left">I have provided everything that is available at this time</span>
+     </div>
+
+</aura:component>

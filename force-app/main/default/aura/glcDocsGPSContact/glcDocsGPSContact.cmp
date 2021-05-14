@@ -1,0 +1,72 @@
+<aura:component description="glcDocsGPSContact" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="isShowPreview" type="Boolean" default="false"/>
+    <aura:attribute name="isShowNext" type="Boolean" default="true"/>
+    <aura:attribute name="index" type="Integer" default="0"/>
+    <aura:attribute name="currentAsset" type="Object" />
+    <aura:attribute name="save" type="Aura.action"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <div class="slds-align_absolute-center"><h1>GPS Contact &amp; Install Location</h1></div><br/>
+
+    <!--Hide block if info same for all assets    -->
+    <aura:if isTrue="{! not(v.params.isGPSApplyForAllAssets)}">
+        <div class="slds-text-align_right">
+            Asset {!v.index+1} of {!v.params.assets.length}<br/>
+            Vin: {!v.currentAsset.VIN__c}
+        </div>
+    </aura:if>
+
+    <lightning:input type="text" label="GPS Contact:" value="{!v.currentAsset.GPS_Contact__c}" class="slds-text-align_left"/><br/>
+    <lightning:input type="tel" label="GPS Contact Phone:" value="{!v.currentAsset.GPS_Contact_Phone_Number__c}" class="slds-text-align_left"/><br/>
+    <lightning:textarea label="GPS Install Location:" value="{!v.currentAsset.GPS_Install_Location__c}" class="slds-text-align_left"/><br/>
+    <lightning:input type="tel" label="GPS Serial Number:" value="{!v.currentAsset.GPS_Serial_Number__c}" class="slds-text-align_left"/><br/>
+
+    <!--Show is assets more than 1    -->
+    <aura:if isTrue="{!v.params.assets.length > 1}">
+        <div class="slds-grid slds-text-title_bold">
+            <lightning:input type="checkbox"
+                             checked="{!v.params.isGPSApplyForAllAssets}"
+                             disabled="{!v.params.isGPSAlreadyCompleted}"
+                             onchange="{!c.onInfoSameForAllAssets}">
+            </lightning:input>
+            <span class="slds-text-align_left">This info is the same for all assets on this deal.</span>
+        </div><br/>
+    </aura:if>
+
+    <div class="slds-grid slds-text-title_bold">
+        <lightning:input type="checkbox"
+             checked="{!v.params.isGPSAlreadyCompleted}"
+             disabled="{!v.params.isGPSApplyForAllAssets}">
+        </lightning:input>
+        <span class="slds-text-align_left">Already Completed / Not Needed</span>
+    </div><br/>
+
+    <div class="slds-grid">
+        <!--Show save if one of attributes checked   -->
+        <aura:if isTrue="{! or(v.params.isGPSApplyForAllAssets, v.params.isGPSAlreadyCompleted)}">
+            <!--Override save - call parent method        -->
+            <lightning:button variant="brand" label="Save" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onSaveOverride}" />
+
+            <!--Show buttons based on an index of assets             -->
+            <aura:set attribute="else">
+                <!--Preview        -->
+                <aura:if isTrue="{! not(v.index == 0)}">
+                    <lightning:button variant="neutral" label="Preview Asset" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onPreview}"/>
+                </aura:if>
+
+                <!--Next        -->
+                <aura:if isTrue="{! not(v.index+1 == v.params.assets.length) }">
+                    <lightning:button variant="brand" label="Next Asset" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onNext}" />
+                </aura:if>
+
+                <!--Override save - call parent method        -->
+                <aura:if isTrue="{! v.index+1 == v.params.assets.length }">
+                    <lightning:button variant="brand" label="Save" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onSaveOverride}" />
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </div>
+
+</aura:component>

@@ -1,0 +1,134 @@
+<aura:component description="glcDealReview" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <aura:attribute name="showLossReason" type="Boolean" default="false"/>
+    <aura:attribute name="showComments" type="Boolean" default="false"/>
+    <aura:attribute name="showSyndication" type="Boolean" default="false"/>
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+    <aura:attribute name="oppId" type="string"/>
+    
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-align_absolute-center"><h1>Review This Deal</h1></div>
+
+    <div class="slds-border_bottom">
+        <lightning:button label="Consent" class="slds-button_stretch slds-m-left_x-small" variant="base" iconName="utility:check" onclick="{!c.goToConsent}"/>
+    </div>
+    <div class="slds-border_bottom">
+        <aura:if isTrue="{!v.params.stage=='applicantInfo'}">
+            <lightning:button label="Applicant" class="slds-button_stretch slds-m-left_x-small" variant="base" onclick="{!c.goToApplicantInfo}"/>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.params.stage=='assetInfo' ? true : (v.params.stage=='dealStructure'? true : false)}">
+                    <lightning:button label="Applicant" class="slds-button_stretch slds-m-left_x-small" variant="base" iconName="utility:check" onclick="{!c.goToApplicantInfo}"/>
+                    <aura:set attribute="else">
+                        <lightning:button label="Applicant" class="slds-button_stretch slds-m-left_x-small" variant="base" disabled="true"/>
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </div>
+    <div class="slds-border_bottom">
+        <aura:if isTrue="{!v.params.stage=='assetInfo'}">
+            <lightning:button label="{!'Assets (' + (v.params.assets.length? v.params.assets.length: 0) + ')'}" class="slds-button_stretch slds-m-left_x-small" variant="base" onclick="{!c.goToAssets}"/>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.params.stage=='dealStructure'}">
+                    <lightning:button label="{!'Assets (' + (v.params.assets.length? v.params.assets.length: 0) + ')'}" class="slds-button_stretch slds-m-left_x-small" variant="base" iconName="{!v.params.assets.length? 'utility:check' : ''}" onclick="{!c.goToAssets}"/>
+                    <aura:set attribute="else">
+                        <lightning:button label="{!'Assets (' + (v.params.assets.length? v.params.assets.length: 0) + ')'}" class="slds-button_stretch slds-m-left_x-small" variant="base" disabled="true"/>
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </div>
+    <div class="slds-border_bottom">
+        <aura:if isTrue="{!v.params.stage != 'dealStructure'}">
+            <lightning:button label="Deal Structure" class="slds-button_stretch slds-m-left_x-small" variant="base" disabled="true"/>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.v.params.onReviewPage == true}">
+                    <lightning:button label="Deal Structure" class="slds-button_stretch slds-m-left_x-small" variant="base" iconName="utility:check" onclick="{!c.goToDealStructure}"/>
+                    <aura:set attribute="else">
+                        <lightning:button label="Deal Structure" class="slds-button_stretch slds-m-left_x-small" variant="base" onclick="{!c.goToDealStructure}"/>
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </div>
+
+    <lightning:button variant="brand" label="Request Final Credit Approval" class="navigateButton slds-button_stretch" onclick="{!c.show_close_Comments}"/>
+    <lightning:button variant="Neutral" label="Syndication" class="navigateButton slds-button_stretch slds-col" onclick="{!c.show_Syndication}"/>
+    <lightning:button variant="Neutral" label="Field Decline" class="navigateButton slds-button_stretch slds-col" onclick="{!c.show_close_LossReason}"/>
+    <lightning:button variant="neutral" label="Save &amp; Finish Later" class="navigateButton slds-button_stretch" onclick="{!c.onSaveAndFinnish}"/>
+
+    <aura:if isTrue="{!v.showLossReason}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Field Decline: Select Loss Reason</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:select label="" value="{!v.params.lossReason}">
+                        <aura:iteration items="{!v.localParams.lossReasons}" var="lossReason" indexVar="key">
+                            <option value="{!lossReason.key}" label="{!lossReason.value}"/>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand" label="Save" class="slds-button_stretch" onclick="{!c.requestClosedLost}"/>
+                    <lightning:button variant="neutral" label="Cancel" class="slds-button_stretch" onclick="{!c.show_close_LossReason}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.showComments}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Request Final Credit Approval Comments</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:inputRichText value="{!v.params.requestFinalCreditApprovalComments}"/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand" label="Save" class="slds-button_stretch" onclick="{!c.requestApproval}"/>
+                    <lightning:button variant="neutral" label="Cancel" class="slds-button_stretch" onclick="{!c.show_close_Comments}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.showSyndication}">
+       
+            <!--section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Syndication Selection</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">-->
+                    
+                    <c:multipleLender showSyndication="{!v.showSyndication}" onsyndchange="{!c.show_Syndication}" selectedOppId="{!v.oppId}"></c:multipleLender>
+                    
+                    <!--lightning:select aura:id="lendername" label="Lender's Name" value="{!v.params.lenderNames}">
+                        <aura:iteration items="{!v.localParams.lenders}" var="lender">
+                            <option value="{!lender.key}" selectected= "{!lender.key == v.params.lenderNames}" label= "{!lender.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+
+                    <lightning:select aura:id="submissionResult" label="Submission Result" value="{!v.params.subResults}">
+                        <aura:iteration items="{!v.localParams.results}" var="result">
+                            <option value="{!result.key}" selectected= "{!result.key == v.params.subResults}" label= "{!result.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+                    <lightning:inputRichText value="{!v.params.syndicateComments}" placeholder="Notes ,if any for Syndication"/>-->
+                <!--/div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand" label="Save" class="slds-button_stretch" onclick="{!c.saveSyndicationValues}"/>
+                    <lightning:button variant="neutral" label="Cancel" class="slds-button_stretch" onclick="{!c.show_Syndication}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>-->
+    </aura:if>
+
+</aura:component>

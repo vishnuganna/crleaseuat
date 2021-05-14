@@ -1,0 +1,15 @@
+<aura:component description="glcDealerFlowAbstract" extensible="true" abstract="true" implements="force:hasRecordId,lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" controller="gccDealerPortalFlowController">
+    <aura:attribute name="params" access="global" type="Map" default="{applicantType: 'Individual', legalStructure: 'Corporation', showButtons: 'true', showPrevButton: 'false', showSAFLButton: 'false', progressPercent: 0, stageName: 'selectType', index: 0, stage: '', step : 'scan', showProgressBar : 'true', Corporate_Credit_Only__c : 'false'}"/>
+    <aura:attribute name="isShowAbstractSpinner" type="Boolean" default="false"/>
+
+    <ltng:require styles="{!$Resource.DealerFlowStyle}"/>
+
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <aura:if isTrue="{! v.isShowAbstractSpinner }">
+        <lightning:spinner aura:id="AbstractSpinner" alternativeText="Loading..."/>
+    </aura:if>
+    {!v.body}
+</aura:component>

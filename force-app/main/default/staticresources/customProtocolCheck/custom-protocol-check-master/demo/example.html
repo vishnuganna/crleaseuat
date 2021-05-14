@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Custom Protocol Check</title>
+  </head>
+
+  <body>
+    <h4>
+      Click one of the below links. If custom protocol is not supported then it
+      should give message "This protocol is not supported." otherwise it should
+      open default app associated with that custom protocol.
+    </h4>
+
+    <a id="aNonExistCustomProtocol" result="" href="blahblah://randomstuff"
+      >Custom protocol which does not exist</a
+    ><br />
+    <a id="aExistingProtocol" result="" href="mailto:abc@def.com"
+      >Existing custom protocol</a
+    >
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="custom-protocol-check.min.js"></script>
+    <script src="example.js"></script>
+  </body>
+</html>

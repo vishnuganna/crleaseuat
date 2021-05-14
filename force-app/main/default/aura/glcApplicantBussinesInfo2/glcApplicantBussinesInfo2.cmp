@@ -1,0 +1,14 @@
+<aura:component description="glcApplicantBussinesInfo2" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:input type="text" label="Business Address:" value="{!v.params.businessAddress}"/>
+    <lightning:input type="text" label="City" value="{!v.params.city}"/>
+    <lightning:select aura:id="applicantTypeSel" label="State" value="{!v.params.state}">
+        <aura:iteration items="{!v.localParams.states}" var="state" indexVar="key">
+            <option value="{!state.value}" selected="{!state.value == v.params.state}" >{!state.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+</aura:component>

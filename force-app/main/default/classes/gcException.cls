@@ -1,0 +1,1 @@
+global class gcException extends Exception{}

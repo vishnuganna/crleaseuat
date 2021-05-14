@@ -1,0 +1,139 @@
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            Please enter the following info for each business owner
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <div class="slds-float_right">
+                <lightning-icon  icon-name="action:new"
+                alternative-text="Add Owner" size="small" title="Add Owner"  onclick={addRow}>
+                </lightning-icon>
+                <span class="peddingLeftActionText">Add Owner</span> 
+
+            </div>
+           
+
+        </div>
+            
+    </div>
+    <hr/>
+    <template for:each={ownershipList} for:item="ownership" for:index="indx">
+        <div  key={ownership.key} id={ownership.key}>      
+            <div   class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input data-id={indx} label="Business Owner Name" required value={ownership.Name} onchange={handleNameChange}></lightning-input>       
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input data-id={indx} type="number"   required label="% Ownership" value={ownership.Ownership__c} onchange={handleAccountNumberChange}></lightning-input>                        
+                                
+                                
+                </div>
+                           
+            </div>
+            <div class="slds-grid slds-gutters ">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-input data-id={indx} type="date" label="Date of Birth" required value={ownership.Date_of_Birth__c} onchange={handleDateBirthChange}></lightning-input>
+                    
+                   
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-input data-id={indx} type="text"  label="SSN" required value={ownership.SSN__c} onchange={handleSSNChange}></lightning-input>
+                    
+                   
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                    <lightning-input data-id={indx} type="text"    required label="Home Address" onchange={handleHomeAddressChange} value={ownership.Home_Address__c} ></lightning-input>
+                    
+                </div>
+                
+            </div>
+            <div class="slds-grid slds-gutters ">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input data-id={indx} type="text" max-length=100 required label="City" value={ownership.City__c}   onchange={handleCityChange}></lightning-input> 
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_3-of-12">
+                    <c-picklist
+                    data-id={indx}
+                    object-api-name="Ownership__c" 
+                    record-type-id="01204000000GsmLAAS" 
+                    label="State"  
+                    id={indx}
+                    pick-listfield-api-name="State__c"
+                    onpicklistchange={handleStateChange}>
+                   </c-picklist>
+                   
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-large-size_3-of-12">
+                    <lightning-input data-id={indx} value={ownership.Zip__c} type="text" max-length=100 required label="Zip"   onchange={handleZipChange}></lightning-input>
+                   
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters ">
+                <div class="slds-col slds-size_1-of-2">
+                    <c-picklist
+                    id={indx}
+                    object-api-name="Ownership__c" 
+                    record-type-id="01204000000GsmLAAS" 
+                    label="Citizenship Status"  
+                    data-id={indx}
+                     
+                    pick-listfield-api-name="Citizenship_Status__c"
+                    onpicklistchange={handleCitizenshipStatusChange}>
+                   </c-picklist>
+                    
+                   
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                   
+                   <c-dependent-picklist
+                        unique-key={indx}
+                        object-api-name="Ownership__c"
+                        record-type-id="01204000000GsmLAAS" 
+                        pick-listfield-api-name="Country__c"
+                        label="Country"  
+                        selected-value={ownership.Country__c}  
+                        controlling-field-value={ownership.Citizenship_Status__c}
+                        controlling-field-api="Citizenship_Status__c"
+                        onpicklistchange={handleCountryCitizenshipChange}>
+                    </c-dependent-picklist>
+                
+                    
+                </div>
+
+                
+            </div>
+            
+            <div   class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="slds-float_right">
+                        <lightning-icon icon-name="action:delete"  data-id={indx}       
+                        alternative-text="Delete"     
+                        size="small"
+                        onclick={removeRow}  >
+                        </lightning-icon>
+                        <span class="peddingLeftActionText">Remove Owner</span>   
+
+                    </div>
+                   
+                </div>
+
+            </div>
+            <hr>
+            
+                   
+        </div>
+        
+      
+    </template>
+            
+    <div class="slds-m-vertical_medium slds-align_absolute-center">
+        <lightning-button label="Back" class="slds-m-left_x-small" onclick={step4Prev} ></lightning-button>
+        <lightning-button variant="brand" class="slds-m-left_x-small" label="Continue" onclick={step5Next} ></lightning-button>
+       
+    </div> 
+
+    
+
+</template>

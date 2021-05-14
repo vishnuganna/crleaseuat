@@ -1,0 +1,13 @@
+<aura:component description="glcDocsConfirmation" extends="c:glcDealerFlowAbstract">
+
+    <div class="slds-m-vertical_large">
+        <div class="slds-align_absolute-center"><h1>Docs Request Submitted</h1></div>
+        <div class="slds-align_absolute-center">
+            <lightning:icon iconName="utility:success" variant="Success" />
+        </div>
+    </div>
+
+    <lightning:button variant="neutral" label="Home" class="slds-button_stretch slds-col half_width_button" onclick="{!c.redirectToHome}"/>
+    <lightning:button variant="neutral" label="My Deals" class="slds-button_stretch slds-col half_width_button" onclick="{!c.redirectToDeals}"/>
+
+</aura:component>

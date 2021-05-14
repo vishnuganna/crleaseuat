@@ -1,0 +1,55 @@
+<aura:component description="glcCaptureAssetInfo" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <aura:if isTrue="{!v.params.stageName == 'assetCount'}">
+        <c:glcAssetCount params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'assetScan'}">
+        <c:glcScanAssetBarcode params="{!v.params}" fromDealerFlow="true"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'assetInfo'}">
+        <c:glcAssetInfo params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'documentsPhotos'}">
+        <c:gcDriversLicenseTakePhoto params="{!v.params}" fileName="Dealer Documents"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'TruckPhotos'}">
+        <c:gcDriversLicenseTakePhoto params="{!v.params}" fileName="Truck Photo"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'options1'}">
+        <c:glcAssetOptions1 params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'options2'}">
+        <c:glcAssetOptions2 params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.stageName == 'review'}">
+        <c:glcReviewAssets params="{!v.params}"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.showContinueButton}">
+        <lightning:button variant="brand" label="Continue" class="navigateButton slds-button_stretch" onclick="{!c.onNext}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.params.showPrevNextButtons}">
+        <div align="center" class="buttonWrapper slds-grid slds-wrap">
+            <lightning:button variant="neutral" label="&lt; Previous" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onPrev}"/>
+            <lightning:button variant="brand" label="Next &gt;" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onNext}"/>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.params.showCancelSaveButtons}">
+        <div align="center" class="buttonWrapper slds-grid slds-wrap">
+            <lightning:button variant="neutral" label="Cancel" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onPrev}"/>
+            <lightning:button variant="brand" label="Save" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onNext}"/>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.params.showSaFLButton}">
+        <lightning:button variant="neutral" label="Save &amp; Finish Later" class="navigateButton slds-button_stretch" onclick="{!c.onSaveAndFinnish}"/>
+    </aura:if>
+</aura:component>

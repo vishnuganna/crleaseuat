@@ -1,0 +1,39 @@
+<aura:component description="glcDocsUploadFiles" controller="gcDocsRequestController" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="files" type="ContentDocument[]" default="[]"/>
+    <aura:attribute name="recordId" type="String" default="" required="true"/>
+    <aura:attribute name="title" type="String" default="Title" required="true"/>
+    <aura:attribute name="isVinVerification" type="Boolean" default="false"/>
+    <aura:attribute name="isMultiloading" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <aura:registerEvent name="stageCompleted" type="c:gleStageCompleted"/>
+
+    <div class="slds-align_absolute-center"><h1>{!v.title}</h1></div>
+    <lightning:card title="">
+        <div>
+            <lightning:fileUpload label="{!'Upload '+v.title}"
+                                  class="slds-align_absolute-center"
+                                  title="{!v.title}"
+                                  multiple="{!v.isMultiloading}"
+                                  accept=".pdf, .jpg, .png"
+                                  recordId="{!v.recordId}"
+                                  onuploadfinished="{!c.onUploadFinished}" />
+        </div><br/>
+
+        <!--VIN VERIFICATION        -->
+        <aura:if isTrue="{!v.params.stage == 'assetTitle'}">
+            <div class="slds-text-align_center">
+                If Asset Title is not available, please provide VIN Verification number or photo of VIN
+            </div>
+            <div class="slds-grid slds-m-vertical_small">
+                <lightning:input type="checkbox" name="vin_verification" checked="{!v.isVinVerification}" onchange="{!c.isVinVerificationChange}"/>
+                <span class="slds-text-align_left">VIN verification</span>
+            </div>
+            <lightning:input type="text" value="{!v.params.titlePage.vinVerification}" disabled="{!v.isVinVerification ? false : true}"/>
+        </aura:if>
+
+
+    </lightning:card>
+</aura:component>

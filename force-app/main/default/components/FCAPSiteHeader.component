@@ -1,0 +1,15 @@
+<apex:component layout="none">
+    <apex:attribute name="carrierName" type="String" description="Carrier Name" required="true" />
+    <apex:attribute name="cssClassName" type="String" description="CSS Class for Jumbotron" required="true" />
+    <div>
+        <div class="jumbotron {! cssClassName}">
+            <div>
+                <h2 class="text-right"><strong>{! carrierName } Contract Drivers</strong></h2>
+                 <p class="text-right">Lease-To-Own Program</p>
+                <div class="float-left">
+                    <img class="logo" src="https://www.crlease.com/themes/custom/crossroads_theme/assets/img/logo-dark.svg" alt="Crossroads Equipment Lease &amp; Finance" />
+                </div>
+            </div>
+         </div>
+    </div>
+</apex:component>

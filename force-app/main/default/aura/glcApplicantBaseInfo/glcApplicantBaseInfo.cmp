@@ -1,0 +1,22 @@
+<aura:component description="glcApplicantBaseInfo" extends="c:glcDealerFlowAbstract">
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <aura:if isTrue="{!v.params.applicantType == 'Individual'}">
+        <aura:if isTrue="{!v.params.coApplicant == true}">
+            <div class="slds-align_absolute-center"><h1>Co-Applicant</h1></div>
+            <aura:set attribute="else">
+                <div class="slds-align_absolute-center"><h1>Primary Applicant</h1></div>
+            </aura:set>
+        </aura:if>
+        <lightning:input type="email" label="Email:" value="{!v.params.mail}"/><br/>
+        <lightning:input type="tel" label="Phone:" value="{!v.params.phone}" /><br/>
+        <lightning:input type="text" label="SSN:" placeholder="XXX-XX-XXXX" maxlength="11" value="{!v.params.ssn}" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" messageWhenPatternMismatch="Valid SSN format must be: XXX-XX-XXXX"/><br/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.params.applicantType == 'Company'}">
+        <lightning:input type="text" label="Business Name:" value="{!v.params.businessName}"/><br/>
+        <lightning:input type="text" label="Zip" value="{!v.params.businessZip}" pattern="[0-9]{5}|[0-9]{5}-[0-9]{4}" messageWhenPatternMismatch="Valid ZIP Code format must be XXXXX or XXXXX-XXXX"/><br/>
+        <lightning:input type="tel"  label="Phone:" value="{!v.params.businessPhone}" /><br/>
+    </aura:if>
+</aura:component>

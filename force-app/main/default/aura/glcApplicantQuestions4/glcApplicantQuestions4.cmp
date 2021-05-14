@@ -1,0 +1,24 @@
+<aura:component description="glcApplicantQuestions4" extends="c:glcDealerFlowAbstract">
+
+    <div class="slds-align_absolute-center">Is the Applicant purchasing replacement equipment?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.Replacement_Equipment__c}" messageToggleActive="Yes" messageToggleInactive="No"/>
+    </div><br/>
+
+    <div class="slds-align_absolute-center">Will the equipment be registered in CA? (CA IRP OK)</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.Title_IRP_base_plated_CA__c}" messageToggleActive="Yes" messageToggleInactive="No"/>
+    </div><br/>
+
+
+    <div class="slds-align_absolute-center">Does the Applicant intend to Sublease this equipment?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.Sublease__c}" messageToggleActive="Yes" messageToggleInactive="No"/>
+    </div><br/>
+
+    <div class="slds-align_absolute-center">Does the Applicant intend to haul HAZMAT with this equipment?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.HAZMAT__c}" messageToggleActive="Yes" messageToggleInactive="No"/>
+    </div><br/>
+
+</aura:component>

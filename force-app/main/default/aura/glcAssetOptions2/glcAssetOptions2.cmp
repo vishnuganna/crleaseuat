@@ -1,0 +1,46 @@
+<aura:component description="glcAssetOptions2" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.params.assetCount > 1}">
+        <div class="slds-align_absolute-center"><h1>Select Asset Options ({!v.params.assets.length==null? 1 : v.params.assets.length+1}/{!v.params.assetCount})</h1></div>
+        <aura:set attribute="else">
+            <div class="slds-align_absolute-center"><h1>Select Asset Options</h1></div>
+        </aura:set>
+    </aura:if>
+
+    <lightning:select aura:id="bodyTypeSel" label="Body Type" value="{!v.params.Body_Type__c}" onchange="{!c.onBodyTypeChange}">
+        <aura:iteration items="{!v.localParams.Body_Types}" var="opt" indexVar="key">
+                <option value="{!opt.key}" selected="{!opt.key == v.params.Body_Type__c}">{!opt.value}</option>
+        </aura:iteration>
+    </lightning:select>
+    <aura:if isTrue="{! and(v.params.Body_Type__c, notequals(v.params.Body_Type__c, 'None'))}">
+        <lightning:input label="Upfit Serial No:" value="{!v.params.UpfitSerialNum}"/>
+    </aura:if><br/>
+
+    <lightning:select aura:id="vehicleFairingsSel" label="Fairings" value="{!v.params.vehicleFairingsSelected}" >
+        <option value="">None</option>
+        <aura:iteration items="{!v.params.options[53].options}" var="opt" indexVar="key">
+                <aura:if isTrue="{!opt.optionNameContainsFairings}">
+                    <option value="{!opt.optionName}" selected="{!opt.optionName == v.params.vehicleFairingsSelected}">{!opt.optionName}</option>
+                </aura:if>
+            </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:select aura:id="apuSel" label="APU" value="{!v.params.apuSelected}" onchange="{!c.onApuChange}">
+        <option value="">None</option>
+        <aura:iteration items="{!v.params.options[67].options}" var="opt" indexVar="key">
+            <aura:if isTrue="{!opt.optionNameContainsAPU}">
+                <option value="{!opt.optionName}" selected="{!opt.optionName == v.params.apuSelected}">{!opt.optionName}</option>
+            </aura:if>
+        </aura:iteration>
+    </lightning:select>
+    <aura:if isTrue="{!v.params.apuSelected}">
+        <lightning:input label="APU Serial No:" value="{!v.params.APUSerialNum}"/>
+    </aura:if><br/>
+
+    <lightning:input type="toggle" label="New Tires" checked="{!v.params.isNewTyres}" messageToggleActive="Yes" messageToggleInactive="No"/><br/>
+
+</aura:component>

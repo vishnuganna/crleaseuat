@@ -1,0 +1,135 @@
+<aura:component extends="c:glcDealerFlowAbstract" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="contact" type="Contact"  default= "{'sObjectType' :'Contact','LastName':'','Email':''}" access="global"/>
+    <aura:attribute name="account" type="Account" default="{'sObjectType' : 'Account','Name' :'','Rating' : ' '}" access="global"/>
+    <aura:attribute name="accountId"  type="String"  access="global"/>
+    <aura:attribute name="contactId" type="String"  access="global"/>
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+ 	<aura:attribute name="showPaynetCompanies" type="Boolean" default="false"/>
+    <aura:attribute name="showExperianReport" type="Boolean" default="false"/>
+    <aura:attribute name="showCorporateReport" type="Boolean" default="false"/>
+    <aura:attribute name="showLexisNexis" type="Boolean" default="false"/>
+    <aura:attribute name="pageMessages"     type="String"/>  
+    <aura:attribute name="afields" type="String[]" default="['Applicant_Type__c','Name','EIN__c','Years_in_Business__c','Total_Number_of_partners__c']" />
+    <aura:attribute name="cfields" type="String[]" default="['FirstName','MiddleName','LastName','Birthdate','Driver_s_License__c','SSN__c','Phone','MailingAddress']" />
+    
+   
+    <!--div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center"!-->
+    <aura:if isTrue="{!v.showLexisNexis}">
+    <div class="slds-card grayCard" >
+        <div class="slds-card__body slds-card__body_inner">
+            <ul class="slds-list_dotted" >
+                <li>Identity <aura:if isTrue="{!v.params.LexisNexisInstantId.lexisNexisId > 0}"> Verified <aura:set attribute="else">not Verified</aura:set></aura:if> </li>
+                <li>Credit Score: {!v.params.LexisNexisInstantId.verificationIndex}</li>
+                <aura:if isTrue="{!v.params.LexisNexisInstantId.description != null}">
+                    <li>{!v.params.LexisNexisInstantId.description}</li>
+                </aura:if>
+            </ul>
+        </div>
+    </div>
+    </aura:if>    
+    
+    <br/><hr/><h1>Business Details</h1><hr/><br/>
+    <lightning:notificationsLibrary aura:id="anotifLib"/>
+    <lightning:recordForm objectApiName="Account" columns="4"  fields="{!v.afields}" onsuccess="{!c.ahandleSuccess}" />
+    
+    <br/><hr/><h1>Contact Details</h1><hr/><br/>
+    <lightning:notificationsLibrary aura:id="cnotifLib"/>
+    <lightning:recordForm  objectApiName="Contact" columns="4" fields="{!v.cfields}" onsuccess="{!c.chandleSuccess}">
+    </lightning:recordForm>   
+    
+    
+    <!--  <lightning:select aura:id="applicantType" label="Applicant Type" value="{!v.param.applicantType}" class="slds-col slds-size_1-of-2">
+        <option value="Individual">Individual</option>
+        <option value="Business">Business</option>
+    </lightning:select>
+    <br/>
+    <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="4" padding="around-small">
+                    <lightning:input label="Last Name" value="{!v.contact.LastName}"  class="slds-col slds-size_1-of-2"/>
+                </lightning:layoutItem>
+        <lightning:layoutItem size="4" padding="around-small">
+                    <lightning:input label="First Name" value="{!v.contact.FirstName}"  class="slds-col slds-size_1-of-2"/>
+        </lightning:layoutItem> 
+    
+    <lightning:layoutItem size="4" padding="around-small">
+            <lightning:input label="Middle Initial" value="{!v.contact.MiddleName}" class="slds-col slds-size_1-of-2"/>
+    </lightning:layoutItem>         
+    <lightning:layoutItem size="4" padding="around-small">
+                    <lightning:input label="Billing Street" value="{!v.contact.MailingStreet}" class="slds-col slds-size_1-of-2"/>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="4" padding="around-small">
+    <lightning:input label="Billing City" value="{!v.contact.MailingCity}" class="slds-col slds-size_1-of-2"/>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="4" padding="around-small">
+    <lightning:input label="Billing State" value="{!v.contact.MailingStateCode}" class="slds-col slds-size_1-of-2"/>
+    </lightning:layoutItem>
+        
+    <lightning:layoutItem size="4" padding="around-small">
+                    <lightning:input label="Billing Zip/Postal Code" value="{!v.contact.MailingPostalCode}" class="slds-col slds-size_1-of-2"/>
+    </lightning:layoutItem>
+   
+    <lightning:layoutItem size="4" padding="around-small">
+        <lightning:input type="date" label="BirthDate:" value="{!v.contact.Birthdate}"/><br/>
+    </lightning:layoutItem>
+        <lightning:layoutItem size="4" padding="around-small">
+        <lightning:input type="number" label="Driver Licence's No:" value="{!v.contact.Driver_s_License__c}"/><br/>
+    </lightning:layoutItem>
+        
+    <lightning:layoutItem size="4" padding="around-small">
+        <lightning:input type="text" label="SSN:" value="{!v.contact.SSN__c}" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" messageWhenPatternMismatch="Valid SSN format must be: XXX-XX-XXXX"/><br/>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="4" padding="around-small">
+        <lightning:input type="tel" label="Phone:" value="{!v.contact.Phone}"/><br/>
+    </lightning:layoutItem>
+    </lightning:layout>
+    <br/><hr/><h1>Business Details</h1><hr/><br/>
+     <lightning:layout multipleRows="true">
+         <lightning:layoutItem size="4" padding="around-small">
+    				<lightning:input type="text" label="Business Name:" value="{!v.account.businessName}"/><br/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="text" label="TIN/EIN::" value="{!v.account.EIN__c}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="number" label="Years in Business:" step="1" value="{!v.account.Years_in_Business__c}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="number" label="Total # Partners" step="1" value="{!v.account.numOfPartners}"/>
+         </lightning:layoutItem>
+    </lightning:layout>-->
+    <div align="center" class="buttonWrapper slds-grid slds-wrap">
+        <lightning:button variant="Brand" label="Experian" class="navigateButton slds-button_stretch slds-col " onclick="{!c.takeExperianReport}" />
+        <lightning:button variant="Brand" label="Paynet" class="navigateButton slds-button_stretch slds-col " onclick="{!c.takePaynetCompanies}"/>
+        <lightning:button variant="Brand" label="Lexis Nexis" class="navigateButton slds-button_stretch slds-col" onclick="{!c.takeLexisNexis}"/>
+        
+    </div>
+    
+    <aura:if isTrue="{!v.showPaynetCompanies}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Select Paynet Company</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-scrollable" id="modal-content-id-1">
+                    <lightning:select aura:id="paynetCompany" label="Paynet Company:" value="{!v.params.selectedPaynetCompanyId}" >
+                        <aura:iteration items="{!v.params.paynetCompanies}" var="company" indexVar="key">
+                            <option value="{!company.id}">{!company.name}</option>
+                        </aura:iteration>
+                    </lightning:select><br/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <div class="slds-grid slds-grid_vertical">
+                        <div class="slds-col">
+                            <lightning:button variant="neutral" label="Get report" class="slds-button_stretch" onclick="{!c.takePaynetReport}"/>
+                        </div>
+                        <div class="slds-col">
+                            <lightning:button variant="neutral" label="Close" class="slds-button_stretch" onclick="{!c.close_PaynetCompanies}"/>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+</aura:component>

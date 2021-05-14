@@ -1,0 +1,12 @@
+<aura:component description="glcScorecardResult" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <div class="slds-align_absolute-center"><h1>Scorecard Result</h1></div>
+
+    <div class="slds-card">
+        <lightning:button label="Automatic Approval" class="slds-button_stretch" variant="success"/>
+        <lightning:button label="Automatic Approval" class="slds-button_stretch" variant="neutral"/>
+        <lightning:button label="Automatic Approval" class="slds-button_stretch" variant="destructive"/>
+    </div>
+
+    <lightning:button variant="brand" label="Book Deal" class="navigateButton slds-button_stretch" onclick="{!c.onNext}"/>
+    <lightning:button variant="neutral" label="Syndicate" class="navigateButton slds-button_stretch" onclick="{!c.onPrev}"/>
+</aura:component>

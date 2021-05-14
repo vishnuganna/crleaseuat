@@ -1,0 +1,41 @@
+<aura:component description="glcAssetInfo" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.params.assetCount > 1}">
+        <div class="slds-align_absolute-center"><h1>Asset Information ({!v.params.assets.length==null? 1 : v.params.assets.length+1}/{!v.params.assetCount})</h1></div>
+        <aura:set attribute="else">
+            <div class="slds-align_absolute-center"><h1>Asset Information</h1></div>
+        </aura:set>
+    </aura:if>
+
+    <lightning:select aura:id="vehicleTypeSel" label="Vehicle Type:" value="{!v.params.vehicleType}" >
+        <aura:iteration items="{!v.localParams.vehicleTypes}" var="vehicleType" indexVar="key">
+            <option value="{!vehicleType.key}">{!vehicleType.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+    <lightning:input type="text" label="VIN:" value="{!v.params.vehicleVin}"/><br/>
+    <lightning:input type="text" label="Year:" value="{!v.params.vehicleYear}" pattern="[0-9]{4}"/><br/>
+    <lightning:select aura:id="vehicleMakeSel" label="Make:" value="{!v.params.vehicleMake}">
+        <aura:iteration items="{!v.localParams.vehicleMakes}" var="vehicleMake" indexVar="key">
+            <option value="{!vehicleMake.key}" selected="{!vehicleMake.key == v.params.vehicleMake}">{!vehicleMake.value}</option>
+        </aura:iteration>
+    </lightning:select><br/>
+    <lightning:input type="text" label="Model:" value="{!v.params.vehicleModel}"/><br/>
+
+    <lightning:select aura:id="configSel" label="Configuration:" value="{!v.params.configurationSelected}" onchange="{!c.onChangeConfig}">
+        <aura:iteration items="{!v.params.configurations}" var="config" indexVar="key">
+            <option value="{!config.configuration.configurationId}">
+                <aura:iteration items="{!config.specifications}" var="spec" indexVar="key1">
+                    <aura:if isTrue="{!(spec.specName == 'msrp'|| spec.specName == 'sleeper')}">
+                        {!spec.specNameFriendly}: <aura:if isTrue="{!spec.specUom == 'Dollars'}">$</aura:if>{!spec.specValue}&nbsp;
+                    </aura:if>
+                </aura:iteration>
+            </option>
+        </aura:iteration>
+    </lightning:select><br/>
+
+
+</aura:component>

@@ -1,0 +1,257 @@
+.THIS .comm-navigation{
+    background: none;
+}
+.THIS .FullHeader {
+    padding: 18px 0;
+    margin-left: 0;
+    margin-right: 0;
+    height: 100px !important;
+}
+.THIS .Menu{
+    margin-left: auto;
+}
+.THIS .Menu .slds-m-bottom_large, .THIS .Menu .slds-m-bottom--large {
+    margin-bottom: 0;
+}
+.THIS .Menu .slds-m-top_medium, .THIS .Menu .slds-m-top--medium {
+    margin-top: 0;
+}
+.THIS .slds-gutters .slds-col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.THIS svg.slds-button__icon.slds-button__icon_x-small.slds-m-left_xx-small {
+    display: none;
+}
+.THIS button.slds-button_icon-container-more {
+    padding: 0;
+    line-height: 1;
+    width: 36px;
+    margin-top: -3px;
+}
+.THIS button.slds-button_icon-container-more svg.slds-button__icon {
+    width: 30px;
+    height: 30px;
+    fill: #FFFFFF;
+}
+.THIS .cMenuButton .menuIcon {
+    background: transparent;
+    fill: none;
+    border: 0px solid transparent;
+}
+.THIS .cMenuButton .slds-dropdown_left {
+    /* left: -1em; */
+}
+
+.THIS .Profile {
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto
+}
+.THIS .Logo {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex: auto;
+    max-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/* Page */
+.THIS {
+	background: -webkit-linear-gradient(60deg, #1C7CE0, #001351) !important;
+    background: -o-linear-gradient(60deg, #1C7CE0, #001351) !important;
+    background: linear-gradient(150deg, #1C7CE0, #001351) !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 150px !important; /* Slightly more than whatever the height of the header turns out to be */
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100vh;
+}
+.THIS .slds-p-bottom_small, .THIS .slds-p-bottom--small {
+    padding-bottom: 0;
+}
+.THIS .slds-m-top_x-large .slds-m-top--x-large {
+	margin-top: 0;
+}
+/* Content Panel for 1-column layout */
+.THIS .siteforceContentArea .contentRegion.comm-layout-column:not(:empty) {
+	background-color: #F5F6F7;
+	margin: 0 auto;
+    border-radius: 24px 0 0 0; /* Round only the top left corner */
+    min-height: calc(100vh - 140px);
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+/* This is for the curved header – KEEP! */
+.THIS .siteforceContentArea .contentRegion.comm-layout-column:not(:empty):after {
+    background-image: url('https://www.crlease.com/sites/default/files/images/turnkey/content-corner.svg');
+    background-color: transparent;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 76px;
+    width: 24px;
+    height: 24px;
+}
+.THIS .siteforceContentArea .contentRegion.comm-layout-column:not(:empty) div.ui-widget {
+	margin: 1em auto;
+}
+.THIS .slds-theme_default, .THIS .slds-theme--default, .THIS .slds-card {
+    background-color: transparent;
+}
+
+/* Search */
+.THIS .forceSearchInputDesktop .contentWrapper.focused {
+    background-color: #FFFFFF;
+}
+
+/* User Menu */
+.THIS .selfServiceUserProfileMenu .selfServiceProfileMenuTrigger {
+    text-align: right;
+    padding: 1em;
+}
+.THIS .selfServiceUserProfileMenu .selfServiceProfileMenuTrigger .trigger-link .profileName,
+.THIS .selfServiceUserProfileMenu .selfServiceProfileMenuTrigger .trigger-link .triggerDownArrow {
+    display: none;
+}
+.THIS .uiMenuList--default.uiMenuList {
+    /* left: 0; */
+}
+
+/* Logo */
+.THIS .logo-sm {
+	display: block;
+	width: 120px;
+	margin: 0 auto;
+}
+.THIS .logo-lg {
+	display: block;
+    height: 60px;
+	margin: 0 auto;
+}
+@media screen and (max-width: 400px) {
+    .THIS .logo-lg {
+        height: 48px;
+    }
+}
+
+/* Titles */
+.THIS h1 h2 h3 h4 h5 h6 {
+	font-size: 1.25em;
+	color: #999999;
+	margin-bottom: 1em;
+}
+.THIS .consent h1 {
+    font-size: 1.25em !important;
+    color: #666666;
+    margin-bottom: 1em !important;
+}
+
+/* Buttons */
+.THIS .navigateButton {
+	margin: 15px auto !important;
+	padding: 0;
+}
+.THIS .slds-button.half_width_button:nth-of-type(2) {
+	margin-left: 0.5rem !important;
+}
+.THIS .slds-button.slds-button_neutral.slds-button_stretch {
+    padding: 5px 2px;
+}
+.THIS .slds-button:nth-of-type(3) {
+	margin-top: 0 !important;
+}
+.THIS .half_width_button {
+	width: 48% !important;
+}
+.THIS .slds-button_stretch {
+    margin: 1em 0;
+}
+.THIS .slds-button.slds-button_brand, .THIS .slds-button.slds-button--brand{
+	background: -webkit-linear-gradient(left, #1c7ce0 0%, #00baff 100%) #00baff !important;
+    background: -o-linear-gradient(left, #1c7ce0 0%, #00baff 100%) #00baff !important;
+    background: linear-gradient(to right, #1c7ce0 0%, #00baff 100%) #00baff !important;
+    border: 0px solid transparent !important;
+    border-width: 0px !important;
+}
+.THIS .slds-button.slds-button_brand:hover, .THIS .slds-button.slds-button--brand:hover {
+    background: -webkit-linear-gradient(left, #0c4291 0%, #1c7ce0 100%) #1c7ce0 !important;
+    background: -o-linear-gradient(left, #0c4291 0%, #1c7ce0 100%) #1c7ce0 !important;
+    background: linear-gradient(to right, #0c4291 0%, #1c7ce0 100%) #1c7ce0 !important;
+}
+
+/* Tile Menu */
+.THIS .comm-tile-menu__item-banner[community_navigation-tileMenuItemUnifiedLayout_tileMenuItemUnifiedLayout] {
+    background: -webkit-linear-gradient(left, #1c7ce0 0%, #00baff 100%) #00baff !important;
+    background: -o-linear-gradient(left, #1c7ce0 0%, #00baff 100%) #00baff !important;
+    background: linear-gradient(to right, #1c7ce0 0%, #00baff 100%) #00baff !important;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Give each tile its own color */
+.THIS community_navigation-tile-menu-item:nth-of-type(1) .comm-tile-menu__item-banner {
+    /* border-bottom: 3px solid #1b75bc; */
+}
+.THIS community_navigation-tile-menu-item:nth-of-type(2) .comm-tile-menu__item-banner {
+    /* border-bottom: 3px solid #5cb85c; */
+}
+.THIS community_navigation-tile-menu-item:nth-of-type(3) .comm-tile-menu__item-banner {
+    /* border-bottom: 3px solid #d9534f; */
+}
+.THIS community_navigation-tile-menu-item:nth-of-type(4) .comm-tile-menu__item-banner {
+    /* border-bottom: 3px solid #f0ad4e; */
+}
+@media screen and (max-width: 767px) {
+	.THIS .comm-tile-menu__item-tile[community_navigation-tileMenuItemUnifiedLayout_tileMenuItemUnifiedLayout] {
+        height: 120px;
+    }
+    .THIS .comm-tile-menu__item-title.slds-text-align_center {
+        font-size: 16px !important;
+    }
+    .THIS .comm-tile-menu__item.slds-p-around_small, .THIS .comm-tile-menu__item.slds-p-around--small {
+        padding: 0.5rem !important;
+    }
+}
+
+/* Icons */
+.THIS .slds-icon_large {
+	width: 2rem;
+	height: 2rem;
+}
+.THIS  .slds-icon--large {
+	width: 2rem;
+	height: 2rem;
+}
+.THIS .selfServiceProfileMenuTrigger .profileIcon {
+    height: 36px;
+    width: 36px;
+}
+
+/* Form Elements */
+.THIS .slds-form-element__label:empty {
+	display: none;
+}
+
+/* Dashboard and List Wrappers */
+.THIS .dashboardFrameWrapper.forceCommunityDashboard, .THIS .forceListViewManager {
+    height: calc(100vh - 140px) !important;
+}
+
+/* Opportunity Stages */
+.THIS .runtime_sales_pipelineboardPipelineViewColumnHeader .stageHeader {
+    background: #1c7ce0;
+    letter-spacing: 0;
+}
+
+/* Footer */
+.THIS .comm-content-footer {
+    background-color: #F5F6F7;
+    bottom: 0;
+    width: 100%;
+}

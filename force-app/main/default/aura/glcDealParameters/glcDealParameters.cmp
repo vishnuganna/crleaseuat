@@ -1,0 +1,59 @@
+<aura:component description="glcDealParameters" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-is-relative slds-grid_vertical-align-center">
+
+        <div class="slds-grid slds-gutters slds-wrap">
+            <lightning:input label="TRAC (Residual):" value="{!v.params.dealTRAC}" type="number" step="0.01" formatter="{!v.params.TRACTypec == 'Percent' ? 'percent-fixed' : 'currency'}" class="slds-col slds-size_1-of-2"/>
+            <lightning:select aura:id="tracTypeSel" label="TRAC Type:" value="{!v.params.TRACTypec}" class="slds-col slds-size_1-of-2">
+                <aura:iteration items="{!v.localParams.tracTypes}" var="tracType" indexVar="key">
+                    <option value="{!tracType.key}" selected="{!tracType.key == v.params.TRACTypec}" label="{!tracType.value}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div><br/>
+
+        <lightning:slider label="Rate(%) :" value="{!v.params.Interest_Rate_c}" max="31"  formatter="percent" min="7.54" step="0.01" class="slds-col slds-size_2-of-2"/>
+<!--        <lightning:input label="Rate:" value="{!v.params.dealRate}" type="number" formatter="percent" class="slds-col slds-size_1-of-2"/>-->
+        <lightning:input label="Blended COF:" value="{!v.params.dealBlendedCOF}" type="number" formatter="percent" class="slds-col slds-size_2-of-2" disabled="true"/>
+
+        <div class="slds-grid slds-gutters slds-wrap">
+            <lightning:input label="Dealer Fee:" value="{!v.params.dealerFee}" type="number" step="0.01" formatter="{!v.params.feeType == 'Percentage' ? 'percent-fixed' : 'currency'}" class="slds-col slds-size_1-of-2"/>
+            <lightning:select aura:id="feeTypeSel" label="Fee Type:" value="{!v.params.feeType}" class="slds-col slds-size_1-of-2">
+                <aura:iteration items="{!v.localParams.feeTypes}" var="feeType" indexVar="key">
+                    <option value="{!feeType.key}" label="{!feeType.value}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div><br/>
+
+        <div class="slds-align_absolute-center slds-m-top_small">Payment Timing</div><br/>
+        <div class="slds-align_absolute-center">
+            <lightning:input type="toggle" label="Payment Timing" onchange="{!c.onPaymentTimingChange}" messageToggleInactive="Advance" messageToggleActive="Arrears"/>
+        </div><br/>
+
+        <div class="slds-grid slds-gutters slds-wrap">
+            <lightning:input label="Proposed Start Date:" value="{!v.params.proposedStartDate}" type="date" class="slds-col slds-size_1-of-2"/>
+            <lightning:input label="First Pmt Due:" value="{!v.params.FirstPmtDueDate}" type="date" class="slds-col slds-size_1-of-2"/>
+        </div><br/>
+
+        <lightning:select aura:id="paymentStructureSel" label="Pmt Structure:" value="{!v.params.dealPaymentStructure}" class="slds-col slds-size_1-of-1">
+            <aura:iteration items="{!v.localParams.paymentStructures}" var="paymentStructure" indexVar="key">
+                <option value="{!paymentStructure.key}" selected="{!paymentStructure.key == v.params.dealPaymentStructure}" label="{!paymentStructure.value}"/>
+            </aura:iteration>
+        </lightning:select><br/>
+
+        <lightning:select aura:id="promoCode" label="Promo Code:" value="{!v.params.promoCode}" class="slds-col slds-size_2-of-2">
+            <aura:iteration items="{!v.localParams.promoCodes}" var="promoCode" indexVar="key">
+                <option value="{!promoCode.key}" label="{!promoCode.value}"/>
+            </aura:iteration>
+        </lightning:select><br/>
+
+        <div align="center" class="buttonWrapper slds-grid slds-wrap">
+            <lightning:button variant="neutral" label="&lt; Previous" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onPrev}"/>
+            <lightning:button variant="brand" label="Next &gt;" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onNext}"/>
+        </div>
+        <lightning:button variant="neutral" label="Save &amp; Finish Later" class="navigateButton slds-button_stretch" onclick="{!c.onSaveAndFinnish}"/>
+    </div>
+</aura:component>

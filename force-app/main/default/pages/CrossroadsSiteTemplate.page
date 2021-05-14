@@ -1,0 +1,30 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false">
+  <html>
+    <head>
+        <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        <apex:stylesheet value="https://www.crlease.com/themes/custom/crossroads_theme/assets/css/fcap.css" />
+        <apex:stylesheet value="https://www.crlease.com/themes/custom/crossroads_theme/assets/css/theme.css" />
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
+        <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+        <apex:insert name="pageTitle" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script>
+            function checkAgreement(id) {
+                if (!document.getElementById(id).checked) {
+                    alert('You must agree to the terms before you can submit this form!');
+
+                    return false;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <!-- Carrier Form -->
+            <apex:insert name="carrierForm" />
+            <!-- End Carrier Form -->
+        </div>
+    </body>
+  </html>
+</apex:page>

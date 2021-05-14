@@ -1,0 +1,98 @@
+<aura:component description="glcDocsRequest" implements="force:appHostable,force:lightningQuickAction,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" controller="gcDocsRequestController" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute type="Id" name="recordId"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="selectStageEvent" event="c:gleDocsChecklistSelect" action="{!c.handleSelectChecklistStage}"/>
+    <aura:handler name="stageCompleted" event="c:gleStageCompleted" action="{!c.handleStageCompleted}"/>
+
+    <aura:if isTrue="{!v.params.opportunity.StageName == 'Docs Requested' }">
+        <div class="applicantInfo cGlcDealerFlowAbstract cGlcDealerPortalFlow">
+
+            <!-- Docs Checklist Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'docsChecklist'}">
+                <c:glcDocsChecklist params="{!v.params}"/>
+            </aura:if>
+
+            <!-- Applicant CDL Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'cdl'}">
+                <c:glcDocsUploadFiles recordId="{!v.recordId}" title="Applicant CDL"/>
+            </aura:if>
+
+            <!-- Dealer Invoice (Final) Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'dealerInvoice'}">
+                <c:glcDocsUploadFiles recordId="{!v.recordId}" title="Dealer Invoice (Final)"/>
+            </aura:if>
+
+            <!-- Dealer Spec Sheet Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'dealerSheet'}">
+                <c:glcDocsUploadFiles recordId="{!v.recordId}" title="Dealer Spec Sheet"/>
+            </aura:if>
+
+            <!-- Title & Registration Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'titleRegistration'}">
+                <c:glcAssetOptions3 params="{!v.params}"/>
+            </aura:if>
+
+            <!-- Asset Title(s) Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'assetTitle'}">
+                <c:glcDocsUploadFiles recordId="{!v.recordId}" params="{!v.params}" title="Asset Title(s)"/>
+            </aura:if>
+
+            <!-- Guarantee of Title Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'guaranteeOfTitle'}">
+                <c:glcDocsGuarantee params="{!v.params}"/>
+            </aura:if>
+
+            <!-- GPS Contact & Install Location Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'gpsContactLocation'}">
+                <c:glcDocsGPSContact params="{!v.params}" save="{!c.onSave}"/>
+            </aura:if>
+
+            <!-- Proof of Insurance Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'proofOfInsurance'}">
+                <c:glcDocsUploadFiles recordId="{!v.recordId}" title="Proof of Insurance"/>
+            </aura:if>
+
+            <!-- Docs Notes Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'docsNotes'}">
+                <c:glcDocsNotes params="{!v.params}"/>
+            </aura:if>
+
+            <!-- Docs Request Submitted Screen       -->
+            <aura:if isTrue="{!v.params.stage == 'docsConfirmation'}">
+                <c:glcDocsConfirmation />
+            </aura:if>
+
+            <!--Control buttons    -->
+            <div class="slds-grid">
+                <!--Cancel        -->
+                <aura:if isTrue="{!v.params.isShowCancel}">
+                    <lightning:button variant="neutral" label="Cancel" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onCancel}"/>
+                </aura:if>
+
+                <!--Continue        -->
+                <aura:if isTrue="{!v.params.isShowContinue}">
+                    <aura:if isTrue="{!v.params.stage == 'docsChecklist'}">
+                        <lightning:button variant="{!v.params.isProvidedCheck ? 'brand': 'neutral'}" label="Continue" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onContinue}" disabled="{! !v.params.isProvidedCheck}"/>
+                        <aura:set attribute="else">
+                            <lightning:button variant="brand" label="Continue" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onContinue}" />
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+
+                <!--Save        -->
+                <aura:if isTrue="{!v.params.isShowSave}">
+                    <lightning:button variant="brand" label="Save" class="navigateButton slds-button_stretch slds-col half_width_button" onclick="{!c.onSave}" />
+                </aura:if>
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{! and(v.params.opportunity, v.params.opportunity.StageName != 'Docs Requested')}">
+        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+            <h2>This action is allowed only for 'Docs Requested' opportunity stage.</h2>
+        </div>
+    </aura:if>
+
+</aura:component>

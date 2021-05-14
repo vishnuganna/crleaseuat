@@ -1,0 +1,167 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false">
+  <html>
+    <head>
+        <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        <apex:stylesheet value="https://www.crlease.com/themes/custom/crossroads_theme/assets/css/fcap.css" />
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" />
+        <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+        <apex:insert name="pageTitle" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script>
+            function checkAgreement(id) {
+                if (!document.getElementById(id).checked) {
+                    alert('You must agree to the terms before you can submit this form!');
+
+                    return false;
+                }
+                console.log('==================TEST===================================');
+            }
+        </script>
+    </head>
+    <body>
+      <br />
+      <div class="container">
+        <!-- Site Header -->
+        <apex:insert name="pageHeader" />
+        <!-- End Site Header -->
+        <div class="row" style="margin-top:25px;">
+            <div class="col-md-5 col-md-push-7">
+                <div style="padding: 2px 2em; background-color: #eee; border-radius: 5px;">
+                    <h3 class="text-center">
+                        <strong>Express Credit Application</strong>
+                        <br />
+                        <small>Please provide some information below.</small>
+                    </h3>
+                    <p>
+                        <img src="https://www.crlease.com/sites/default/files/fcap/timeline-blue.png" alt="Process Timeline" class="img-responsive" />
+                    </p>
+                    <!-- Carrier Form -->
+                    <apex:insert name="carrierForm" />
+                    <!-- Carrier Form -->
+                </div>
+            </div>
+            <div class="col-md-7 col-md-pull-5">
+                <h3>
+                    <strong>Your Truck, Your Independence, Your Success!</strong>
+                </h3>
+                <p style="font-size: 125%; line-height: 1.75; margin-bottom: 1.5em;">
+                    Crossroads has partnered with Panther Premium Logistics to offer reliable equipment and the tools necessary
+                    to help you run a successful trucking business. We know that owning a truck is a big investment,
+                    so we've paired our buying power with a comprehensive warranty to help lower operating costs, limit
+                    downtime and keep money where it belongs, which is in your pocket. We also offer a best in class
+                    maintenance management solution to assist with scheduling PM's, Roadside Assistance and access to
+                    vendor discounts nationwide. We're confident our program offers the "Real" opportunity for ownership
+                    that you've been looking for.</p>
+                <p>
+                    <img src="https://www.crlease.com/sites/default/files/fcap/freightliner-sleeper.jpg" alt="Your Truck, Your Independence, Your Success!" class="img-responsive" style="width:100%; height:auto;" />
+                </p>
+                <h3>
+                    <strong>Driver Benefits:</strong>
+                </h3>
+                <p>
+                    <strong>Quality Equipment</strong>
+                </p>
+                <ul style="line-height: 1.75em;">
+                    <li>Reliable late model New &amp; Used Freightliners</li>
+                    <li>Mileage: less than 450k miles</li>
+                    <li>Best in class warranty for the entire lease term</li>
+                    <li>Fresh DOT, New Tires (no recaps), double bunk &amp; refrigerator</li>
+                    <li>APU and deer guards (select units only)</li>
+                </ul>
+                <p>
+                    <strong>Real Opportunity to Own</strong>
+                </p>
+                <ul style="line-height: 1.75em;">
+                    <li>Affordable weekly payments administered through settlement deduction</li>
+                    <li>Low Capital Investment (as low as $2,500)</li>
+                    <li>No Dealer mark-up on price</li>
+                    <li>TRAC is below wholesale (truck is worth more than you owe at end of lease)</li>
+                </ul>
+                <p>
+                    <strong>Maintenance Management Program thru
+                        <a href="https://www.fleetrock.com" target="_blank">FLEETROCK</a>
+                    </strong>
+                </p>
+                <ul style="line-height: 1.75em;">
+                    <li>Accessible to owner operators for the first time &amp; exclusively offered through this program</li>
+                    <li>24/7 Scheduling &amp; Support</li>
+                    <li>National vendor network with discounted pricing</li>
+                    <li>Preventative maintenance scheduling and notification</li>
+                    <li>Warranty tracking and management</li>
+                    <li>Real-time visibility (detailed breakdown of when and what you’re spending your money on)</li>
+                    <li>Web based platform with analytics detailing cost savings and downtime reduction</li>
+                </ul>
+                <hr />
+                <h3>
+                    <strong>Requirements:</strong>
+                </h3>
+                <ul style="line-height: 1.75em;">
+                    <li>Class-A CDL (not required for fleet owners)</li>
+                    <li>First Time Buyers Okay</li>
+                    <li>No Open BK or Recent Repossession</li>
+                    <li>No Delinquent Child Support</li>
+                    <li>No Open Tax Liens</li>
+                    <li>6 Months+ Verifiable CDL/Tractor Experience</li>
+                </ul>
+                <hr />
+                <h3>
+                    <strong>What People are Saying:</strong>
+                </h3>
+                <p style="font-size: 125%; margin: 1em 0;">
+                    <em>"It's been a life long goal of mine to become an Owner Operator. I finally made it happen with the
+                        help of Freightliner of AZ And Crossroads Financial. It's a really good feeling to own your truck
+                        and to be your own boss. It got me excited to work hard, and give my family a better life. I
+                        will be referring everyone I know, who is looking for a truck, to them!"</em>
+                </p>
+                <p>
+                    <strong>Henry Serna</strong>
+                    <br />Owner, Henry Serna Trucking
+                </p>
+                <p style="margin-top: 3em;">
+                    <!-- Inventory Button -->
+                    <apex:insert name="inventoryButton" />
+                    <!-- End Inventory Button -->
+                </p>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 disclaimer">
+            <p>&nbsp;</p>
+            <p>The federal Equal Credit Opportunity Act prohibits creditors from discriminating against credit applicants on the
+              basis of race, color, religion, national origin, sex, marital status, age (provided the applicant has the capacity
+              to enter into a binding contract); because all or part of the applicant’s income derives from any public assistance
+              program; or because the applicant has in good faith exercised any right under the Consumer Credit Protection Act.
+              The federal agency that administers compliance with this law concerning this creditor is the FTC Regional Office
+              for the Western Region of the Federal Trade Commission, which is located at the following address: Federal Trade
+              Commission, 10877 Wilshire Blvd., Suite 700, Los Angeles, California 90024 or also the Federal Trade Commission,
+              Consumer Response Center, Washington, DC 20580. If we take adverse action you have a right to a statement of specific
+              reasons for the adverse action if you request such statement within 60 days from CROSSROADS EQUIPMENT LEASE AND
+              FINANCE, LLC at the following address 9385 Haven Ave., Rancho Cucamonga, CA 91730. The written statement shall
+              be sent to you within 30 days. Adverse action may include refusal to grant credit in substantially the amount or
+              terms requested, termination or an unfavorable change in the terms of an account and refusal to increase the amount
+              of credit available.</p>
+            <p>The Applicant (which term includes the business entity named above and each owner, guarantor principal, partner or
+              member) authorizes CROSSROADS EQUIPMENT LEASE AND FINANCE, LLC, its affiliates along with its successors and/or
+              assigns (each, a “Creditor”) and any credit bureau or other investigative agency engaged by Creditor to investigate,
+              obtain and share information from time to time from any source (included, but not limited to references listed
+              in the Application) about Applicant’s credit standing and responsibility, including, but not limited to, obtaining
+              credit reports and other financial information to evaluate this application and to review Applicant’s account.
+              By signing this Application, Applicant authorizes Creditor, its affiliates, and assignees to share the Applicant’s
+              credit and other information as permitted by law. The Applicant represents and warrants to Creditor that: (a) all
+              of the representations and information provided in this application, and all other representations, statements,
+              reports or information made or delivered to Creditor are true, complete and correct in every respect; and (b) Applicant
+              is requesting that Creditor extend credit or enter into transactions with Applicant for commercial and business
+              purposes only, and such transactions are not for personal, family or household purposes. Applicant represents that
+              it has reviewed this document and the information.
+            </p>
+          </div>
+        </div>
+        <br />
+      </div>
+      <!-- Footer -->
+      <apex:insert name="pageFooter" />
+      <!-- End Footer -->
+    </body>
+  </html>
+</apex:page>

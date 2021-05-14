@@ -1,0 +1,19 @@
+<aura:component description="glcSyndicationFlow" extends="c:glcDealerFlowAbstract" >
+    <c:multipleLender></c:multipleLender>
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:select aura:id="lendername" label="Lender's Name" value="{!v.params.lenderNames}">
+        <aura:iteration items="{!v.localParams.lenders}" var="lender">
+            <option value="{!lender.key}" selectected= "{!lender.key == v.params.lenderNames}" label= "{!lender.value}" />
+        </aura:iteration>
+    </lightning:select><br/>
+
+    <lightning:select aura:id="submissionResult" label="Submission Result" value="{!v.params.subResults}">
+        <aura:iteration items="{!v.localParams.results}" var="result">
+            <option value="{!result.key}" selectected= "{!result.key == v.params.subResults}" label= "{!result.value}" />
+        </aura:iteration>
+    </lightning:select><br/>
+    
+    
+</aura:component>

@@ -1,0 +1,63 @@
+<apex:page standardController="Lead" renderAs="pdf">
+<h1>Credit Application</h1>
+<hr />
+<table cellspacing="7">
+    <tr>
+        <td align="right"><strong>Company:</strong></td>
+        <td><apex:outputText value="{! Lead.Company }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Name: </strong></td>
+        <td><apex:outputText value="{! Lead.Name }" /></td>
+    </tr>
+    <tr>
+        <td align="right" valign="top"><strong>Address: </strong></td>
+        <td valign="top">
+            <apex:outputText value="{! Lead.Street }" /><br />
+            <apex:outputText value="{! Lead.City }" />,&nbsp;<apex:outputText value="{! Lead.State }" />&nbsp;<apex:outputText value="{! Lead.PostalCode }" /><br />
+        </td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Phone: </strong></td>
+        <td><apex:outputText value="{! Lead.Phone }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Mobile Phone: </strong></td>
+        <td><apex:outputText value="{! Lead.MobilePhone }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>FID/Tax ID: </strong></td>
+        <td><apex:outputText value="{! Lead.Tax_ID__c }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>SSN: </strong></td>
+        <td><apex:outputText value="{! Lead.SSN__c }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Years in Business: </strong></td>
+        <td><apex:outputText value="{! Lead.Industry_Experience__c }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Years with CDL: </strong></td>
+        <td><apex:outputText value="{! Lead.How_long_have_you_had_your_CDL__c }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Fleet Size: </strong></td>
+        <td><apex:outputText value="{! Lead.Fleet_Size__c }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Preferred Language: </strong></td>
+        <td><apex:outputText value="{! Lead.Preferred_Language__c }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Lead Source: </strong></td>
+        <td><apex:outputText value="{! Lead.LeadSource }" /></td>
+    </tr>
+    <tr>
+        <td align="right"><strong>Created: </strong></td>
+        <td><apex:outputText value="{! Lead.CreatedDate }" /></td>
+    </tr>
+</table>
+
+
+</apex:page>

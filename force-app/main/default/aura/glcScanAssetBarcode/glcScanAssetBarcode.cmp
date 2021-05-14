@@ -1,0 +1,153 @@
+<aura:component description="glcScanAssetBarcode" controller="gcScanDriverLicense" access="global" implements="force:appHostable,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="componentAttributes"  type="Map" default="{}"/>
+    <aura:attribute name="componentName"    type="String"   access="global"    default="c__glcScanDriverLicense"/>
+    <aura:attribute name="serviceName"      type="String"   access="private"    default="gcScanDriverLicense"/>
+    <aura:attribute name="mode"             type="String"   access="global"    default="remoteRedirect"/>
+    <aura:attribute name="returnUrl"             type="String"   access="global"    default=""/>
+    <aura:attribute name="returnPageRef"             type="String"   access="global"    default=""/>
+    <aura:attribute name="serviceParams"    type="Map" default="{}" access="global"/>
+    <aura:attribute name="focusTimer"       type="Object"/>
+    <aura:attribute name="mobileOneClick"   type="Boolean"  access="global"    default="true"/>
+
+    <aura:attribute name="acc"              type="Account"  access="global"/>
+    <aura:attribute name="accId"            type="Id"       access="global"/>
+    <aura:attribute name="matchingAssets"     type="List"     access="global"/>
+    <aura:attribute name="matchingAccId"    type="Id"       access="global"/>
+    <aura:attribute name="oppyId"           type="Id"       access="global"/>
+    <aura:attribute name="accParsedData"    type="String[]" access="global" default="[]"/>
+    <aura:attribute name="assetFields"        type="String[]" access="global" default="['VIN__c']" />
+    <aura:attribute name="accountJustCreated" type="Boolean" access="global" default="false"/>
+    <aura:attribute name="searchText" type="String" default="" />
+
+    <aura:attribute name="fromDealerFlow" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.onInit}"/>
+    <aura:handler name="barcodeScanEvent" event="GMBLBC:barcodeScanEvent" action="{!c.onScanText}"/>
+
+    <aura:attribute name="pageMessages"     type="String"/>
+
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:attribute name="step"    type="String"  access="global" default="scan"/>
+
+    <GMBLBC:barcodeScanNative aura:id="cameraScanner"
+                              mode="{!v.mode}"
+                              componentAttributes="{!v.params}"
+                              componentName="{!v.componentName}"
+                              serviceParams="{!v.serviceParams}"
+                              serviceUrl="{!'/services/apexrest/'+v.serviceName}"
+                              appendRedirectId="true"/>
+
+    <div class="rootCard slds-theme_default slds-p-around_small slds-is-relative">
+        <aura:if isTrue="{!v.step == 'scan'}">
+            <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                <div class="slds-col">
+                    <!--                        <GMBLBC:barcodeScanText aura:id="laserScanner" label=""/>-->
+                    <span onkeypress="{!c.keyCheck}">
+                                <lightning:input type="text" name="keywords" aura:id="laserScanner" />
+                            </span>
+
+                </div>
+                <!--                    <aura:if isTrue="{!$Browser.formFactor != 'DESKTOP'}">-->
+                <div class="slds-col slds-size_3-of-12 slds-p-left_x-small">
+                    <lightning:button class="slds-button_stretch" variant="brand" onclick="{!c.onScanImage}">
+                        <lightning:icon src="{!$Resource.GMBLBC__scanIconSvg + '#g-icon'}" size="large"/>
+                    </lightning:button>
+                </div>
+                <!--                    </aura:if>-->
+            </div>
+            <aura:if isTrue="{!$Browser.formFactor != 'DESKTOP'}">
+                <div class="g-text-size_x-small g-text-style_italic slds-text-color_weak">for laser scanning, place the cursor in the textbox above</div>
+            </aura:if>
+            <c:glcDownloadAppNotification />
+            <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                <div class="slds-col">
+                    <lightning:button class="slds-button_stretch" variant="neutral" label="Continue without Barcode" title="Continue without Barcode" onclick="{!c.onNoDLAvailable}"/>
+                    <lightning:button class="slds-button_stretch" variant="neutral" label="Continue without VIN" title="Continue without VIN" onclick="{!c.onContinue}"/>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.step == 'editInfo'}">
+
+<!--            <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">-->
+
+<!--            </div>-->
+
+            <aura:if isTrue="{!v.params.assetCount > 5}">
+                <lightning:textarea value="{!v.params.vins}" label="VINs"/>
+                <div class="slds-grid slds-grid_align-center slds-m-top_small">
+                    <lightning:button class="slds-button_stretch" variant="neutral" label="&lt; Previous" title="&lt; Previous" onclick="{!c.onPrev}"/>
+                    <lightning:button class="slds-button_stretch" variant="brand" label="Next &gt;" title="Next &gt;" onclick="{!c.onNextVin}"/>
+                </div>
+                <aura:set attribute="else">
+                    <lightning:recordEditForm objectApiName="Asset" onsubmit="{!c.onSubmitForm}" onsuccess="{!c.onSuccessSubmitForm}" >
+                        <lightning:messages />
+                        <div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center">
+                            <lightning:inputField fieldName="VIN__c" required="true" class="slds-col slds-size_2-of-2"/>
+                            <lightning:button variant="neutral" value="&lt; Previous" label="&lt; Previous" onclick="{!c.onCancelSubmitForm}" class="slds-col half_width_button"/>
+                            <lightning:button variant="brand" value="Next &gt;" label="Next &gt;" type="submit" class="slds-col half_width_button"/>
+                        </div>
+
+
+                    </lightning:recordEditForm>
+                </aura:set>
+            </aura:if>
+        </aura:if>
+
+        <aura:if isTrue="{!v.step == 'accountExists'}">
+            <div class="slds-text-heading_medium slds-text-align_center">
+                An Asset with similar details already exists. Please verify the information below.
+            </div>
+            <div class="slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                <div class="tableDiv">
+                    <h1 class="slds-text-heading_small slds-p-left_medium">Matched Assets</h1>
+                    <table class="slds-table slds-table_bordered slds-table_fixed-layout slds-p-horizontal_small" role="grid">
+                        <thead>
+                        <tr class="slds-text-title_caps">
+                            <th class="slds-cell-shrink" style="width:0.8rem" scope="col">
+                                <!-- No title only action , for selection checkbox header -->
+                            </th>
+                            <th class="slds-cell-shrink" scope="col">
+                                <div class="slds-truncate slds-p-left_medium"  title="Name">Name</div>
+                            </th>
+                            <th class="slds-cell-shrink" scope="col">
+                                <div class="slds-truncate slds-p-left_medium" title="City">Year</div>
+                            </th>
+                            <th class="slds-cell-shrink" scope="col">
+                                <div class="slds-truncate" title="License Number">Make</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Iterates the collection of records stored in the data attribute-->
+                        <aura:iteration items="{!v.matchingAssets}" var="row">
+                            <tr class="slds-hint-parent">
+                                <td data-label="" scope="row" class="hideLabel">
+                                    <!-- checkbox selection invokes the onCheckboxChange controller method-->
+                                    <lightning:input aura:id="rowSelectionCheckboxId" class="hideLabel" type="radio" label="{!row.Id}" onchange="{!c.onCheckboxChange}"/>
+                                </td>
+                                <td data-label="Name"  scope="row" class="slds-cell-wrap">
+                                    <div class="slds-line-clamp" title="{!row.Name}">{!row.Name}</div>
+                                </td>
+                                <td data-label="City"  scope="row">
+                                    <div class="slds-truncate" title="{!row.Year__c}">{!row.Year__c}</div>
+                                </td>
+                                <td data-label="License Number"  scope="row">
+                                    <div class="slds-truncate" title="{!row.Make}">{!row.Make}</div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="slds-grid slds-grid_align-center slds-m-top_small">
+                <lightning:button class="slds-button_stretch" variant="neutral" label="Use Selected" title="Use Selected" onclick="{!c.onUseSelected}"/>
+                <lightning:button class="slds-button_stretch" variant="brand" label="Create New" title="Create New" onclick="{!c.onContinue}"/>
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,6 @@
+<apex:component >
+    <apex:attribute name="url" type="String" required="true" description="Inventory URL" />
+    <a href="{! url }" target="_blank" class="btn btn-lg btn-default btn-block">
+        <strong>View Our Trucks</strong>
+    </a>
+</apex:component>

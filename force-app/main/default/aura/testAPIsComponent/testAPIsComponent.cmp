@@ -1,0 +1,137 @@
+<aura:component  controller="IntegrationAPIForTest" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="contact" type="Contact"  default= "{'sObjectType' :'Contact','LastName':'','Email':''}" access="global"/>
+    <aura:attribute name="account" type="Account" default="{'sObjectType' : 'Account','Name' :'','Rating' : ' '}" access="global"/>
+     <aura:attribute name="accountId"              type="Id"  access="global"/>
+     <aura:attribute name="contactId"              type="Id"  access="global"/>
+     <aura:attribute name="params" access="global" type="Map" default="{applicantType: 'Individual', legalStructure: 'Corporation', showButtons: 'true', showPrevButton: 'false', showSAFLButton: 'false', progressPercent: 0, stageName: 'selectType', index: 0, stage: '', step : 'scan', showProgressBar : 'true', Corporate_Credit_Only__c : 'false'}"/>
+    <aura:attribute name="firstName" type="String"/>
+    <aura:attribute name="LastName" type="String"/>
+    <aura:attribute name="MiddleName" type="String"/>
+    <aura:attribute name="Street" type="String"/>
+     <aura:attribute name="City" type="String"/>
+     <aura:attribute name="State" type="String"/>
+     <aura:attribute name="ZipCode" type="String"/>
+    <aura:attribute name="Email" type="String"/>
+    <aura:attribute name="phone" type="String"/>
+    <aura:attribute name="ssn" type="String"/>
+    <aura:attribute name="businessName" type="String"/>
+    <aura:attribute name="EIN" type="String"/>
+    <aura:attribute name="yearsInBusiness" type="String"/>
+    <aura:attribute name="numOfPartners" type="String"/>
+    <aura:attribute name="accountDetailID" type="String"/>
+    <aura:attribute name="response" type="String"/>
+    <aura:attribute name="isLexisCompany" type="boolean" default="false"/>
+    <aura:attribute name="isPaynet" type="boolean" default="false"/>
+    <aura:attribute name="isExperian" type="boolean" default="false"/>
+    <aura:attribute name="isLexisNexisIndividual" type="boolean" default="false"/>
+
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Experian', 'value': 'Experian'},
+    {'label': 'Paynet', 'value': 'Paynet'},
+    {'label': 'Lexis Nexis Individual', 'value': 'Lexis Nexis Individual'},
+    {'label': 'Lexis Nexis Business', 'value': 'Lexis Nexis Company'}
+    ]"/>
+    
+    <!--div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center"!-->
+    <article class="slds-card">
+        
+        <div class="slds-card__body slds-card__body_inner">
+            <lightning:radioGroup name="radioButtonGroup"
+                          label="Select Testing Type"
+                          options="{! v.options }"
+                          value="{! v.value }"
+                          onchange="{! c.handleChange }"
+                          type="button"/>
+           
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="4" padding="around-small">
+                    <lightning:input label="First Name" value="{!v.contact.FirstName}"  class="slds-col slds-size_1-of-2"/>
+                </lightning:layoutItem> 
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input label="Last Name" value="{!v.contact.LastName}"  class="slds-col slds-size_1-of-2"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input label="Middle Initial" value="{!v.contact.MiddleName}" class="slds-col slds-size_1-of-2"/>
+             </lightning:layoutItem>         
+             <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input label="Billing Street" value="{!v.contact.MailingStreet}" class="slds-col slds-size_1-of-2"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input label="Billing City" value="{!v.contact.MailingCity}" class="slds-col slds-size_1-of-2"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input label="Billing State" value="{!v.contact.MailingStateCode}" class="slds-col slds-size_1-of-2"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input label="Billing Zip/Postal Code" value="{!v.contact.MailingPostalCode}" class="slds-col slds-size_1-of-2"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input type="date" label="BirthDate:" value="{!v.contact.Birthdate}"/><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input type="number" label="Driver Licence's No:" value="{!v.contact.Driver_s_License__c}"/><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input type="text" label="SSN:" value="{!v.contact.SSN__c}" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" messageWhenPatternMismatch="Valid SSN format must be: XXX-XX-XXXX"/><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                 <lightning:input type="tel" label="Phone:" value="{!v.contact.Phone}"/><br/>
+            </lightning:layoutItem>
+    </lightning:layout> 
+    <lightning:layout multipleRows="true">
+         <lightning:layoutItem size="4" padding="around-small">
+    		<lightning:input type="text" label="Business Name:" value="{!v.account.Name}"/><br/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+            <lightning:input type="text" label="TIN/EIN::" value="{!v.account.EIN__c}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="number" label="Years in Business:" step="1" value="{!v.account.yearsInBusiness}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+            <lightning:input type="number" label="Total # Partners" step="1" value="{!v.account.numOfPartners}"/>
+         </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout multipleRows="true">
+         <lightning:layoutItem size="4" padding="around-small">
+    		<lightning:input type="text" label="Business Phone:" value="{!v.account.Phone}"/><br/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="text" label="BillingStreet:" value="{!v.account.BillingStreet}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="string" label="BillingCity:" step="1" value="{!v.account.BillingCity}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+             <lightning:input type="string" label="BillingStateCode:" step="1" value="{!v.account.BillingStateCode}"/>
+         </lightning:layoutItem>
+         <lightning:layoutItem size="4" padding="around-small">
+            <lightning:input type="string" label="BillingPostalCode:" step="1" value="{!v.account.BillingPostalCode}"/>
+        </lightning:layoutItem>
+       
+    </lightning:layout>
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="4" padding="around-small">
+            <aura:if isTrue="{!v.isLexisCompany}">
+                <lightning:button variant="Brand" label="Lexis Nexis Company"  onclick="{!c.lexisNexisController}" />
+            </aura:if>
+            <aura:if isTrue="{!v.isLexisNexisIndividual}">
+                <lightning:button variant="Brand" label="Lexis Nexis Individual"  onclick="{!c.lexisNexisIndividualController}" />
+            </aura:if>
+            <aura:if isTrue="{!v.isExperian}">
+                <lightning:button variant="Brand" label="Experian" onclick="{!c.takeExperianReport}" />
+            </aura:if>
+            <aura:if isTrue="{!v.isPaynet}">
+                <lightning:button variant="Brand" label="Paynet"  onclick="{!c.takePaynetCompanies}"/>
+            </aura:if>
+        </lightning:layoutItem>
+       
+    </lightning:layout>
+    <lightning:layout multipleRows="true">
+        <lightning:inputRichText value="{!v.response}" placeholder="Type something interesting"/>
+   </lightning:layout>
+</div>
+
+       
+</article>
+</aura:component>

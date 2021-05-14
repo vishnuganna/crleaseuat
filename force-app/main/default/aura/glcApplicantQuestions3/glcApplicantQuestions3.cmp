@@ -1,0 +1,14 @@
+<aura:component description="glcApplicantQuestions3"  extends="c:glcDealerFlowAbstract">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-align_absolute-center">Is the majority of the economic effect of the Applicant's primary business activity generated in CA? (revenues or jobs created / retained)</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" label="" checked="{!v.params.Majority_in_CA__c}" messageToggleInactive="No" messageToggleActive="Yes"/>
+    </div><br/>
+
+    <lightning:input type="number"  label="# Employees:" value="{!v.params.numberOfEmployees}" step="1"/><br/>
+    <lightning:input type="number"  label="Average Annual Revenue:" value="{!v.params.avgRevenue}" formatter="currency" step="1"/><br/>
+
+
+</aura:component>

@@ -1,0 +1,1220 @@
+<aura:component description="gcDealSummary" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">  
+  <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+    <aura:attribute name="data" type="list" />
+    <aura:attribute name="recordId" type="Id" />
+
+    <aura:iteration items="{!v.data}" var="SYND" indexVar="index"> 
+        <article class="slds-tabs_card slds-card_boundary slds-card-wrapper slds-p-left_small">
+            <div class="slds-card__body ">
+                <div class="slds-grid slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Sales Rep:</span>  <span class="slds-form-element__static">{!SBALM.SBALM_COMP_NAME__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Application No:  </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_Loan_Nmbr__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Sales Team: </span>
+                        <span class="slds-form-element__static"> {!SBALM.Loan_Record_Type__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Dealership:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_LOAN_AMT__c}" style="currency" currencyCode="USD"/>
+                            </span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Date	:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_APP_DATE__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Time :  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_MATUR_DATE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+
+                </div>
+                <div class="slds-grid slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  New or Used: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_NXT_PAYDUE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Applicant Type:  </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_TERM_IN_MN__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">VVG Deal: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_SBA_NBR__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Consent to pull credit:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_SBA_GRTY__c}" style="percent"/></span>
+                    </div>
+
+           </div>
+            </div>     
+        </article>
+       
+        <span class="slds-p-top_large">&nbsp;</span>
+        <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+            <div class="slds-card__header slds-grid">
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                 
+                      <span class="slds-card__header-title">Contact 1: Customer</span>
+                  
+                </div>
+              </header>
+            </div>
+            <div class="slds-card__body slds-p-left_small ">
+                <div class="slds-grid slds-p-left_large  slds-border_top">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Last Name:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">First Name: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Middle Initial:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Middle Initial: </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  Address: </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  Unit Number:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> City:  </span>
+                        <span class="slds-form-element__static">
+                            
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> State:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Zip Code:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> DL Number: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span> 
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> DL Expiration: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                   
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Phone: </span> 
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> CDL: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Years with CDL: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Email:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> SSN: </span>
+                        <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                
+            </div>
+            </article>
+            <span class="slds-p-top_large">&nbsp;</span>
+        <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+            <div class="slds-card__header slds-grid">
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                 
+                      <span class="slds-card__header-title">Contact 2: Co-Borrower</span>
+                  
+                </div>
+              </header>
+            </div>
+            <div class="slds-card__body slds-p-left_small ">
+                <div class="slds-grid slds-p-left_large  slds-border_top">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Last Name:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">First Name: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Middle Initial:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Middle Initial: </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  Address: </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  Unit Number:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> City:  </span>
+                        <span class="slds-form-element__static">
+                            
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> State:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Zip Code:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> DL Number: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span> 
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> DL Expiration: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                   
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Phone: </span> 
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> CDL: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Years with CDL: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Email:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> SSN: </span>
+                        <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                
+            </div>
+            </article>
+
+            <span class="slds-p-top_large">&nbsp;</span>
+        <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+            <div class="slds-card__header slds-grid">
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                 
+                      <span class="slds-card__header-title">Contact 3: Guarantor</span>
+                  
+                </div>
+              </header>
+            </div>
+            <div class="slds-card__body slds-p-left_small ">
+                <div class="slds-grid slds-p-left_large  slds-border_top">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Last Name:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">First Name: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Middle Initial:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">Middle Initial: </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  Address: </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label">  Unit Number:  </span>
+                        <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> City:  </span>
+                        <span class="slds-form-element__static">
+                            
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> State:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Zip Code:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> DL Number: </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span> 
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> DL Expiration: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                   
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Phone: </span> 
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> CDL: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Years with CDL: </span>
+                        <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                    </div>
+                </div>
+                <div class="slds-grid  slds-border_top slds-p-left_large">
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> Email:  </span>
+                        <span class="slds-form-element__static">
+                            <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <span class="slds-form-element__label"> SSN: </span>
+                        <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                    </div>
+                </div>
+                
+            </div>
+            </article>
+
+            <span class="slds-p-top_large">&nbsp;</span>
+            <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                <div class="slds-card__header slds-grid">
+                  <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                     
+                          <span class="slds-card__header-title">Asset Info (1/2)</span>
+                      
+                    </div>
+                  </header>
+                </div>
+                <div class="slds-card__body slds-p-left_small ">
+                    <div class="slds-grid slds-p-left_large  slds-border_top">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Vehicle Type:  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Mileage: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">VIN:  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Engine: </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Year: </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Transmission:  </span>
+                            <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Make:  </span>
+                            <span class="slds-form-element__static">
+                                
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Sleeper:  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">Sleeper Size:  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Model: </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span> 
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Fairings: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                       
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Configuration: </span> 
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> New Tires: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label">  Base Value:: </span>
+                            <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-border_top slds-p-left_large">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Options:  </span>
+                            <span class="slds-form-element__static">
+                                <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-form-element__label"> Adj. Value: </span>
+                            <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                        </div>
+                    </div>
+                    
+                </div>
+                </article>
+
+                <span class="slds-p-top_large">&nbsp;</span>
+                <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                    <div class="slds-card__header slds-grid">
+                      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                         
+                              <span class="slds-card__header-title">Asset Info (2/2)</span>
+                          
+                        </div>
+                      </header>
+                    </div>
+                    <div class="slds-card__body slds-p-left_small ">
+                        <div class="slds-grid slds-p-left_large  slds-border_top">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Vehicle Type:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Mileage: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">VIN:  </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Engine: </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">  Year: </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Transmission:  </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Make:  </span>
+                                <span class="slds-form-element__static">
+                                    
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Sleeper:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Sleeper Size:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Model: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span> 
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Fairings: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                           
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Configuration: </span> 
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> New Tires: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">  Base Value:: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Options:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Adj. Value: </span>
+                                <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </article>
+    
+                    <span class="slds-p-top_large">&nbsp;</span>
+                <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                    <div class="slds-card__header slds-grid">
+                      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                         
+                              <span class="slds-card__header-title">Asset Info (2/2)</span>
+                          
+                        </div>
+                      </header>
+                    </div>
+                    <div class="slds-card__body slds-p-left_small ">
+                        <div class="slds-grid slds-p-left_large  slds-border_top">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Vehicle Type:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Mileage: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">VIN:  </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Engine: </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">  Year: </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Transmission:  </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Make:  </span>
+                                <span class="slds-form-element__static">
+                                    
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Sleeper:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Sleeper Size:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Model: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span> 
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Fairings: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                           
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Configuration: </span> 
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> New Tires: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">  Base Value:: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Options:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Adj. Value: </span>
+                                <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </article>
+    
+    <span class="slds-p-top_large">&nbsp;</span>
+                <article class="slds-tabs_card slds-card_boundary slds-card-wrapper ">
+                    <div class="slds-card__header slds-grid">
+                      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                         
+                              <span class="slds-card__header-title"> Deal Structure </span>
+                          
+                        </div>
+                      </header>
+                    </div>
+                    <div class="slds-card__body slds-p-left_small ">
+                        <div class="slds-grid slds-p-left_large  slds-border_top">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Equipment Cost:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_USER1N__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Pmt Frequency: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Pmt Structure: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedNumber value="{!SBALM.SBALM_UNGBAL__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Financed Fees:  </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A8__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">Term: </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_DISB_TOTAL__c}" style="currency" currencyCode="USD"/>}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">  Down Payment: </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_A18__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Rate:  </span>
+                                <span class="slds-form-element__static"><lightning:formattedNumber value="{!SBALM.SBALM_MNTLY_PAY__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Security Deposit:  </span>
+                                <span class="slds-form-element__static">
+                                    
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_FDISTD__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Blended COF:  </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_DISDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Finance Amount: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_INT_PAIDTO__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span> 
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> TRAC (Residual): </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> TRAC Type: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_LDISTD__c}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                           
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Promo: </span> 
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_LST_PAYDTE__c}"  year="numeric" month="2-digit" day="2-digit"  />
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Dealer Fee: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label">  Fee Type: </span>
+                                <span class="slds-form-element__static">{!SBALM.SBALM_DAYSLATE__c}</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid  slds-border_top slds-p-left_large">
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Financial Product: </span>
+                                <span class="slds-form-element__static">
+                                    <lightning:formattedDateTime value="{!SBALM.SBALM_PAYOFF__c}"  year="numeric" month="2-digit" day="2-digit"  /></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> AGP: </span>
+                                <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <span class="slds-form-element__label"> Net Yield: </span>
+                                <span class="slds-form-element__static"> <lightning:formattedNumber value="{!SBALM.SBALM_A32__c}" style="currency" currencyCode="USD"/></span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </article>
+    
+    
+
+
+    <!--lightning:layout multipleRows="true" verticalAlign="start">
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Application No:" value="{!v.params.applicationNo}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" value="{!v.params.SalesRep}" label ="Sales Rep:"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Sales team:" value="{!v.params.salesteam}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" value="{!v.params.date}" label ="Date:"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6"  class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Dealership:" value="{!v.params.Dealership}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" value="{!v.params.time}" label ="Time:"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="New or Used:" value="{!v.params.neworused}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" value="{!v.params.Applicanttype}" label ="Applicant Type:"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-medium" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "Checkbox" label ="VVG Deal:" value="{!v.params.vvgdeal}"/>  
+        </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-medium" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="Consent to Pull Credit:" value="{!v.params.concredit}"/>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout multipleRows="true" title="Contact 1: Customer" verticalAlign="start">
+        
+          <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Last Name:" value="{!v.params.Lastname}"/>  
+          </lightning:layoutItem>
+          <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="First Name:" value="{!v.params.Firstname}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Middle Initial:" value="{!v.params.middleinitial}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Date of Birth:" value="{!v.params.Dateofbirth}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Street Address:" value="{!v.params.streetaddress}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Unit Number:" value="{!v.params.unitnumber}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="City:" value="{!v.params.city}"/>  
+        </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small" size="3" >
+            <lightning:input  type= "text" label ="State:" value="{!v.params.state}"/> 
+     </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+        <lightning:input  type= "text" label ="Zip Code:" value="{!v.params.zipcode}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="DL Number:" value="{!v.params.DLNumbe}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="DL Expiration:" value="{!v.params.DLExpiration}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Phone:" value="{!v.params.Phone}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Years with CDL:" value="{!v.params.YearswithCDL}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Email:" value="{!v.params.Email}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="SSN:" value="{!v.params.SSN}"/> 
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout multipleRows="true" title="Contact 2: Co-Borrower">
+            <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Last Name:" value="{!v.params.Lastname}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="First Name:" value="{!v.params.Firstname}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Middle Initial:" value="{!v.params.middleinitial}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Date of Birth:" value="{!v.params.Dateofbirth}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Street Address:" value="{!v.params.streetaddress}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Unit Number:" value="{!v.params.unitnumber}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="City:" value="{!v.params.city}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="State:" value="{!v.params.state}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="DL Number:" value="{!v.params.DLNumbe}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="DL Expiration:" value="{!v.params.DLExpiration}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Phone:" value="{!v.params.Phone}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Years with CDL:" value="{!v.params.YearswithCDL}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Email:" value="{!v.params.Email}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="SSN:" value="{!v.params.SSN}"/> 
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout multipleRows="true" title="Contact 3: Guarantor" verticalAlign="start">
+        
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Last Name:" value="{!v.params.Lastname}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="First Name:" value="{!v.params.Firstname}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Middle Initial:" value="{!v.params.middleinitial}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="Date of Birth:" value="{!v.params.Dateofbirth}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Street Address:" value="{!v.params.streetaddress}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Unit Number:" value="{!v.params.unitnumber}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="City:" value="{!v.params.city}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="State:" value="{!v.params.state}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="DL Number:" value="{!v.params.DLNumbe}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="DL Expiration:" value="{!v.params.DLExpiration}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Phone:" value="{!v.params.Phone}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Years with CDL:" value="{!v.params.YearswithCDL}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Email:" value="{!v.params.Email}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="SSN:" value="{!v.params.SSN}"/> 
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout multipleRows="true" title="Applicant Info">
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Deliver Type:" value="{!v.params.DeliverType}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Duration w/ Current employer primary Haul Source:" value="{!v.params.haulsource}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="years O/O Type:" value="{!v.params.Yeartype}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Years Co Driver:" value="{!v.params.yearscodriver}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Haul Type:" value="{!v.params.haultype}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Carrier Type:" value="{!v.params.carriertype}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="# Trucks:" value="{!v.params.Trucks}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="Annual Miles:" value="{!v.params.AnnualMiles}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="12" class = "slds-size_1-of-2">
+            <lightning:input  type= "checkbox" label ="Does Applicant have 100 or fewer employees?" value="{!v.params.chk1}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="12" >
+            <lightning:input  type= "checkbox" label ="Does Applicant have $10M or less in annual revenue averaged over the prior three (3) years?" value="{!v.params.chk2}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+            <lightning:input  type= "checkbox" label ="Is the Applicant purchasing replacement equipment?" value="{!v.params.chk3}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+            <lightning:input  type= "checkbox" label ="Will the equipment be registered in CA? (CA IRP OK)" value="{!v.params.chk4}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+            <lightning:input  type= "checkbox" label ="Does the Applicant intend to Sublease this equipment?" value="{!v.params.chk5}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+            <lightning:input  type= "checkbox" label ="Does the Applicant intend to haul HAZMAT with this equipment?" value="{!v.params.chk6}"/>
+        </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout multipleRows="true" title="Asset Info(1/2)">
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Vehicle Type:" value="{!v.params.VehicleType}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Mileage:" value="{!v.params.mileage}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="VIN:" value="{!v.params.vin}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="Engine:" value="{!v.params.Engine}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Year" value="{!v.params.year}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Transmission:" value="{!v.params.Transmission}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Make" value="{!v.params.make}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="sleeper:" value="{!v.params.sleeper}"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="sleeper Size:" value="{!v.params.sleepersize}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Model" value="{!v.params.model}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Fairings:" value="{!v.params.fairings}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="APU:" value="{!v.params.apu}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Configuration" value="{!v.params.configuration}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="New Tyres:" value="{!v.params.newtyres}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Base Value:" value="{!v.params.basevalue}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="Options:" value="{!v.params.options}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label = "Adj. Value:" value="{!v.params.adjvalue}"/> 
+        </lightning:layoutItem>
+
+        </lightning:layout>
+        <lightning:layout multipleRows="true" title="Asset Info(2/2)">
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Vehicle Type:" value="{!v.params.VehicleType}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="Mileage:" value="{!v.params.mileage}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="VIN:" value="{!v.params.vin}"/>  
+        </lightning:layoutItem>
+         <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Engine:" value="{!v.params.Engine}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Year" value="{!v.params.year}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Transmission:" value="{!v.params.Transmission}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Make" value="{!v.params.make}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="sleeper:" value="{!v.params.sleeper}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="sleeper Size:" value="{!v.params.sleepersize}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Model" value="{!v.params.model}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Fairings:" value="{!v.params.fairings}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="APU:" value="{!v.params.apu}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Configuration" value="{!v.params.configuration}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="New Tyres:" value="{!v.params.newtyres}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Base Value:" value="{!v.params.basevalue}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label ="Options:" value="{!v.params.options}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "Checkbox" label = "Adj. Value:" value="{!v.params.adjvalue}"/> 
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout multipleRows="true" title="Deal Structure">
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Equipment Cost:" value="{!v.params.equipmentcost}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="Pmt Frequency:" value="{!v.params.pmtfrequency}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Pmt Structure:" value="{!v.params.pmtstructure}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Financed Fees:" value="{!v.params.financedfee}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Term:" value="{!v.params.term}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Down Payment:" value="{!v.params.downpayment}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Rate:" value="{!v.params.rate}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Security Deposit:" value="{!v.params.securitydeposit}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "Checkbox" label ="Blended COF:" value="{!v.params.BlendedCOF}"/> 
+            </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4">
+            <lightning:input  type= "text" label ="Finance Amount:" value="{!v.params.FinanceAmount}"/>  
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="TRAC (Residual):" value="{!v.params.TRAC}"/>
+        </lightning:layoutItem> 
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="TRAC Type:" value="{!v.params.TRACtype}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4">
+            <lightning:input  type= "text" label ="Promo:" value="{!v.params.Promo}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="Dealer Fee:" value="{!v.params.DealerFee}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label ="Fee Type:" value="{!v.params.feetype}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="4">
+            <lightning:input  type= "text" label ="Financial Product:" value="{!v.params.financialproduct}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2"> 
+            <lightning:input  type= "text" label ="AGP:" value="{!v.params.agp}"/> 
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" class = "slds-size_1-of-2">
+            <lightning:input  type= "text" label = "Net Yield:" value="{!v.params.netyield}"/> 
+        </lightning:layoutItem>
+        </lightning:layout>-->
+</aura:iteration>
+
+</aura:component>

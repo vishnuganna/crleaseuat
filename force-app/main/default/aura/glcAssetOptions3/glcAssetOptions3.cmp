@@ -1,0 +1,26 @@
+<aura:component description="glcAssetOptions3" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="localParams" type="Map" access="public" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <div class="slds-align_absolute-center"><h1>Title &amp; Registration</h1></div><br/>
+
+    <div class="slds-align_absolute-center slds-m-top_small">Is Crossroads processing title?</div><br/>
+    <div class="slds-align_absolute-center">
+        <lightning:input type="toggle" checked="{!v.params.titlePage.isProcessingTitle}" onchange="{!c.onProcessingTitleChange}"  messageToggleInactive="No" messageToggleActive="Yes"/>
+    </div><br/>
+
+    <aura:if isTrue="{!v.params.titlePage.isProcessingTitle}">
+        <div class="slds-align_absolute-center slds-m-top_small">Is Crossroads processing registration?</div><br/>
+        <div class="slds-align_absolute-center">
+            <lightning:input type="toggle" checked="{!v.params.titlePage.isProcessingRegistration}"  messageToggleInactive="No" messageToggleActive="Yes"/>
+        </div><br/>
+
+        <div class="slds-align_absolute-center slds-m-top_small">Customer is IRP?</div><br/>
+        <div class="slds-align_absolute-center">
+            <lightning:input type="toggle" checked="{!v.params.titlePage.isIRP}" messageToggleInactive="No" messageToggleActive="Yes"/>
+        </div><br/>
+    </aura:if>
+
+</aura:component>

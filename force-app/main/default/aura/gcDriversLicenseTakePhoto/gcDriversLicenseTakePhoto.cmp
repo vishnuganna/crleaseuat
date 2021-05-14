@@ -1,0 +1,55 @@
+<aura:component implements="force:hasRecordId,force:appHostable,force:lightningQuickAction,flexipage:availableForAllPageTypes" controller="gcDriversLicenseTakePhoto" extends="c:glcDealerFlowAbstract">
+
+    <aura:attribute name="files" type="ContentDocument[]" default="[]"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="fileName" type="String"/>
+    <aura:attribute name="fileNamesList" type="String[]" default="Drivers License, Registration, Proof of Insurance, Photo of the Truck"/>
+    <aura:attribute name="titlesByIds" type="Map" default="{}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:card title="">
+        <div>
+<!--            <lightning:select name="input1" label="Choose File Name" aura:id="fileName" required="true" value="{!v.fileName}">-->
+<!--                <aura:iteration items="{!v.fileNamesList}" var="fName">-->
+<!--                    <option value="{!fName}">{!fName}</option>-->
+<!--                </aura:iteration>-->
+<!--            </lightning:select>-->
+
+            <lightning:fileUpload label="{!'Upload '+v.fileName}"
+                              class="slds-align_absolute-center"
+                              title="{!v.fileName}"
+                              multiple="true"
+                              accept=".pdf, .jpg, .png"
+                              recordId="{!v.recordId}"
+                              onuploadfinished="{!c.uploadFinished}" />
+        </div>
+        <aura:if isTrue="{!v.files.length > 0}">
+            <div class="slds-p-top_large">
+                Account already contains :
+                <table class="slds-table slds-table--bordered">
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>Title</th>-->
+<!--&lt;!&ndash;                        <th>FileType</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th>Description</th>&ndash;&gt;-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+                    <tbody>
+                    <aura:iteration items="{!v.files}" var="f">
+                        <aura:if isTrue="{!f.Title == v.fileName}">
+                            <tr>
+                                <td> <a href="" id="{!f.Id}" onclick="{!c.openFile}">{!f.Title}</a></td>
+        <!--                            <td>{!f.FileType}</td>-->
+        <!--                            <td>{!f.Description}</td>-->
+                            </tr>
+                        </aura:if>
+                    </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </aura:if>
+        <br/>
+        <lightning:button variant="neutral" class="slds-button_stretch" label="Continue without Photo" onclick="{!c.continueWithoutPhoto}"/>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,8 @@
+<aura:component description="glcApplicantEmployerInfo" extends="c:glcDealerFlowAbstract">
+    <lightning:input type="text" label="Current Employer:" value="{!v.params.currEmployer}"/>
+    <lightning:input type="number" label="Years with Current Employer:" step="1" value="{!v.params.yearsWithEmployer}"/>
+    <lightning:input type="tel" label="Current Employer Phone:" value="{!v.params.employerPhone}"/>
+    <lightning:input type="text" label="Previous Employer:" value="{!v.params.prevEmployer}"/>
+    <lightning:input type="number" label="Years with Previous Employer:" step="1" value="{!v.params.yearsWithPrevEmployer}"/>
+    <lightning:input type="toggle" label="Will you continue to work for your current employer with the purchase of this asset?" checked="true" value="{!v.params.continueWithCurrEmployer}" messageToggleActive="Yes" messageToggleInactive="No"/>
+</aura:component>

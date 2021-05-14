@@ -1,0 +1,9 @@
+<aura:component description="glcLegalApplicantInfo" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable" extends="c:glcDealerFlowAbstract">
+    <div class="slds-align_absolute-center">
+        <h1>Enter Legal Name and Driver's License Number</h1>
+    </div>
+    <br/>
+
+    <lightning:input label="Legal Name:" type="text" value="{!v.params.legalName}" placeholder="As it appears on Drivers License"/><br/>
+    <lightning:input label="Driver's License Number:" type="text" value="{!v.params.dlNumber}"/><br/>
+</aura:component>

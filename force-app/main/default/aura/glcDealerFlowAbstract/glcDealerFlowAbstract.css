@@ -1,0 +1,38 @@
+.THIS {
+}
+
+.THIS .helperText {
+    font-size: 0.5em;
+    color:gray;
+}
+
+.THIS .buttonWrapper {
+    margin-top: 2%;
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*width: 100%;*/
+    /*padding-left: 1em;*/
+    /*padding-right: 1em;*/
+    /*padding-bottom: 2%;*/
+}
+
+.THIS .navigateButton {
+    padding: 5px;
+    margin: 2% 0.5%;
+}
+
+.THIS .half_width_button {
+    width: 49%;
+}
+
+.THIS .hideLabel .slds-form-element__label {
+    display: none;
+}
+
+.THIS .boldText {
+    font-weight: bold;
+}
+
+.THIS .grayCard {
+    background-color: rgb(230,230,230)
+}
